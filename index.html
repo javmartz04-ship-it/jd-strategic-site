@@ -460,6 +460,149 @@ body.js .statement.words-in h2 .w{opacity:1;transform:none;filter:none;}
 .step h3{font-size:clamp(19px,1.9vw,22px);margin-bottom:8px;}
 .step p{font-size:16px;max-width:520px;}
 
+/* ---------- fit finder — the qualifier ---------- */
+.fit{background:var(--band);}
+.fit-panel{
+  background:#fff;
+  border:1px solid var(--hairline);
+  border-radius:var(--r-m);
+  box-shadow:var(--shadow-soft);
+  overflow:hidden;
+}
+.fit-progress{height:3px;background:var(--hairline);}
+.fit-progress-fill{
+  height:100%;width:0;background:linear-gradient(90deg,#FF8226,var(--orange));
+  transition:width .45s var(--ease-io);
+}
+.fit-body{padding:clamp(36px,5vw,64px);}
+.fit-step-k{
+  font-family:var(--fm);
+  font-size:11.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted);
+  display:block;margin-bottom:16px;
+}
+.fit-q{
+  font-family:var(--fd);
+  font-size:clamp(24px,2.6vw,34px);font-weight:600;letter-spacing:-.03em;line-height:1.15;
+  color:var(--ink);
+  margin-bottom:32px;
+}
+.fit-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.fit-opt{
+  text-align:left;cursor:pointer;
+  background:#fff;
+  border:1px solid var(--hairline);
+  border-radius:var(--r-s);
+  padding:22px 24px;
+  font-family:inherit;
+  transition:border-color .2s ease, background .2s ease, transform .2s var(--ease-out);
+}
+.fit-opt:hover{border-color:var(--orange);background:#FFF9F5;}
+.fit-opt:active{transform:scale(.98);}
+.fit-opt .t{
+  font-family:var(--fd);
+  font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-.01em;
+  display:block;margin-bottom:4px;
+}
+.fit-opt .s{font-size:14px;color:var(--muted);display:block;line-height:1.5;}
+.fit-view{display:none;}
+.fit-view.on{display:block;animation:fitIn .45s var(--ease-out);}
+@keyframes fitIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+.fit-back{
+  margin-top:26px;
+  background:none;border:none;cursor:pointer;
+  font-family:var(--fm);
+  font-size:11.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);padding:6px 0;
+  transition:color .2s;
+}
+.fit-back:hover{color:var(--ink);}
+.fit-result .fit-q{margin-bottom:14px;}
+.fit-result p{max-width:640px;margin-bottom:32px;}
+.fit-result p strong{color:var(--ink);font-weight:600;}
+@media(max-width:720px){.fit-opts{grid-template-columns:1fr;}}
+@media(prefers-reduced-motion:reduce){.fit-view.on{animation:none;}}
+
+/* ---------- compare — broker vs strategist ---------- */
+.compare-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  border:1px solid var(--hairline);
+  border-radius:var(--r-m);
+  overflow:hidden;
+}
+.cmp-col{padding:clamp(34px,4vw,52px);}
+.cmp-col.them{background:var(--band);}
+.cmp-col.us{background:var(--navy);position:relative;}
+.cmp-col.us::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--orange),rgba(255,106,0,.25));
+}
+.cmp-k{
+  font-family:var(--fm);
+  font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;
+  display:block;margin-bottom:10px;
+}
+.cmp-col.them .cmp-k{color:var(--muted);}
+.cmp-col.us .cmp-k{color:var(--orange);}
+.cmp-col h3{font-size:clamp(20px,2vw,24px);margin-bottom:26px;}
+.cmp-col.us h3{color:#fff;}
+.cmp-col ul{list-style:none;display:grid;gap:16px;}
+.cmp-col li{display:grid;grid-template-columns:22px 1fr;gap:13px;font-size:15.5px;align-items:start;}
+.cmp-col.them li{color:var(--body);}
+.cmp-col.us li{color:rgba(255,255,255,.75);}
+.cmp-col .mk{font-family:var(--fm);font-weight:600;font-size:15px;line-height:1.6;}
+.cmp-col.them .mk{color:var(--faint);}
+.cmp-col.us .mk{color:var(--orange);}
+@media(max-width:880px){.compare-grid{grid-template-columns:1fr;}}
+
+/* ---------- stories ---------- */
+.stories-grid{
+  display:grid;grid-template-columns:1.15fr .85fr;
+  border:1px solid var(--hairline);
+  border-radius:var(--r-m);
+  overflow:hidden;
+}
+.story{padding:clamp(34px,4vw,56px);display:flex;flex-direction:column;}
+.story-feature{border-right:1px solid var(--hairline);}
+.story-side .story{padding:clamp(28px,3vw,40px);}
+.story-side .story + .story{border-top:1px solid var(--hairline);}
+.story-mark{
+  font-family:var(--fd);font-size:56px;font-weight:700;color:var(--orange);
+  line-height:.5;margin-bottom:26px;
+}
+.story-feature blockquote{
+  font-family:var(--fd);
+  font-size:clamp(21px,2.2vw,27px);font-weight:600;line-height:1.4;letter-spacing:-.02em;
+  color:var(--ink);
+  margin-bottom:22px;
+}
+.story-side blockquote{
+  font-family:var(--fd);
+  font-size:17px;font-weight:500;line-height:1.5;color:var(--ink);
+  margin-bottom:16px;
+}
+.story-who{display:flex;align-items:center;gap:14px;margin-top:auto;}
+.story-av{
+  width:42px;height:42px;flex:none;
+  background:var(--band);
+  border:1px solid var(--hairline);
+  border-radius:var(--r-s);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fm);font-weight:600;font-size:13px;color:var(--muted);
+}
+.story-name{font-family:var(--fd);font-weight:600;color:var(--ink);font-size:15px;}
+.story-role{font-family:var(--fm);font-size:11.5px;letter-spacing:.06em;color:var(--muted);}
+.stories-note{
+  margin-top:22px;
+  font-family:var(--fm);
+  font-size:10.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);
+}
+@media(max-width:880px){
+  .stories-grid{grid-template-columns:1fr;}
+  .story-feature{border-right:none;border-bottom:1px solid var(--hairline);}
+}
+
 /* ---------- media — asymmetric: feature video + podcast rail ---------- */
 .media{background:linear-gradient(180deg, #0B2040 0%, #071427 100%);overflow:hidden;}
 .media-grid{
@@ -1071,6 +1214,64 @@ body.js .rv-clip.in{clip-path:inset(0 0 0 0);}
   </div>
 </section>
 
+<!-- ================= FIT FINDER ================= -->
+<section class="fit pad" id="fit">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2>Is franchising your move?<br><span class="emphasis">Find out in 30 seconds.</span></h2>
+      <p class="lead">Three quick questions. No email required, no strings, and an honest read at the end.</p>
+    </div>
+    <div class="fit-panel rv" id="fitPanel">
+      <div class="fit-progress"><div class="fit-progress-fill" id="fitFill"></div></div>
+      <div class="fit-body">
+        <div class="fit-view on" data-view="1">
+          <span class="fit-step-k">Question 1 of 3</span>
+          <p class="fit-q">What best describes you today?</p>
+          <div class="fit-opts">
+            <button class="fit-opt" data-q="who" data-v="a corporate professional planning an exit"><span class="t">Corporate professional</span><span class="s">Considering a transition out of corporate life.</span></button>
+            <button class="fit-opt" data-q="who" data-v="an investor redeploying capital"><span class="t">Investor or recent exit</span><span class="s">Redeploying capital into a cash-flowing operating asset.</span></button>
+            <button class="fit-opt" data-q="who" data-v="an owner adding a second engine"><span class="t">Business owner</span><span class="s">Expanding, or adding a second income stream.</span></button>
+            <button class="fit-opt" data-q="who" data-v="a first-time entrepreneur"><span class="t">First-time entrepreneur</span><span class="s">Ready to stop building someone else's dream.</span></button>
+          </div>
+        </div>
+        <div class="fit-view" data-view="2">
+          <span class="fit-step-k">Question 2 of 3</span>
+          <p class="fit-q">How much capital could you put to work?</p>
+          <div class="fit-opts">
+            <button class="fit-opt" data-q="cap" data-v="under $50K in starting capital"><span class="t">Under $50K</span><span class="s">Financing can stretch this further than most people think.</span></button>
+            <button class="fit-opt" data-q="cap" data-v="$50K to $150K"><span class="t">$50K &ndash; $150K</span><span class="s">The sweet spot for many service-based systems.</span></button>
+            <button class="fit-opt" data-q="cap" data-v="$150K to $400K"><span class="t">$150K &ndash; $400K</span><span class="s">Opens brick-and-mortar and multi-territory plays.</span></button>
+            <button class="fit-opt" data-q="cap" data-v="$400K or more"><span class="t">$400K+</span><span class="s">Multi-unit and semi-absentee models come into range.</span></button>
+          </div>
+          <button class="fit-back" data-back="1">Back</button>
+        </div>
+        <div class="fit-view" data-view="3">
+          <span class="fit-step-k">Question 3 of 3</span>
+          <p class="fit-q">When would you want your doors open?</p>
+          <div class="fit-opts">
+            <button class="fit-opt" data-q="when" data-v="inside the next six months"><span class="t">Inside 6 months</span><span class="s">Moving with intent. The process fits this pace.</span></button>
+            <button class="fit-opt" data-q="when" data-v="in six to twelve months"><span class="t">6 &ndash; 12 months</span><span class="s">Room to vet deeply and structure financing right.</span></button>
+            <button class="fit-opt" data-q="when" data-v="on your own timeline"><span class="t">12+ months, exploring</span><span class="s">Smart. The best owners start before they're in a hurry.</span></button>
+          </div>
+          <button class="fit-back" data-back="2">Back</button>
+        </div>
+        <div class="fit-view fit-result" data-view="4">
+          <span class="fit-step-k">Your Read</span>
+          <p class="fit-q">Good news: there's a lane for you.</p>
+          <p id="fitSummary">On a free call, Josh will name the franchise categories that fit your profile, and tell you honestly if the timing is wrong.</p>
+          <div class="cta-row" style="justify-content:flex-start;">
+            <a class="btn" href="tel:+17867890744">Schedule My Free Consultation
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 3.5L13.5 8 9 12.5" stroke="#fff" stroke-width="1.7" stroke-linecap="square"/></svg>
+            </a>
+          </div>
+          <p class="risk">Free consultation. No obligation.</p>
+          <button class="fit-back" data-back="1">Start over</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= MEDIA — feature video + podcast rail ================= -->
 <section class="media on-navy pad" id="media">
   <div class="wrap">
@@ -1174,6 +1375,75 @@ body.js .rv-clip.in{clip-path:inset(0 0 0 0);}
     </div>
   </div>
 </div>
+
+<!-- ================= COMPARE ================= -->
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2>A broker sells you a franchise.<br><span class="emphasis">A coach helps you buy one.</span></h2>
+    </div>
+    <div class="compare-grid rv">
+      <div class="cmp-col them">
+        <span class="cmp-k">The Typical Broker</span>
+        <h3>Works for the deal</h3>
+        <ul>
+          <li><span class="mk">&#10005;</span><span>Sends you a list of forty "opportunities" and lets you drown.</span></li>
+          <li><span class="mk">&#10005;</span><span>Steers you toward biased rankings and pay-to-play lists.</span></li>
+          <li><span class="mk">&#10005;</span><span>Talks up every concept. Nothing is ever a bad fit.</span></li>
+          <li><span class="mk">&#10005;</span><span>Disappears at the FDD, the document that decides your decade.</span></li>
+        </ul>
+      </div>
+      <div class="cmp-col us">
+        <span class="cmp-k">JD Strategic</span>
+        <h3>Works for you</h3>
+        <ul>
+          <li><span class="mk">&#10003;</span><span>Starts with your capital, market, and goals, then works backwards.</span></li>
+          <li><span class="mk">&#10003;</span><span>Brings you 3 to 5 vetted matches. If nothing clears the bar, we say wait.</span></li>
+          <li><span class="mk">&#10003;</span><span>Tells you upfront when franchising, or a specific brand, isn't your move.</span></li>
+          <li><span class="mk">&#10003;</span><span>Walks the FDD, validation calls, and financing with you to signing day.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STORIES ================= -->
+<!-- PLACEHOLDER PROOF: sample layout only. Swap the bracketed copy for Josh's
+     real client stories as they land. Never publish invented testimonials. -->
+<section class="pad" style="padding-top:0;">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2>Owners who bought right.</h2>
+    </div>
+    <div class="stories-grid rv">
+      <div class="story story-feature">
+        <div class="story-mark">&ldquo;</div>
+        <blockquote>[Featured client win goes here: first-year revenue, rank in system, or an exit, in the client's own words]</blockquote>
+        <div class="story-who">
+          <div class="story-av">CN</div>
+          <div><div class="story-name">Client Name</div><div class="story-role">[Brand] Franchise Owner</div></div>
+        </div>
+      </div>
+      <div class="story-side">
+        <div class="story">
+          <blockquote>&ldquo;[Second client story, one concrete number]&rdquo;</blockquote>
+          <div class="story-who">
+            <div class="story-av">CN</div>
+            <div><div class="story-name">Client Name</div><div class="story-role">[Brand] Franchise Owner</div></div>
+          </div>
+        </div>
+        <div class="story">
+          <blockquote>&ldquo;[Third client story, ideally multi-unit or exit]&rdquo;</blockquote>
+          <div class="story-who">
+            <div class="story-av">CN</div>
+            <div><div class="story-name">Client Name</div><div class="story-role">[Brand] Franchise Owner</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="stories-note rv">Sample layout. Real client stories to be supplied.</p>
+  </div>
+</section>
 
 <!-- ================= FAQ ================= -->
 <section class="pad">
@@ -1501,6 +1771,33 @@ if(!reduced && matchMedia('(pointer:fine)').matches){
     btn.addEventListener('mouseleave', ()=>{ btn.style.transform = ''; });
   });
 }
+
+// Fit finder: 3 questions, honest read, no data collected
+const fitAnswers = {};
+const fitViews = [...document.querySelectorAll('.fit-view')];
+const fitFill = document.getElementById('fitFill');
+function fitGo(n){
+  fitViews.forEach(v=>v.classList.toggle('on', +v.dataset.view === n));
+  fitFill.style.width = ((n-1)/3*100) + '%';
+  if(n === 4){
+    fitFill.style.width = '100%';
+    document.getElementById('fitSummary').innerHTML =
+      'On a free call, Josh will name the franchise categories that fit <strong>' + (fitAnswers.who||'you') +
+      '</strong> with <strong>' + (fitAnswers.cap||'your capital') +
+      '</strong>, looking to open <strong>' + (fitAnswers.when||'on your timeline') +
+      '</strong>. And if the honest answer is "not yet," you\'ll hear that too.';
+  }
+}
+document.querySelectorAll('.fit-opt').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    fitAnswers[btn.dataset.q] = btn.dataset.v;
+    const cur = +btn.closest('.fit-view').dataset.view;
+    setTimeout(()=>fitGo(cur + 1), 160);
+  });
+});
+document.querySelectorAll('.fit-back').forEach(btn=>{
+  btn.addEventListener('click', ()=>fitGo(+btn.dataset.back));
+});
 
 // Statement: per-word scroll reveal
 const stH2 = document.querySelector('.statement h2');
