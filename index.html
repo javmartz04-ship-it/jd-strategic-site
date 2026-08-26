@@ -69,16 +69,6 @@ h1,h2,h3{text-wrap:balance;}
 .lead,p{text-wrap:pretty;}
 img{max-width:100%;display:block;}
 a{text-decoration:none;color:inherit;}
-.rails{position:fixed;inset:0;pointer-events:none;z-index:2;display:none;}
-@media(min-width:1280px){
-  .rails{display:block;}
-  .rails::before,.rails::after{
-    content:"";position:absolute;top:0;bottom:0;width:1px;
-    background:linear-gradient(rgba(10,29,58,.08), rgba(10,29,58,.05));
-  }
-  .rails::before{left:calc((100vw - 1180px)/2 - 20px);}
-  .rails::after{right:calc((100vw - 1180px)/2 - 20px);}
-}
 .wrap{max-width:1180px;margin:0 auto;padding:0 40px;}
 .wrap-n{max-width:900px;margin:0 auto;padding:0 40px;}
 
@@ -523,85 +513,7 @@ body.js .statement.words-in h2 .w{opacity:1;transform:none;filter:none;}
 @media(max-width:720px){.fit-opts{grid-template-columns:1fr;}}
 @media(prefers-reduced-motion:reduce){.fit-view.on{animation:none;}}
 
-/* ---------- compare — broker vs strategist ---------- */
-.compare-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  border:1px solid var(--hairline);
-  border-radius:var(--r-m);
-  overflow:hidden;
-}
-.cmp-col{padding:clamp(34px,4vw,52px);}
-.cmp-col.them{background:var(--band);}
-.cmp-col.us{background:var(--navy);position:relative;}
-.cmp-col.us::before{
-  content:"";position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--orange),rgba(255,106,0,.25));
-}
-.cmp-k{
-  font-family:var(--fm);
-  font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;
-  display:block;margin-bottom:10px;
-}
-.cmp-col.them .cmp-k{color:var(--muted);}
-.cmp-col.us .cmp-k{color:var(--orange);}
-.cmp-col h3{font-size:clamp(20px,2vw,24px);margin-bottom:26px;}
-.cmp-col.us h3{color:#fff;}
-.cmp-col ul{list-style:none;display:grid;gap:16px;}
-.cmp-col li{display:grid;grid-template-columns:22px 1fr;gap:13px;font-size:15.5px;align-items:start;}
-.cmp-col.them li{color:var(--body);}
-.cmp-col.us li{color:rgba(255,255,255,.75);}
-.cmp-col .mk{font-family:var(--fm);font-weight:600;font-size:15px;line-height:1.6;}
-.cmp-col.them .mk{color:var(--faint);}
-.cmp-col.us .mk{color:var(--orange);}
-@media(max-width:880px){.compare-grid{grid-template-columns:1fr;}}
 
-/* ---------- stories ---------- */
-.stories-grid{
-  display:grid;grid-template-columns:1.15fr .85fr;
-  border:1px solid var(--hairline);
-  border-radius:var(--r-m);
-  overflow:hidden;
-}
-.story{padding:clamp(34px,4vw,56px);display:flex;flex-direction:column;}
-.story-feature{border-right:1px solid var(--hairline);}
-.story-side .story{padding:clamp(28px,3vw,40px);}
-.story-side .story + .story{border-top:1px solid var(--hairline);}
-.story-mark{
-  font-family:var(--fd);font-size:56px;font-weight:700;color:var(--orange);
-  line-height:.5;margin-bottom:26px;
-}
-.story-feature blockquote{
-  font-family:var(--fd);
-  font-size:clamp(21px,2.2vw,27px);font-weight:600;line-height:1.4;letter-spacing:-.02em;
-  color:var(--ink);
-  margin-bottom:22px;
-}
-.story-side blockquote{
-  font-family:var(--fd);
-  font-size:17px;font-weight:500;line-height:1.5;color:var(--ink);
-  margin-bottom:16px;
-}
-.story-who{display:flex;align-items:center;gap:14px;margin-top:auto;}
-.story-av{
-  width:42px;height:42px;flex:none;
-  background:var(--band);
-  border:1px solid var(--hairline);
-  border-radius:var(--r-s);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--fm);font-weight:600;font-size:13px;color:var(--muted);
-}
-.story-name{font-family:var(--fd);font-weight:600;color:var(--ink);font-size:15px;}
-.story-role{font-family:var(--fm);font-size:11.5px;letter-spacing:.06em;color:var(--muted);}
-.stories-note{
-  margin-top:22px;
-  font-family:var(--fm);
-  font-size:10.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--faint);
-}
-@media(max-width:880px){
-  .stories-grid{grid-template-columns:1fr;}
-  .story-feature{border-right:none;border-bottom:1px solid var(--hairline);}
-}
 
 /* ---------- media — asymmetric: feature video + podcast rail ---------- */
 .media{background:linear-gradient(180deg, #0B2040 0%, #071427 100%);overflow:hidden;}
@@ -857,42 +769,141 @@ body.js .statement.words-in h2 .w{opacity:1;transform:none;filter:none;}
   color:var(--muted);
 }
 
-/* ---------- stats — inline band, no cards ---------- */
-.stats{border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);}
-.stats-row{
-  display:grid;grid-template-columns:1.25fr 1fr;
+
+/* ---------- about timeline + legacy figures ---------- */
+.tl{margin:30px 0 6px;border-left:2px solid var(--hairline);display:grid;gap:22px;padding-left:26px;}
+.tl-item{position:relative;}
+.tl-item::before{
+  content:"";position:absolute;left:-32px;top:7px;
+  width:10px;height:10px;background:#fff;
+  border:2px solid var(--orange);
 }
-.stat{
-  padding:clamp(48px,5vw,72px) clamp(28px,4vw,64px);
-  border-left:1px solid var(--hairline);
-  display:flex;flex-direction:column;justify-content:center;
-}
-.stat:first-child{border-left:none;}
-.stat-hero .num{
+.tl-k{
   font-family:var(--fm);
-  font-size:clamp(96px,11vw,168px);font-weight:600;letter-spacing:-0.055em;
+  font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--slate);
+  display:block;margin-bottom:4px;
+}
+.tl-item p{font-size:15px;line-height:1.6;margin:0;color:var(--body);max-width:480px;}
+.legacy{
+  margin-top:clamp(56px,7vw,88px);
+  display:grid;grid-template-columns:1.35fr 1fr 1fr;
+  gap:clamp(28px,4vw,64px);
+  align-items:end;
+}
+.lrule{display:block;width:44px;height:3px;background:var(--orange);margin-bottom:22px;}
+.lstat .num{
+  font-family:var(--fm);
+  font-size:clamp(48px,5vw,68px);font-weight:600;letter-spacing:-0.045em;
   color:var(--ink);line-height:.95;
   font-variant-numeric:tabular-nums;
+  white-space:nowrap;
 }
-.stat-side{padding:0;display:grid;}
-.stat-side .stat{border-left:1px solid var(--hairline);}
-.stat-side .stat + .stat{border-top:1px solid var(--hairline);}
-.stat .num{
-  font-family:var(--fm);
-  font-size:clamp(48px,4.6vw,64px);font-weight:600;letter-spacing:-0.04em;
-  color:var(--ink);line-height:1;
-  font-variant-numeric:tabular-nums;
-}
-.stat .num em{
+.lstat-big .num{font-size:clamp(72px,7.6vw,108px);}
+.lstat .num em{
   font-style:normal;color:var(--orange);
   display:inline-block;
   transform:scale(.6);opacity:0;
   transition:transform .6s cubic-bezier(0.34,1.56,0.64,1), opacity .4s;
 }
-.stat.done .num em{transform:scale(1);opacity:1;}
-.stat .lbl{
-  margin-top:14px;
-  font-size:15px;color:var(--body);
+.lstat.done .num em{transform:scale(1);opacity:1;}
+.lstat .lbl{margin-top:14px;font-size:15px;color:var(--body);max-width:340px;}
+@media(max-width:880px){
+  .legacy{grid-template-columns:1fr;gap:40px;align-items:start;}
+}
+
+/* ---------- the two paths — zipper story ---------- */
+.statement-alt{background:var(--band);}
+.duel{max-width:1020px;margin:0 auto;position:relative;}
+.duel::before{
+  content:"";position:absolute;left:50%;top:8px;bottom:8px;
+  width:2px;background:var(--hairline);transform:translateX(-50%);
+}
+.duel-head{
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);
+  margin-bottom:26px;position:relative;
+}
+.duel-k{
+  font-family:var(--fm);
+  font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+}
+.duel-k.them-k{color:var(--muted);justify-self:start;}
+.duel-k.us-k{color:var(--orange);justify-self:start;}
+.duel-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);
+  margin-bottom:18px;position:relative;
+}
+.duel-card{
+  display:grid;grid-template-columns:22px 1fr;gap:14px;align-items:start;
+  border-radius:var(--r-s);
+  padding:22px 24px;
+}
+.duel-card p{margin:0;font-size:15.5px;line-height:1.6;}
+.duel-card .mk{font-family:var(--fm);font-weight:600;font-size:15px;line-height:1.6;}
+.duel-card.them{background:#fff;border:1px solid var(--hairline);}
+.duel-card.them p{color:var(--body);}
+.duel-card.them .mk{color:var(--faint);}
+.duel-card.us{background:var(--navy);box-shadow:0 18px 44px -22px rgba(10,29,58,.4);}
+.duel-card.us p{color:rgba(255,255,255,.82);}
+.duel-card.us .mk{color:var(--orange);}
+.duel-end{
+  margin-top:clamp(36px,5vw,56px);
+  text-align:center;position:relative;
+  background:var(--band);padding:10px 0;
+}
+.duel-end p{
+  font-family:var(--fd);
+  font-size:clamp(22px,2.6vw,32px);font-weight:600;letter-spacing:-.02em;line-height:1.3;
+  color:var(--ink);
+}
+@media(max-width:880px){
+  .duel::before{display:none;}
+  .duel-head{display:none;}
+  .duel-row{grid-template-columns:1fr;gap:12px;}
+}
+
+/* ---------- stories — editorial spotlight ---------- */
+.quote-hero{text-align:center;}
+.quote-hero .quote-mark{
+  font-family:var(--fd);font-size:84px;font-weight:700;color:var(--orange);
+  line-height:.4;margin-bottom:30px;
+}
+.quote-hero blockquote{
+  font-family:var(--fd);
+  font-size:clamp(22px,2.8vw,34px);font-weight:600;line-height:1.35;letter-spacing:-.025em;
+  color:var(--ink);
+  max-width:820px;margin:0 auto 30px;
+}
+.quote-who{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;}
+.quote-av{
+  width:44px;height:44px;
+  background:var(--band);border:1px solid var(--hairline);border-radius:var(--r-s);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--fm);font-weight:600;font-size:13px;color:var(--muted);
+}
+.quote-name{font-family:var(--fd);font-weight:600;color:var(--ink);font-size:15.5px;}
+.quote-role{font-family:var(--fm);font-size:11.5px;letter-spacing:.06em;color:var(--muted);}
+.quote-minis{
+  margin-top:clamp(44px,5vw,64px);
+  display:grid;grid-template-columns:1fr 1fr;
+  border-top:1px solid var(--hairline);
+}
+.qm{padding:32px clamp(24px,3vw,44px) 0;}
+.qm + .qm{border-left:1px solid var(--hairline);}
+.qm blockquote{
+  font-family:var(--fd);
+  font-size:16.5px;font-weight:500;line-height:1.55;color:var(--ink);
+  margin-bottom:12px;
+}
+.stories-note{
+  margin-top:36px;text-align:center;
+  font-family:var(--fm);
+  font-size:10.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);
+}
+@media(max-width:720px){
+  .quote-minis{grid-template-columns:1fr;}
+  .qm + .qm{border-left:none;border-top:1px solid var(--hairline);margin-top:28px;}
 }
 
 /* ---------- FAQ ---------- */
@@ -1021,9 +1032,6 @@ body.js .rv-clip.in{clip-path:inset(0 0 0 0);}
   .trust-cell:nth-child(3){border-left:none;}
   .trust-cell{border-top:1px solid var(--hairline);}
   .trust-cell:nth-child(-n+2){border-top:none;}
-  .stats-row{grid-template-columns:1fr;}
-  .stat,.stat-side .stat{border-left:none;border-top:1px solid var(--hairline);}
-  .stat:first-child{border-top:none;}
 }
 @media(max-width:640px){
   .wrap,.wrap-n{padding:0 22px;}
@@ -1039,7 +1047,6 @@ body.js .rv-clip.in{clip-path:inset(0 0 0 0);}
 </style>
 </head>
 <body>
-<div class="rails" aria-hidden="true"></div>
 
 <!-- ================= NAV ================= -->
 <nav id="nav" aria-label="Main">
@@ -1339,69 +1346,89 @@ body.js .rv-clip.in{clip-path:inset(0 0 0 0);}
 
 <!-- ================= ABOUT ================= -->
 <section class="pad" id="about">
-  <div class="wrap about-grid">
-    <div class="about-photo rv rv-clip" role="img" aria-label="Slot reserved for a photograph of Josh H. DuBois">
-      <!-- PLACEHOLDER: real photo of Josh goes here. -->
-      <div class="ph-mark">JD</div>
-      <div class="ap-chip"><span class="k">Second Generation</span><span class="v">Raised in a franchise family</span></div>
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-photo rv rv-clip" role="img" aria-label="Slot reserved for a photograph of Josh H. DuBois">
+        <!-- PLACEHOLDER: real photo of Josh goes here. -->
+        <div class="ph-mark">JD</div>
+        <div class="ap-chip"><span class="k">Second Generation</span><span class="v">Raised in a franchise family</span></div>
+      </div>
+      <div class="about-copy rv rv-d1">
+        <span class="eyebrow"><span class="tick"></span>About Josh</span>
+        <h2>Raised in franchising. Now on your side of the table.</h2>
+        <p><strong>Josh DuBois didn't learn franchising from a book.</strong> He was raised inside it, and he's opening his own franchise while he helps you open yours.</p>
+        <div class="tl">
+          <div class="tl-item rv">
+            <span class="tl-k">The restaurants</span>
+            <p>His family starts as independent restaurant owners, then becomes multi-unit franchisees.</p>
+          </div>
+          <div class="tl-item rv">
+            <span class="tl-k">The franchisor side</span>
+            <p>They cross over and help scale a dry-cleaning brand from around 10 locations to more than 2,400 worldwide.</p>
+          </div>
+          <div class="tl-item rv">
+            <span class="tl-k">The proving ground</span>
+            <p>Josh manages one of the family's franchises in high school, then spends years in corporate finance and recruiting.</p>
+          </div>
+          <div class="tl-item rv">
+            <span class="tl-k">JDStrategic</span>
+            <p>FranServe-certified, betting on himself, and sitting on your side of the table full time.</p>
+          </div>
+        </div>
+        <div class="pull">"I've lived every side of it, the good deals and the bad ones."</div>
+        <p class="about-sig">Josh DuBois, Founder, JDStrategic</p>
+      </div>
     </div>
-    <div class="about-copy rv rv-d1">
-      <span class="eyebrow"><span class="tick"></span>About Josh</span>
-      <h2>Raised in franchising. Now on your side of the table.</h2>
-      <p><strong>Josh DuBois grew up inside franchising.</strong> His family went from independent restaurant owners, to multi-unit franchisees, to the franchisor side, scaling a dry-cleaning brand from around 10 locations to more than 2,400 across the world.</p>
-      <p>He managed one of the family's franchises in high school and spent years in corporate finance and recruiting before betting on himself to build JDStrategic. Today he's a FranServe-certified consultant, and he's opening his own franchise while he helps you open yours.</p>
-      <div class="pull">"I've lived every side of it, the good deals and the bad ones."</div>
-      <p class="about-sig">Josh DuBois, Founder, JDStrategic</p>
-    </div>
-  </div>
-</section>
-
-<!-- ================= STATS ================= -->
-<div class="stats" aria-label="Key numbers">
-  <div class="wrap stats-row">
-    <div class="stat stat-hero rv">
-      <div class="num"><span class="count" data-target="2400" data-dur="2800">0</span><em>+</em></div>
-      <div class="lbl">locations worldwide in the brand his family helped scale</div>
-    </div>
-    <div class="stat-side">
-      <div class="stat rv rv-d1">
+    <div class="legacy rv">
+      <div class="lstat lstat-big stat">
+        <span class="lrule"></span>
+        <div class="num"><span class="count" data-target="2400" data-dur="2800">0</span><em>+</em></div>
+        <div class="lbl">locations worldwide in the brand his family helped scale</div>
+      </div>
+      <div class="lstat stat">
+        <span class="lrule"></span>
         <div class="num"><span class="count" data-target="100" data-dur="2200">0</span><em>%</em></div>
         <div class="lbl">free to clients, compensated by franchise partners</div>
       </div>
-      <div class="stat rv rv-d2">
+      <div class="lstat stat">
+        <span class="lrule"></span>
         <div class="num"><span class="count" data-target="3" data-dur="2600">0</span><em>-5</em></div>
         <div class="lbl">brands shortlisted for you, never a list of forty</div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ================= COMPARE ================= -->
-<section class="pad">
+<!-- ================= THE TWO PATHS — story ================= -->
+<section class="statement-alt pad">
   <div class="wrap">
-    <div class="sec-head rv">
+    <div class="sec-head center rv">
       <h2>A broker sells you a franchise.<br><span class="emphasis">A coach helps you buy one.</span></h2>
+      <p class="lead">Same industry. Two very different seats at the table. Here's how the same journey plays out twice.</p>
     </div>
-    <div class="compare-grid rv">
-      <div class="cmp-col them">
-        <span class="cmp-k">The Typical Broker</span>
-        <h3>Works for the deal</h3>
-        <ul>
-          <li><span class="mk">&#10005;</span><span>Sends you a list of forty "opportunities" and lets you drown.</span></li>
-          <li><span class="mk">&#10005;</span><span>Steers you toward biased rankings and pay-to-play lists.</span></li>
-          <li><span class="mk">&#10005;</span><span>Talks up every concept. Nothing is ever a bad fit.</span></li>
-          <li><span class="mk">&#10005;</span><span>Disappears at the FDD, the document that decides your decade.</span></li>
-        </ul>
+    <div class="duel">
+      <div class="duel-head rv">
+        <span class="duel-k them-k">With a typical broker</span>
+        <span class="duel-k us-k">With JD Strategic</span>
       </div>
-      <div class="cmp-col us">
-        <span class="cmp-k">JD Strategic</span>
-        <h3>Works for you</h3>
-        <ul>
-          <li><span class="mk">&#10003;</span><span>Starts with your capital, market, and goals, then works backwards.</span></li>
-          <li><span class="mk">&#10003;</span><span>Brings you 3 to 5 vetted matches. If nothing clears the bar, we say wait.</span></li>
-          <li><span class="mk">&#10003;</span><span>Tells you upfront when franchising, or a specific brand, isn't your move.</span></li>
-          <li><span class="mk">&#10003;</span><span>Walks the FDD, validation calls, and financing with you to signing day.</span></li>
-        </ul>
+      <div class="duel-row">
+        <div class="duel-card them rv"><span class="mk">&#10005;</span><p>You get a list of forty "opportunities" and start drowning.</p></div>
+        <div class="duel-card us rv rv-d1"><span class="mk">&#10003;</span><p>You get 3 to 5 vetted matches, built backwards from your capital and goals.</p></div>
+      </div>
+      <div class="duel-row">
+        <div class="duel-card them rv"><span class="mk">&#10005;</span><p>The "rankings" you're reading are biased and pay-to-play.</p></div>
+        <div class="duel-card us rv rv-d1"><span class="mk">&#10003;</span><p>Every brand is vetted by someone who has lived both sides of the deal.</p></div>
+      </div>
+      <div class="duel-row">
+        <div class="duel-card them rv"><span class="mk">&#10005;</span><p>Every concept gets talked up. Nothing is ever a bad fit.</p></div>
+        <div class="duel-card us rv rv-d1"><span class="mk">&#10003;</span><p>You hear it straight when franchising, or a specific brand, isn't your move.</p></div>
+      </div>
+      <div class="duel-row">
+        <div class="duel-card them rv"><span class="mk">&#10005;</span><p>At the FDD, the document that decides your decade, you're on your own.</p></div>
+        <div class="duel-card us rv rv-d1"><span class="mk">&#10003;</span><p>Josh walks the FDD, validation calls, and financing with you to signing day.</p></div>
+      </div>
+      <div class="duel-end rv">
+        <p>One path leaves you owning a job.<br><span class="emphasis">The other leaves you owning the right business.</span></p>
       </div>
     </div>
   </div>
@@ -1410,35 +1437,25 @@ body.js .rv-clip.in{clip-path:inset(0 0 0 0);}
 <!-- ================= STORIES ================= -->
 <!-- PLACEHOLDER PROOF: sample layout only. Swap the bracketed copy for Josh's
      real client stories as they land. Never publish invented testimonials. -->
-<section class="pad" style="padding-top:0;">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <h2>Owners who bought right.</h2>
-    </div>
-    <div class="stories-grid rv">
-      <div class="story story-feature">
-        <div class="story-mark">&ldquo;</div>
-        <blockquote>[Featured client win goes here: first-year revenue, rank in system, or an exit, in the client's own words]</blockquote>
-        <div class="story-who">
-          <div class="story-av">CN</div>
-          <div><div class="story-name">Client Name</div><div class="story-role">[Brand] Franchise Owner</div></div>
-        </div>
+<section class="pad">
+  <div class="wrap-n">
+    <div class="quote-hero rv">
+      <div class="quote-mark" aria-hidden="true">&ldquo;</div>
+      <blockquote>[Featured client win goes here: first-year revenue, rank in system, or an exit, in the client's own words]</blockquote>
+      <div class="quote-who">
+        <span class="quote-av">CN</span>
+        <span class="quote-name">Client Name</span>
+        <span class="quote-role">[Brand] Franchise Owner</span>
       </div>
-      <div class="story-side">
-        <div class="story">
-          <blockquote>&ldquo;[Second client story, one concrete number]&rdquo;</blockquote>
-          <div class="story-who">
-            <div class="story-av">CN</div>
-            <div><div class="story-name">Client Name</div><div class="story-role">[Brand] Franchise Owner</div></div>
-          </div>
-        </div>
-        <div class="story">
-          <blockquote>&ldquo;[Third client story, ideally multi-unit or exit]&rdquo;</blockquote>
-          <div class="story-who">
-            <div class="story-av">CN</div>
-            <div><div class="story-name">Client Name</div><div class="story-role">[Brand] Franchise Owner</div></div>
-          </div>
-        </div>
+    </div>
+    <div class="quote-minis rv">
+      <div class="qm">
+        <blockquote>&ldquo;[Second client story, one concrete number]&rdquo;</blockquote>
+        <span class="quote-role">Client Name, [Brand] Franchise Owner</span>
+      </div>
+      <div class="qm">
+        <blockquote>&ldquo;[Third client story, ideally multi-unit or an exit]&rdquo;</blockquote>
+        <span class="quote-role">Client Name, [Brand] Franchise Owner</span>
       </div>
     </div>
     <p class="stories-note rv">Sample layout. Real client stories to be supplied.</p>
