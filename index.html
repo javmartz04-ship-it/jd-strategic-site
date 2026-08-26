@@ -94,8 +94,8 @@ a{text-decoration:none;color:inherit;}
 .eyebrow .tick{width:7px;height:7px;background:var(--orange);flex:none;}
 h1,h2,h3{font-family:var(--fd);color:var(--ink);font-optical-sizing:auto;}
 h1{
-  font-size:clamp(44px,5.6vw,84px);
-  font-weight:600;line-height:1.02;letter-spacing:-0.045em;
+  font-size:clamp(36px,3.55vw,50px);
+  font-weight:600;line-height:1.1;letter-spacing:-0.024em;
 }
 h2{
   font-size:clamp(36px,4.4vw,60px);
@@ -241,13 +241,13 @@ nav.scrolled::after{opacity:1;}
     radial-gradient(44rem 30rem at -10% 30%, rgba(245,246,248,.9), transparent 55%),
     var(--canvas);
 }
-.hero h1{margin-bottom:clamp(36px,4.5vw,60px);max-width:1080px;}
-.hero-row{
+.hero-grid{
   display:grid;
-  grid-template-columns:1fr .96fr;
-  gap:clamp(44px,5vw,80px);
+  grid-template-columns:1.12fr .88fr;
+  gap:clamp(44px,5vw,76px);
   align-items:center;
 }
+.hero h1{margin-bottom:24px;}
 .hero h1 .hl{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em;}
 .hero h1 .hl>span{
   display:block;
@@ -256,7 +256,7 @@ nav.scrolled::after{opacity:1;}
 }
 body.loaded .hero h1 .hl>span{transform:none;}
 .hero h1 .hl:nth-child(2)>span{transition-delay:.12s;}
-.hero .lead{max-width:480px;margin-bottom:38px;font-size:clamp(18px,1.6vw,21px);}
+.hero .lead{max-width:480px;margin-bottom:38px;}
 .hero .lead strong{color:var(--ink);font-weight:600;}
 .cta-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
 
@@ -266,7 +266,7 @@ body.loaded .hero h1 .hl>span{transform:none;}
   position:relative;
   border-radius:var(--r-m);
   overflow:hidden;
-  aspect-ratio:16/10.6;
+  aspect-ratio:4/4.6;
   background:
     radial-gradient(120% 100% at 75% -8%, rgba(54,80,107,.85), transparent 58%),
     radial-gradient(70% 70% at 0% 105%, rgba(255,106,0,.12), transparent 55%),
@@ -1004,7 +1004,7 @@ body.js .rv-clip.in{clip-path:inset(0 0 0 0);}
 
 /* ---------- responsive ---------- */
 @media(max-width:1024px){
-  .hero-row{grid-template-columns:1fr;gap:56px;}
+  .hero-grid{grid-template-columns:1fr;gap:64px;}
   .hero-visual{max-width:460px;}
   .process-grid{grid-template-columns:1fr;}
   .process-head{position:static;}
@@ -1096,7 +1096,7 @@ body.js .rv-clip.in{clip-path:inset(0 0 0 0);}
       </div>
       <p class="risk">Free consultation. No obligation.</p>
     </div>
-    <div class="hero-visual rv rv-clip">
+    <div class="hero-visual rv">
       <div class="hv-frame" role="img" aria-label="Slot reserved for a photograph of Josh H. DuBois">
         <!-- PLACEHOLDER: Josh's hero photo goes in this frame. -->
         <div class="hv-mono"><div class="ph-mark">JD</div></div>
