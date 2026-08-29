@@ -208,3 +208,75 @@ copy). Round 2 polled "worth owning" (in round 1's own meta description). Only
 1. Real client wins for the three story slots.
 2. A booking URL. Every CTA still resolves to `#contact`; the button dials.
 3. A hosted episode file or approved embed for a real player.
+
+---
+
+# ROUND 3 (2026-08-29): premium craft pass
+
+Javier, after approving the round-2 structure: *"the website's good, but I want to make
+sure. If we can make it a little bit more premium... I want the feeling like when they
+hop on this website, it feels like a $20,000 website."*
+
+Applied `high-end-visual-design`'s **Editorial Luxury** archetype and deliberately
+REJECTED its pill/`rounded-[2rem]`/double-bezel component rules: those belong to the
+Ethereal-Glass SaaS register and would have broken the sharp editorial one the client
+picked. `system/` outranks the skills; so does the client's chosen reference.
+
+## Photography was the biggest lift, and it was not obvious
+
+Six images from six photographers. Reducing each to a single average colour exposed the
+problem instantly: dark olive, pale grey-pink, orange-brown, warm tan, orange-gold,
+pinkish. **Six different colour temperatures is the entire "stock photo" tell** - not
+resolution, not subject.
+
+The grade, in order, and the order matters:
+1. **Gray-world white balance** (the step I missed on the first attempt). Without it,
+   exposure matching and split-toning leave every frame's original cast intact and the
+   set still reads as six shoots. This is what actually unified them.
+2. Gamma exposure match to a common mean luminance (~0.455).
+3. Desaturate to 0.70.
+4. Gentle S-curve around mid grey.
+5. Split tone: shadows toward brand navy `#0A1D3A`, highlights toward warm cream.
+
+All six then averaged to the same neutral. Josh gets a much lighter version (wb 0.30,
+sat 0.90) so skin keeps its warmth. **The hero composite was rebuilt from source in one
+pass rather than graded again** - grading an already-graded file compounded and turned
+his face grey.
+
+Right-sized every image to ~2x its real rendered box afterwards: 6.8MB to 5.0MB.
+
+## Arrival choreography
+
+The headline rises line by line out of its own `overflow:hidden` mask; the photograph
+settles out of a 1.07 scale behind a cream panel wiping upward; the orange rule draws
+down; everything else follows one `--i` stagger clock on `cubic-bezier(.19,1,.22,1)`.
+
+**Sequenced off `document.fonts.ready`** so the mask reveal never plays against a
+fallback face, with an 1800ms failsafe. Verified in three conditions: normal,
+`prefers-reduced-motion`, and **webfonts blocked entirely** (route-aborted in the
+harness) - the last is the one that would have shipped a permanently invisible hero.
+
+## The regression the variable font caused
+
+Switching Playfair from static to variable with `font-optical-sizing:auto` renders it
+**wider** at display sizes. The hero headline had only 10px of headroom at 2560/3440 and
+began wrapping to four lines. Fixed by widening the copy rail at >=2200 rather than
+shrinking the type. **Any font-loading change re-opens every headline fit measurement.**
+
+## Everything else
+
+Type: variable faces with optical sizing, Inter humanist alternates (`cv05 cv08 cv11
+ss03`), `text-wrap: balance` on headings and `pretty` on body, hanging punctuation on
+both pull-quote treatments. Whitespace: section padding cap 116 to 144px. Haptics:
+physical press, kinetic arrow, slow scale on editorial photography, one real long shadow
+on the only element that floats, a hairline of light along every dark section's top edge.
+
+Performance: progress bar moved from `width` to `scaleX`, process-row hover from
+`padding-left` to `translateX`. The one layout-animating transition left is the FAQ
+accordion's `height`, which has no broadly-supported alternative.
+
+## Harness note
+
+Two suites went red after this pass and **both were stale harnesses, not regressions**:
+the hero-line probe measured the new mask wrappers instead of rendered lines, and the
+progress-bar assertions still checked `style.width` after it became a transform.
