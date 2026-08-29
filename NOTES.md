@@ -114,3 +114,97 @@ verification off-screen.
 4. The hero portrait still carries a cyan cast from the source footage. Left as-is —
    it was white-balanced deliberately in the hero-poster build and re-grading it here
    would fight that tuning.
+
+---
+
+# ROUND 2 (2026-08-29): full redesign. Round 1 was rejected.
+
+## Javier's verdict on round 1
+
+*"Nooo, I mean, I don't like it at all. It doesn't feel premium... you kind of made an
+off-brand version of it... especially the hero section is garbage... the quality is
+disoriented, it's just all pixelated... you just changed up the design with wording and
+all that when you should have redesigned it completely to the reference... needs to be
+100% redesigned."*
+
+## The root cause, and it is the whole lesson
+
+**I never looked at the reference.** Round 1 was built from the reference's `innerText`
+and its compiled CSS tokens, both pulled headlessly, plus an assumption that the token
+names told me the design. They did not. The page was never rendered, never screenshotted,
+never seen. What came out was the reference's *content skeleton* wearing the previous
+build's skin, which is exactly what "an off-brand version" means.
+
+Rendering it took one script and about ninety seconds. Everything below came from
+finally doing that.
+
+## What the reference actually is (and what round 1 assumed)
+
+| | Reference | Round 1 built |
+|---|---|---|
+| Ground | Cream `#FAF9F7` + black bands | White |
+| Nav | **Solid black bar**, white caps, icon set | Translucent white, blurred |
+| Display face | **Playfair Display**, ~96px | Poppins 600 |
+| Radius | **0 everywhere** | 4/8px |
+| Hero | **True 50/50 split, photo bleeding to the viewport edge, full height** | Contained photo card with radius + shadow |
+| Emphasis | Gold italic serif on **one word mid-sentence** | Orange on a final line |
+| CTA | Black rect, sharp, caps, **gold arrow** | Orange, rounded, no arrow |
+| Stats | Inline row, gold outline icons, **serif numerals**, hairline rules | White card with a drop shadow |
+| Press strip | **Black band**, gold label, white logos | Light grey marquee |
+| Testimonial | Grey bordered box, portrait left, **Playfair italic** quote, ghost button | Dark navy card |
+
+## The rebuild
+
+Josh's navy `#0A1D3A` takes black's job, orange `#FF6A00` takes gold's. That mapping is
+why the brand survived a total structural transplant: **the reference's palette and
+Josh's are the same palette one hue apart.** Faces cut to two, Playfair + Inter, matching
+the reference exactly; Poppins and Space Grotesk both dropped.
+
+## The pixelation, which was a real defect
+
+Round 1's hero ran `josh-process.jpg`, a **936x1170 frame lifted from video**, scaled to
+fill a hero. Of course it was soft. `josh-hd.png` (**1510x1952**, a proper high-res
+transparent cutout) was sitting in the hero-poster build and I had *deleted it* in round 1
+as an unused asset.
+
+The fix is not just swapping the file. A transparent cutout needs an environment or it
+reads as a sticker on a panel (the standing rejection in `LESSONS.md`). So: composite him
+into a real, defocused, brightened office interior at 1600x2000 with a soft cast shadow.
+He now reads as photographed on location. Script pattern is in the commit.
+
+Javier also green-lit Pexels this round (*"if you want, to make it better, use Pexels"*),
+which **reverses the stock-imagery ban** standing since the v3 build. Used only for
+editorial and category slots, never for anything depicting Josh or implying a client.
+First search returned a grey 3D render, a Japanese storefront and an orange boutique;
+a contact sheet of 24 candidates across six refined queries is what produced usable
+frames. **Search, sheet, look, then pick. Never take the first API result.**
+
+## Bugs only visible by looking
+
+- `.display` hard-set `color:var(--ink)`. On the navy final section the first headline
+  line rendered **navy on navy and was invisible**. The italic span was orange so the
+  section looked deliberate and half-empty rather than broken.
+- Contact tile `.k`/`.v` were inline spans: "CALL JOSH DIRECTLY(786) 789-0744".
+- The podcast poster is a YouTube thumbnail with a **SUBSCRIBE button, bell and cursor
+  baked in**. Painted out with a matched background patch and a feathered seam.
+- `cheque`, `favour`: British spellings in a US franchise site.
+
+## Verification
+
+Hero headline measured at **ten** breakpoints, not eyeballed: natural width of
+"Buy a franchise" against its real column. Held exactly 2 lines from 375 to 3440 only
+after widening the copy column to a 1560 rail and capping display at 76/88/96px.
+
+3440 / 2560 / 1920 / 1440 / 1280x700 / 1000x800 / 768 / 375: 0 overflow, 0 console
+errors, 2 hero lines, all reveals fired, every marquee pass > 3440. All 48 quiz paths,
+FAQ accordion, anchors, external-link safety and mobile nav pass. No YouTube links.
+
+**Deploy poll gave a false LIVE twice.** Round 1 polled "that holds up in" (in the old
+copy). Round 2 polled "worth owning" (in round 1's own meta description). Only
+`hero-josh.jpg` was unique enough. Confirmed with a byte count and a 200 on new assets.
+
+## Still open
+
+1. Real client wins for the three story slots.
+2. A booking URL. Every CTA still resolves to `#contact`; the button dials.
+3. A hosted episode file or approved embed for a real player.
