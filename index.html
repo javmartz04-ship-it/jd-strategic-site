@@ -16,7 +16,8 @@
 <meta name="twitter:image" content="assets/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,opsz,wght@0,5..1200,400..800;1,5..1200,400..700&family=Inter:opsz,wght@14..32,400..700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/hero-josh.jpg" fetchpriority="high">
 <style>
 /* ==========================================================================
    JD STRATEGIC FRANCHISING
@@ -45,7 +46,7 @@
 
   --gut:clamp(20px,4.4vw,64px);
   --maxw:1240px;
-  --pad:clamp(64px,7vw,116px);
+  --pad:clamp(64px,7.6vw,144px);
   --nav-h:74px;
   --bar-h:40px;
 }
@@ -54,11 +55,16 @@ body{
   margin:0;background:var(--canvas);color:var(--body);
   font-family:var(--fb);font-size:17px;line-height:1.62;font-weight:400;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  font-optical-sizing:auto;
+  /* Inter's humanist alternates: single-storey a stays, but the g, l and
+     ampersand pick up the shapes that read as drawn rather than defaulted */
+  font-feature-settings:'cv05' 1,'cv08' 1,'cv11' 1,'ss03' 1;
+  text-rendering:optimizeLegibility;
 }
 img{max-width:100%;display:block;height:auto}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-h1,h2,h3,h4{margin:0;font-family:var(--fd);color:var(--ink);font-weight:700;line-height:1.06;letter-spacing:-.012em}
+h1,h2,h3,h4{margin:0;font-family:var(--fd);color:var(--ink);font-weight:700;line-height:1.06;letter-spacing:-.012em;font-optical-sizing:auto;text-wrap:balance}
 p{margin:0}
 ul{margin:0;padding:0;list-style:none}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
@@ -84,7 +90,7 @@ section{padding-block:var(--pad);position:relative;scroll-margin-top:calc(var(--
   font-size:clamp(34px,5.1vw,68px);line-height:1.045;letter-spacing:-.018em;
 }
 .display .it{font-style:italic;color:var(--accent);font-weight:600}
-.lede{font-size:clamp(16.5px,1.3vw,19px);line-height:1.66;color:var(--body);max-width:60ch}
+.lede{font-size:clamp(16.5px,1.3vw,19px);line-height:1.66;color:var(--body);max-width:60ch;text-wrap:pretty}
 .dark .lede{color:rgba(255,255,255,.66)}
 .kicker{font-family:var(--fd);font-size:clamp(22px,2.2vw,30px);font-weight:600;line-height:1.28;color:var(--ink);letter-spacing:-.01em}
 .small{font-size:14.5px;line-height:1.6;color:var(--muted)}
@@ -281,7 +287,7 @@ section{padding-block:var(--pad);position:relative;scroll-margin-top:calc(var(--
 .proc-row{
   display:grid;grid-template-columns:58px minmax(0,1fr);gap:clamp(14px,2.2vw,30px);
   padding-block:30px;border-bottom:1px solid var(--hairline);align-items:start;
-  transition:background .3s ease;
+  transition:background .5s var(--ease-cine);
 }
 .proc-row:hover{background:var(--band)}
 .proc-row .num{padding-top:6px}
@@ -307,7 +313,7 @@ section{padding-block:var(--pad);position:relative;scroll-margin-top:calc(var(--
   text-transform:uppercase;color:var(--muted);
 }
 .tcard q{
-  display:block;font-family:var(--fd);font-style:italic;font-weight:700;
+  display:block;hanging-punctuation:first;text-indent:-.4em;font-family:var(--fd);font-style:italic;font-weight:700;
   font-size:clamp(21px,2.2vw,32px);line-height:1.24;color:var(--ink);
   letter-spacing:-.014em;quotes:none;margin-bottom:22px;
 }
@@ -336,7 +342,7 @@ section{padding-block:var(--pad);position:relative;scroll-margin-top:calc(var(--
 .fittop{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px clamp(24px,3vw,40px);border-bottom:1px solid var(--hairline)}
 .fitstep{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 .fitbar{width:140px;height:2px;background:var(--hairline);flex:none}
-.fitbar i{display:block;height:100%;width:33.33%;background:var(--accent);transition:width .5s var(--ease)}
+.fitbar i{display:block;height:100%;width:100%;background:var(--accent);transform:scaleX(.3333);transform-origin:left;transition:transform .55s var(--ease-cine)}
 .fitbody{padding:clamp(30px,4vw,52px) clamp(24px,3.4vw,48px)}
 .fitq{font-family:var(--fd);font-size:clamp(23px,2.5vw,34px);font-weight:700;color:var(--ink);line-height:1.16;letter-spacing:-.016em;margin-bottom:12px}
 .fithint{font-size:15px;color:var(--muted);margin-bottom:30px}
@@ -375,7 +381,7 @@ section{padding-block:var(--pad);position:relative;scroll-margin-top:calc(var(--
 .tl-r h4{font-family:var(--fd);font-size:17px;font-weight:700;color:var(--ink);line-height:1.3}
 .tl-r p{font-size:15.5px;line-height:1.62;max-width:52ch}
 .pq{margin-top:44px;padding-top:34px;border-top:2px solid var(--ink)}
-.pq q{display:block;font-family:var(--fd);font-style:italic;font-weight:700;font-size:clamp(22px,2.4vw,32px);line-height:1.26;color:var(--ink);letter-spacing:-.014em;quotes:none}
+.pq q{display:block;hanging-punctuation:first;text-indent:-.42em;font-family:var(--fd);font-style:italic;font-weight:700;font-size:clamp(22px,2.4vw,32px);line-height:1.26;color:var(--ink);letter-spacing:-.014em;quotes:none}
 .pq q::before{content:"\201C"}.pq q::after{content:"\201D"}
 .pq cite{display:block;margin-top:18px;font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 
@@ -387,7 +393,7 @@ section{padding-block:var(--pad);position:relative;scroll-margin-top:calc(var(--
 .cat::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(6,16,32,.9),rgba(6,16,32,.05) 62%)}
 .cat .lab{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:24px 22px}
 .cat .lab b{display:block;font-family:var(--fd);font-size:clamp(17px,1.5vw,22px);font-weight:700;color:#fff;letter-spacing:-.008em}
-.cat .lab span{display:block;font-size:12.5px;color:rgba(255,255,255,.6);margin-top:6px;line-height:1.45}
+.cat .lab span{display:block;font-size:12.5px;color:rgba(255,255,255,.6);margin-top:6px;line-height:1.45;min-height:2.9em}
 .cats-foot{margin-top:34px;font-family:var(--fd);font-size:clamp(18px,1.8vw,24px);font-weight:500;line-height:1.4;color:rgba(255,255,255,.9);max-width:62ch}
 
 /* ---------- comparison ---------- */
@@ -483,15 +489,91 @@ section{padding-block:var(--pad);position:relative;scroll-margin-top:calc(var(--
 .flegal p+p{margin-top:14px}
 .fcopy{margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:space-between;font-size:12.5px}
 
+/* ---------- haptics: physical press, kinetic arrow, considered focus ---------- */
+.btn{position:relative;overflow:hidden;isolation:isolate}
+.btn::before{
+  content:"";position:absolute;inset:0;z-index:-1;background:currentColor;
+  opacity:0;transform:translateY(101%);transition:transform .55s var(--ease-cine),opacity .4s ease;
+}
+.btn-solid::before,.btn-accent::before{background:#fff;opacity:0}
+.btn-solid:hover::before,.btn-accent:hover::before{opacity:.09;transform:none}
+.btn-ghost:hover::before{opacity:0}
+.btn:active{transform:scale(.985)}
+.btn svg{transition:transform .42s var(--ease-cine)}
+.btn:hover svg{transform:translateX(6px)}
+
+/* editorial photography answers the cursor slowly, like a plate being leaned into */
+.figband,.proc-fig img,.about-fig{overflow:hidden}
+.figband img,.proc-fig img,.about-fig img{
+  transition:transform 1.3s var(--ease-cine),filter 1.3s var(--ease-cine);
+  will-change:transform;
+}
+.figband:hover img,.proc-fig:hover img,.about-fig:hover img{transform:scale(1.028)}
+
+.tcard,.tsm{transition:border-color .5s var(--ease-cine),background .5s var(--ease-cine)}
+.tsm:hover{border-color:#D6DCE4;background:#fff}
+.proc-row > *{transition:transform .45s var(--ease-cine)}
+.proc-row:hover > *{transform:translateX(12px)}
+.fitopt{transition:padding .42s var(--ease-cine),background .42s var(--ease-cine),border-color .3s ease}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+
+/* the one element that genuinely floats gets a real, long shadow */
+.hero-quote{box-shadow:0 34px 70px -34px rgba(6,16,32,.55),0 2px 6px -2px rgba(6,16,32,.16)}
+
+/* dark sections get a hairline of light along their top edge, the way a
+   printed ink block catches the paper it sits on */
+.dark::before,.final::before,.credband::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:1px;z-index:3;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.13) 22%,rgba(255,255,255,.13) 78%,transparent);
+}
+.credband{position:relative}
+
+/* ---------- arrival choreography ----------
+   One orchestrated entrance on load: the headline rises line by line out of
+   its own mask, the photograph settles out of a slow scale, everything else
+   follows on a single stagger clock. Runs once, after the fonts resolve, so
+   the reveal never plays against a fallback face.
+   -------------------------------------------------------------------- */
+:root{--ease-cine:cubic-bezier(.19,1,.22,1)}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
+.hero h1 .ln > span{
+  display:block;transform:translateY(112%);
+  transition:transform 1.15s var(--ease-cine);
+}
+.hero h1 .ln:nth-child(2) > span{transition-delay:.10s}
+body.ready .hero h1 .ln > span{transform:none}
+
+.hv{opacity:0;transform:translateY(15px);
+    transition:opacity .95s var(--ease-cine),transform .95s var(--ease-cine)}
+body.ready .hv{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 70ms + .18s)}
+
+.hero-photo img{transform:scale(1.07);transition:transform 2.1s var(--ease-cine)}
+body.ready .hero-photo img{transform:none}
+.hero-photo::after{
+  content:"";position:absolute;inset:0;z-index:1;background:var(--cream);
+  transform-origin:bottom;transition:transform 1.25s var(--ease-cine) .05s;
+}
+body.ready .hero-photo::after{transform:scaleY(0)}
+.hero-copy::before{transform:scaleY(0);transform-origin:top;transition:transform 1.1s var(--ease-cine) .5s}
+body.ready .hero-copy::before{transform:none}
+
 /* ---------- motion ---------- */
-[data-r]{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+[data-r]{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease-cine),transform .9s var(--ease-cine),filter .9s var(--ease-cine)}
+.display[data-r],h2[data-r]{filter:blur(5px)}
+.display[data-r].in,h2[data-r].in{filter:none}
 [data-r].in{opacity:1;transform:none}
 [data-d="1"]{transition-delay:.09s}[data-d="2"]{transition-delay:.18s}
 [data-d="3"]{transition-delay:.27s}[data-d="4"]{transition-delay:.36s}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
-  [data-r]{opacity:1;transform:none}
+  [data-r]{opacity:1;transform:none;filter:none}
+  .hv{opacity:1;transform:none}
+  .hero h1 .ln > span{transform:none}
+  .hero-photo img{transform:none}
+  .hero-photo::after{transform:scaleY(0)}
+  .hero-copy::before{transform:none}
   .credtrack,.eptrack{animation:none}
 }
 
@@ -503,7 +585,12 @@ section{padding-block:var(--pad);position:relative;scroll-margin-top:calc(var(--
   .hero h1{font-size:clamp(76px,4.2vw,88px)}
   .ep{width:262px}
 }
-@media (min-width:2200px){ :root{--maxw:1580px} .hero h1{font-size:96px} }
+@media (min-width:2200px){
+  :root{--maxw:1580px}
+  .hero h1{font-size:96px}
+  /* widen the copy rail so the larger optical size still holds two lines */
+  .hero-copy{padding-left:max(var(--gut),calc((100vw - 1800px)/2 + var(--gut)))}
+}
 @media (max-width:1240px){
   .nav-links{gap:16px}
   .nav-links a{font-size:11.5px;letter-spacing:.1em}
@@ -609,33 +696,33 @@ section{padding-block:var(--pad);position:relative;scroll-margin-top:calc(var(--
 <section class="hero" aria-labelledby="h1">
   <div class="hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow" data-r>Franchise owners helping future franchise owners</p>
-      <h1 id="h1" data-r data-d="1">Buy a franchise<br><span class="it">worth owning.</span></h1>
-      <p class="hero-sub" data-r data-d="2">
+      <p class="eyebrow hv" style="--i:0">Franchise owners helping future franchise owners</p>
+      <h1 id="h1"><span class="ln"><span>Buy a franchise</span></span><span class="ln"><span class="it">worth owning.</span></span></h1>
+      <p class="hero-sub hv" style="--i:3">
         I help professionals and investors find the few franchises actually worth owning,
         based on your capital, your goals, your market, and the role you want to play.
       </p>
-      <a class="btn btn-solid hero-cta" href="#fit" data-r data-d="3">
+      <a class="btn btn-solid hero-cta hv" style="--i:4" href="#fit">
         Find My Franchise Fit
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
-      <p class="reassure" data-r data-d="3">Free. Takes about 30 seconds. No pressure.</p>
+      <p class="reassure hv" style="--i:5">Free. Takes about 30 seconds. No pressure.</p>
 
-      <div class="hero-rule" data-r data-d="4"></div>
-      <div class="hstats" data-r data-d="4">
-        <div class="hstat">
+      <div class="hero-rule hv" style="--i:6"></div>
+      <div class="hstats">
+        <div class="hstat hv" style="--i:7">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
           <div class="n"><span data-count="2400" data-fmt="comma">0</span>+</div>
           <div class="l">Locations scaled</div>
           <p class="d">The brand his family helped grow.</p>
         </div>
-        <div class="hstat">
+        <div class="hstat hv" style="--i:8">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5.5v6c0 5 3.4 9.2 8 10.5 4.6-1.3 8-5.5 8-10.5v-6Z"/><path d="m9 12 2 2 4-4"/></svg>
           <div class="n">$0</div>
           <div class="l">Cost to you</div>
           <p class="d">Paid by franchise partners, never the buyer.</p>
         </div>
-        <div class="hstat">
+        <div class="hstat hv" style="--i:9">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 15 8.5l7 1-5 4.9 1.2 7L12 18.1 5.8 21.4 7 14.4 2 9.5l7-1Z"/></svg>
           <div class="n">3&ndash;<span data-count="5">0</span></div>
           <div class="l">Brands shortlisted</div>
@@ -646,7 +733,7 @@ section{padding-block:var(--pad);position:relative;scroll-margin-top:calc(var(--
 
     <div class="hero-photo">
       <img src="assets/hero-josh.jpg" width="1600" height="2000" alt="Josh DuBois, founder of JD Strategic Franchising" fetchpriority="high" decoding="async">
-      <figure class="hero-quote" data-r data-d="3">
+      <figure class="hero-quote hv" style="--i:9">
         <span class="qm" aria-hidden="true">&ldquo;</span>
         <div>
           <p>I've lived every side of it, the good deals and the bad ones.</p>
@@ -1045,6 +1132,14 @@ section{padding-block:var(--pad);position:relative;scroll-margin-top:calc(var(--
   'use strict';
   var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---- arrival: wait for the real faces, then run the sequence once ---- */
+  function ready(){ document.body.classList.add('ready'); }
+  if (RM) { ready(); }
+  else if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function(){ requestAnimationFrame(ready); });
+    setTimeout(ready, 1800);
+  } else { requestAnimationFrame(ready); }
+
   /* ---- belts: each pass must be wider than the widest supported viewport ---- */
   var IC={
     shield:'<path d="M12 2 4 5.5v6c0 5 3.4 9.2 8 10.5 4.6-1.3 8-5.5 8-10.5v-6Z"/>',
@@ -1148,7 +1243,7 @@ section{padding-block:var(--pad);position:relative;scroll-margin-top:calc(var(--
   function go(n){
     panels.forEach(function(p){ p.classList.toggle('active', p.getAttribute('data-panel')===String(n)); });
     if(stepEl) stepEl.textContent = n>3 ? 'Your read' : 'Question '+n+' of 3';
-    if(barEl) barEl.style.width = (n>3?100:(n/3)*100)+'%';
+    if(barEl) barEl.style.transform = 'scaleX(' + (n>3?1:n/3) + ')';
     var card=document.querySelector('.fitcard');
     if(card){
       var top=card.getBoundingClientRect().top+window.pageYOffset-120;
