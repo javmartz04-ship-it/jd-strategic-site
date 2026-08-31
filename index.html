@@ -215,6 +215,7 @@ section{padding-block:var(--pad);position:relative;scroll-margin-top:calc(var(--
 .hstat{padding-right:22px;border-right:1px solid var(--hairline)}
 .hstat:last-child{border-right:0;padding-right:0}
 .hstat svg{width:24px;height:24px;color:var(--accent);margin-bottom:16px;stroke-width:1.4}
+.hstat .n sup{font-size:.5em;vertical-align:.62em;letter-spacing:.01em;font-weight:600}
 .hstat .n{font-family:var(--fd);font-size:clamp(28px,2.7vw,38px);font-weight:700;color:var(--ink);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .hstat .l{font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);margin-top:12px;line-height:1.45}
 .hstat .d{font-size:12.5px;color:var(--muted);margin-top:7px;line-height:1.5}
@@ -295,46 +296,27 @@ section{padding-block:var(--pad);position:relative;scroll-margin-top:calc(var(--
 .proc-row p{font-size:15.5px;line-height:1.62;max-width:58ch}
 
 /* ---------- testimonials, the reference's card exactly ---------- */
-.tcard{
-  background:var(--band);border:1px solid var(--hairline);
-  display:grid;grid-template-columns:minmax(0,.32fr) minmax(0,1fr);
-  gap:clamp(24px,3.4vw,54px);padding:clamp(30px,3.6vw,54px);align-items:center;
-  margin-bottom:22px;
-}
-.tcard-fig{text-align:center}
-.tcard-fig .ph{
-  width:100%;max-width:190px;margin:0 auto;aspect-ratio:1/1;
-  background:var(--hairline-2);display:grid;place-items:center;overflow:hidden;
-}
-.tcard-fig .ph img{width:100%;height:100%;object-fit:cover}
-.tcard-fig .ph span{font-family:var(--fd);font-size:34px;font-weight:700;color:var(--faint)}
-.tcard-fig .brand{
-  margin-top:18px;font-size:11px;font-weight:700;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--muted);
-}
-.tcard q{
-  display:block;hanging-punctuation:first;text-indent:-.4em;font-family:var(--fd);font-style:italic;font-weight:700;
-  font-size:clamp(21px,2.2vw,32px);line-height:1.24;color:var(--ink);
-  letter-spacing:-.014em;quotes:none;margin-bottom:22px;
-}
-.tcard q::before{content:"\201C"}.tcard q::after{content:"\201D"}
-.tcard .ctx{font-size:15.5px;line-height:1.62;color:var(--body);margin-bottom:24px;max-width:56ch}
-.tcard .who{font-family:var(--fb);font-size:16px;font-weight:700;color:var(--ink)}
-.tcard .role{font-size:14.5px;color:var(--muted);margin-top:3px}
-.tcard .btn{margin-top:24px;font-size:12.5px;padding:15px 24px;gap:18px;text-transform:none;letter-spacing:.01em}
-.tgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
-.tsm{background:var(--band);border:1px solid var(--hairline);padding:clamp(26px,2.8vw,38px)}
-.tsm q{display:block;font-family:var(--fd);font-style:italic;font-weight:700;font-size:clamp(18px,1.7vw,22px);line-height:1.3;color:var(--ink);quotes:none;margin-bottom:18px}
-.tsm q::before{content:"\201C"}.tsm q::after{content:"\201D"}
-.tsm .ctx{font-size:14.5px;line-height:1.6;color:var(--body);margin-bottom:20px}
-.tsm .who{font-family:var(--fb);font-size:15px;font-weight:700;color:var(--ink)}
-.tsm .role{font-size:13.5px;color:var(--muted);margin-top:2px}
-.sample-tag{
-  display:inline-flex;align-items:center;gap:8px;font-size:10.5px;font-weight:700;
-  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
-  border:1px solid var(--hairline);padding:7px 13px;margin-bottom:26px;background:#fff;
-}
-.sample-tag i{width:5px;height:5px;background:var(--accent);flex:none}
+
+
+
+
+
+
+
+.tcard q::after{content:"\201D"}
+
+
+
+
+
+
+
+.tsm q::after{content:"\201D"}
+
+
+
+
+
 .legal{font-size:12.5px;line-height:1.66;color:var(--faint);margin-top:30px;max-width:88ch}
 
 /* ---------- fit finder ---------- */
@@ -396,18 +378,24 @@ section{padding-block:var(--pad);position:relative;scroll-margin-top:calc(var(--
 .cat .lab span{display:block;font-size:12.5px;color:rgba(255,255,255,.6);margin-top:6px;line-height:1.45;min-height:2.9em}
 .cats-foot{margin-top:34px;font-family:var(--fd);font-size:clamp(18px,1.8vw,24px);font-weight:500;line-height:1.4;color:rgba(255,255,255,.9);max-width:62ch}
 
-/* ---------- comparison ---------- */
+/* ---------- comparison: one grid so both sides share every row height ---------- */
 .cmp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid var(--hairline)}
-.cmp-c:first-child{border-right:1px solid var(--hairline)}
-.cmp-c:last-child{background:var(--ink);color:rgba(255,255,255,.8)}
-.cmp-h{padding:22px clamp(22px,2.6vw,34px);border-bottom:1px solid var(--hairline);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-.cmp-c:last-child .cmp-h{border-bottom-color:rgba(255,255,255,.18);color:var(--accent)}
-.cmp-i{display:grid;grid-template-columns:18px minmax(0,1fr);gap:15px;align-items:start;padding:24px clamp(22px,2.6vw,34px);border-bottom:1px solid var(--hairline-2);font-size:15.5px;line-height:1.56}
-.cmp-c:last-child .cmp-i{border-bottom-color:rgba(255,255,255,.11);color:#fff}
-.cmp-i:last-child{border-bottom:0}
-.cmp-i svg{width:18px;height:18px;flex:none;margin-top:2px}
-.cmp-c:first-child svg{color:var(--faint)}
-.cmp-c:last-child svg{color:var(--accent)}
+.cmp-h{
+  padding:22px clamp(22px,2.6vw,34px);border-bottom:1px solid var(--hairline);
+  font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+}
+.cmp-i{
+  display:grid;grid-template-columns:18px minmax(0,1fr);gap:15px;align-items:start;
+  padding:24px clamp(22px,2.6vw,34px);border-bottom:1px solid var(--hairline-2);
+  font-size:15.5px;line-height:1.56;
+}
+.cmp-i svg{width:18px;height:18px;flex:none;margin-top:2px;color:var(--faint)}
+.cmp-h,.cmp-i{border-right:1px solid var(--hairline)}
+.cmp-r{background:var(--ink);color:#fff;border-right:0}
+.cmp-r.cmp-h{border-bottom-color:rgba(255,255,255,.18);color:var(--accent)}
+.cmp-r.cmp-i{border-bottom-color:rgba(255,255,255,.11)}
+.cmp-r svg{color:var(--accent)}
+.cmp-last{border-bottom:0}
 .cmp-foot{text-align:center;margin-top:40px;font-family:var(--fd);font-size:clamp(20px,2.1vw,28px);font-weight:500;line-height:1.34;color:var(--ink)}
 .cmp-foot i{font-style:italic;color:var(--accent);font-weight:600}
 
@@ -620,7 +608,11 @@ body.ready .hero-copy::before{transform:none}
   .pov-c{border-right:0;border-bottom:1px solid var(--hairline);padding:30px 0}
   .pov-c:last-child{padding:30px 28px}
   .cmp{grid-template-columns:minmax(0,1fr)}
-  .cmp-c:first-child{border-right:0;border-bottom:1px solid var(--hairline)}
+  .cmp > *{border-right:0}
+  .cmp > :nth-child(odd){order:0}
+  .cmp > :nth-child(even){order:1}
+  .cmp > :nth-child(7){border-bottom:1px solid var(--hairline)}
+  .cmp-last{border-bottom:0}
   .why{grid-template-columns:minmax(0,1fr)}
   .why-c,.why-c:nth-child(odd),.why-c:nth-child(even){padding:28px 0;border-right:0}
   .tcard{grid-template-columns:minmax(0,1fr);text-align:left}
@@ -714,7 +706,7 @@ body.ready .hero-copy::before{transform:none}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
           <div class="n"><span data-count="2400" data-fmt="comma">0</span>+</div>
           <div class="l">Locations scaled</div>
-          <p class="d">The brand his family helped grow.</p>
+          <p class="d">The brand my family helped grow.</p>
         </div>
         <div class="hstat hv" style="--i:8">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5.5v6c0 5 3.4 9.2 8 10.5 4.6-1.3 8-5.5 8-10.5v-6Z"/><path d="m9 12 2 2 4-4"/></svg>
@@ -723,10 +715,10 @@ body.ready .hero-copy::before{transform:none}
           <p class="d">Paid by franchise partners, never the buyer.</p>
         </div>
         <div class="hstat hv" style="--i:9">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 15 8.5l7 1-5 4.9 1.2 7L12 18.1 5.8 21.4 7 14.4 2 9.5l7-1Z"/></svg>
-          <div class="n">3&ndash;<span data-count="5">0</span></div>
-          <div class="l">Brands shortlisted</div>
-          <p class="d">Matched to you, never a list of forty.</p>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="5" r="2.6"/><circle cx="17" cy="19" r="2.6"/><path d="M7 7.6v5.2a3.6 3.6 0 0 0 3.6 3.6h3.8"/></svg>
+          <div class="n">2<sup>nd</sup></div>
+          <div class="l">Generation</div>
+          <p class="d">Raised in franchising, not trained into it.</p>
         </div>
       </div>
     </div>
@@ -762,7 +754,7 @@ body.ready .hero-copy::before{transform:none}
   <div class="wrap">
     <p class="eyebrow" data-r>Our point of view</p>
     <h2 class="display" id="pov-h" data-r data-d="1" style="max-width:19ch">
-      Most franchises are not worth owning. My job is finding the ones <span class="it">that are.</span>
+      Most franchises are not worth owning. My job is finding the ones that are.
     </h2>
 
     <figure class="figband" data-r data-d="2">
@@ -851,61 +843,12 @@ body.ready .hero-copy::before{transform:none}
   </div>
 </section>
 
-<!-- ================= WHAT CLIENTS BUILD ================= -->
-<section id="stories" aria-labelledby="st-h">
-  <div class="wrap">
-    <div class="shead mid" data-r>
-      <p class="eyebrow">What our clients build</p>
-      <h2 class="display" id="st-h">Ownership, in their own words.</h2>
-      <p class="sample-tag" style="margin-top:24px"><i aria-hidden="true"></i>Sample layout &middot; real client wins drop in here</p>
-    </div>
-
-    <div class="tcard" data-r data-d="1">
-      <div class="tcard-fig">
-        <div class="ph"><span aria-hidden="true">CN</span></div>
-        <div class="brand">[Brand]</div>
-      </div>
-      <div>
-        <q>Your featured client win goes here, in their own words, with one concrete number.</q>
-        <p class="ctx">Two or three sentences of context. When they started, what they were doing before, and what the business looks like now. The number carries the sentence, not the adjective.</p>
-        <div class="who">Client Name</div>
-        <div class="role">[Brand] Franchise Owner</div>
-        <a class="btn btn-ghost" href="#contact">
-          <span style="display:inline-flex;align-items:center;gap:11px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" style="width:17px;height:17px"><circle cx="12" cy="12" r="10"/><path d="M10 8.5v7l6-3.5z" fill="currentColor" stroke="none"/></svg>Watch Their Story</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-      </div>
-    </div>
-
-    <div class="tgrid" data-r data-d="2">
-      <div class="tsm">
-        <q>A second story, ideally a different category to the first.</q>
-        <p class="ctx">One or two lines of context and a number that a stranger could verify.</p>
-        <div class="who">Client Name</div>
-        <div class="role">[Brand] Franchise Owner</div>
-      </div>
-      <div class="tsm">
-        <q>A third story, ideally multi-unit or an exit.</q>
-        <p class="ctx">One or two lines of context and a number that a stranger could verify.</p>
-        <div class="who">Client Name</div>
-        <div class="role">[Brand] Franchise Owner</div>
-      </div>
-    </div>
-
-    <p class="legal">
-      Individual results vary and are not typical. Any outcomes shown reflect careful selection,
-      proper capitalization, realistic expectations, and individual effort. Prospective franchisees
-      should review the Franchise Disclosure Document and speak with current franchise owners before investing.
-    </p>
-  </div>
-</section>
-
 <!-- ================= PROCESS ================= -->
 <section class="cream" id="process" aria-labelledby="pr-h">
   <div class="wrap">
     <div class="shead" data-r>
       <p class="eyebrow">What we do with every client</p>
-      <h2 class="display" id="pr-h">Five steps. <span class="it">Zero guesswork.</span></h2>
+      <h2 class="display" id="pr-h">Five steps. Zero guesswork.</h2>
       <p class="lede">A structured path from curious to confident owner, typically one to three months, at your pace.</p>
     </div>
 
@@ -931,7 +874,7 @@ body.ready .hero-copy::before{transform:none}
   <div class="wrap">
     <div class="shead" data-r>
       <p class="eyebrow">Why franchising at all</p>
-      <h2 class="display" id="why-h">Own a business that has <span class="it">already been proven.</span></h2>
+      <h2 class="display" id="why-h">Own a business that has already been proven.</h2>
       <p class="lede">Real ownership, without betting everything on an untested idea. That is the middle path most people never seriously consider.</p>
     </div>
     <div class="why" data-r data-d="1">
@@ -958,16 +901,16 @@ body.ready .hero-copy::before{transform:none}
       </div>
       <div>
         <p class="eyebrow" data-r>Who you are working with</p>
-        <h2 class="display" id="ab-h" data-r data-d="1">Raised in franchising. Now on <span class="it">your side of the table.</span></h2>
+        <h2 class="display" id="ab-h" data-r data-d="1">Raised in franchising. Now on your side of the table.</h2>
         <p class="lede" data-r data-d="2" style="margin-top:24px">
-          Josh DuBois did not learn franchising from a book. He was raised inside it, and he is
-          opening his own franchise while he helps you open yours.
+          I did not learn franchising from a book. I was raised inside it, and I am opening my
+          own franchise while I help you open yours.
         </p>
         <div class="tl">
-          <div class="tl-r" data-r><h4>The restaurants</h4><p>His family starts as independent restaurant owners, then becomes multi-unit franchisees.</p></div>
-          <div class="tl-r" data-r data-d="1"><h4>The franchisor side</h4><p>They cross over and help scale a dry-cleaning brand from around 10 locations to more than 2,400 worldwide.</p></div>
-          <div class="tl-r" data-r data-d="2"><h4>The proving ground</h4><p>Josh manages one of the family's franchises in high school, then spends years in corporate finance and recruiting.</p></div>
-          <div class="tl-r" data-r data-d="3"><h4>JD Strategic</h4><p>FranServe certified, betting on himself, and sitting on your side of the table full time.</p></div>
+          <div class="tl-r" data-r><h4>The restaurants</h4><p>My family started as independent restaurant owners, then became multi-unit franchisees.</p></div>
+          <div class="tl-r" data-r data-d="1"><h4>The franchisor side</h4><p>They crossed over and helped scale a dry-cleaning brand from around 10 locations to more than 2,400 worldwide.</p></div>
+          <div class="tl-r" data-r data-d="2"><h4>The proving ground</h4><p>I managed one of the family's franchises in high school, then spent years in corporate finance and recruiting.</p></div>
+          <div class="tl-r" data-r data-d="3"><h4>JD Strategic</h4><p>FranServe certified, betting on myself, and sitting on your side of the table full time.</p></div>
         </div>
         <div class="pq" data-r>
           <q>I've lived every side of it, the good deals and the bad ones.</q>
@@ -982,7 +925,7 @@ body.ready .hero-copy::before{transform:none}
 <section class="dark" id="categories" aria-labelledby="cat-h">
   <div class="wrap">
     <p class="eyebrow" data-r>Categories we are watching closely</p>
-    <h2 class="display" id="cat-h" data-r data-d="1" style="max-width:17ch">Where the interesting opportunities <span class="it">actually are.</span></h2>
+    <h2 class="display" id="cat-h" data-r data-d="1" style="max-width:17ch">Where the interesting opportunities actually are.</h2>
     <div class="cats">
       <div class="cat" data-r><img src="assets/ed/cat-wellness.jpg" width="2400" height="1600" alt="A modern fitness studio interior" loading="lazy" decoding="async"><div class="lab"><b>Health &amp; wellness</b><span>Recurring memberships, durable demand.</span></div></div>
       <div class="cat" data-r data-d="1"><img src="assets/ed/cat-services.jpg" width="2400" height="1600" alt="A modern commercial interior" loading="lazy" decoding="async"><div class="lab"><b>B2B services</b><span>Contract revenue, lean headcount.</span></div></div>
@@ -1005,20 +948,16 @@ body.ready .hero-copy::before{transform:none}
       <p class="lede">Same industry, two very different seats at the table. Here is how the same journey plays out twice.</p>
     </div>
     <div class="cmp" data-r data-d="1">
-      <div class="cmp-c">
-        <div class="cmp-h">With a typical broker</div>
-        <div class="cmp-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>You get a list of forty "opportunities" and start drowning.</span></div>
-        <div class="cmp-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>The rankings you are reading are biased and pay-to-play.</span></div>
-        <div class="cmp-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Every concept gets talked up. Nothing is ever a bad fit.</span></div>
-        <div class="cmp-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>At the FDD, the document that decides your decade, you are on your own.</span></div>
-      </div>
-      <div class="cmp-c">
-        <div class="cmp-h">With JD Strategic</div>
-        <div class="cmp-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Three to five vetted matches, built backwards from your capital and goals.</span></div>
-        <div class="cmp-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Every brand vetted by someone who has lived both sides of the deal.</span></div>
-        <div class="cmp-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>You hear it straight when franchising, or a specific brand, is not your move.</span></div>
-        <div class="cmp-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Josh walks the FDD, validation calls, and financing with you to signing day.</span></div>
-      </div>
+      <div class="cmp-h">With a typical broker</div>
+      <div class="cmp-h cmp-r">With JD Strategic</div>
+      <div class="cmp-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>You get a list of forty &quot;opportunities&quot; and start drowning.</span></div>
+      <div class="cmp-i cmp-r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Three to five vetted matches, built backwards from your capital and goals.</span></div>
+      <div class="cmp-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>The rankings you are reading are biased and pay-to-play.</span></div>
+      <div class="cmp-i cmp-r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Every brand vetted by someone who has lived both sides of the deal.</span></div>
+      <div class="cmp-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Every concept gets talked up. Nothing is ever a bad fit.</span></div>
+      <div class="cmp-i cmp-r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>You hear it straight when franchising, or a specific brand, is not your move.</span></div>
+      <div class="cmp-i cmp-last"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>At the FDD, the document that decides your decade, you are on your own.</span></div>
+      <div class="cmp-i cmp-r cmp-last"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>I walk the FDD, validation calls, and financing with you to signing day.</span></div>
     </div>
     <p class="cmp-foot" data-r data-d="2">One path leaves you owning a job.<br>The other leaves you <i>owning the right business.</i></p>
   </div>
@@ -1035,7 +974,7 @@ body.ready .hero-copy::before{transform:none}
       </a>
       <div data-r>
         <p class="eyebrow">The inside scoop</p>
-        <h2 class="display" id="pd-h" style="font-size:clamp(28px,3.4vw,46px)">Learn the industry <span class="it">before</span> you buy into it.</h2>
+        <h2 class="display" id="pd-h" style="font-size:clamp(28px,3.4vw,46px)">Learn the industry before you buy into it.</h2>
         <p class="lede" style="margin-top:20px">
           Conquer the Mind: conversations with franchise veterans, operators, and founders.
           Free, unfiltered, and the fastest way to hear how this industry actually works
@@ -1059,7 +998,7 @@ body.ready .hero-copy::before{transform:none}
     <div class="faq">
       <div data-r>
         <p class="eyebrow">Before you book</p>
-        <h2 class="display" id="fq-h" style="font-size:clamp(28px,3.2vw,44px)">Asked on almost <span class="it">every first call.</span></h2>
+        <h2 class="display" id="fq-h" style="font-size:clamp(28px,3.2vw,44px)">Asked on almost every first call.</h2>
         <p class="lede" style="margin-top:22px;font-size:16px">If your question is not here, it is a good first thing to bring to the call.</p>
         <a class="btn btn-ghost" href="#contact" style="margin-top:28px">Book a Call<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
