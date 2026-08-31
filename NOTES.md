@@ -280,3 +280,74 @@ accordion's `height`, which has no broadly-supported alternative.
 Two suites went red after this pass and **both were stale harnesses, not regressions**:
 the hero-line probe measured the new mask wrappers instead of rendered lines, and the
 progress-bar assertions still checked `style.width` after it became a transform.
+
+---
+
+# ROUND 4 (2026-08-29): premium by subtraction
+
+Javier: *"I want this to be like, damn, they look at this and this is the biggest guy in
+his space... there are little things that I really don't know how to communicate...
+that doesn't mean adding more; it can be making it better, stronger."*
+
+**Nothing was added.** Four things were removed, rationed, corrected or rebuilt. This
+round is the counter-example to the assumption that a premium pass means more craft on
+top; the highest-value moves were all subtraction.
+
+## 1. The placeholder proof section was actively damaging
+
+Three "Client Name / [Brand] Franchise Owner" slots, a grey CN monogram, a dead "Watch
+Their Story" button, and a badge that literally read "SAMPLE LAYOUT - REAL CLIENT WINS
+DROP IN HERE".
+
+**Absent proof is neutral. Proof that looks unfinished is negative.** It was the loudest
+signal on the page that this business is new, sitting directly under a heading claiming
+"What our clients build". Deleted the section and pruned its dead CSS. The page reads
+more confident at 11 sections than it did at 12. It goes back the moment real wins exist.
+
+I had flagged this three rounds running and kept shipping it because the client had not
+supplied testimonials. **Flagging a defect is not the same as fixing it** - when a
+placeholder is actively costing credibility, removing it is the fix, not waiting.
+
+## 2. The accent was on 77% of headings, so it had stopped being an accent
+
+Ten of thirteen headings carried the orange italic emphasis. This is the "little thing"
+Javier could feel but not name: **an emphasis that appears on nearly everything is not an
+emphasis, it is the heading style**, and it was why the page read decorated rather than
+expensive.
+
+Cut to exactly three, placed at structural beats rather than decoratively:
+- the **promise** (hero: "worth owning.")
+- the **positioning turn** (broker vs coach: "A coach helps you buy one.")
+- the **ask** (final CTA: "Ready to bet on yourself?")
+
+Everything between is plain navy. The three that remain now actually land. `FUNNEL-
+ANATOMY.md` says every HERO headline gets an emphasis line; applying that rule to every
+SECTION heading is a misreading that dilutes the move to nothing.
+
+## 3. Mixed voice reads as unpolished without the reader knowing why
+
+Eighteen first-person blocks, seven third-person slips: "The brand **his** family helped
+grow", "**Josh walks** the FDD", "**He was** raised inside it". Converted all to first
+person. A solo advisor writing "I" throughout is warmer and more authoritative than one
+who drifts into press-release third person.
+
+## 4. The comparison table was not actually comparing
+
+Built as two independent stacked columns, so the dividers never lined up across the two
+sides - a reader could not scan a broker claim against its JD Strategic answer. Rebuilt
+as ONE grid with interleaved cells so every pair shares a row height (verified to the
+pixel), with `order` regrouping them into two stacked blocks under 900px.
+
+## Also
+
+Hero's third stat was "3-5 BRANDS SHORTLISTED" - a process detail dressed as a
+credential, and not parallel with the other two. Now "2nd GENERATION / raised in
+franchising, not trained into it", so the trio reads scale, price, pedigree.
+
+## Still open
+
+Real client wins, and a booking URL. Every CTA still resolves to `#contact`.
+Flagged but NOT changed, because it is a content call: the "Why franchising at all"
+section (be your own boss / proven playbook / minimized risk / financing) is the one
+block on the page that could appear on any franchise broker's site. It answers a real
+buyer question but differentiates Josh not at all.
