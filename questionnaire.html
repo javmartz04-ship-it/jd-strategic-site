@@ -131,9 +131,10 @@ input,textarea{font:inherit}
 textarea.fin{resize:none;overflow:hidden;min-height:78px;line-height:1.5}
 .pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 30px}
 .pl{display:block;font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.bad .fin{border-bottom-color:var(--accent-ink);box-shadow:0 1.5px 0 0 var(--accent-ink)}
-.err{display:none;margin-top:12px;font-size:14px;font-weight:600;color:var(--accent-ink)}
-.bad .err{display:block}
+.fwrap{position:relative;display:block}
+.fwrap.bad .fin{border-bottom-color:var(--accent-ink);box-shadow:0 1.5px 0 0 var(--accent-ink)}
+.err{display:none;margin-top:11px;font-size:13.5px;font-weight:600;color:var(--accent-ink);line-height:1.45}
+.fwrap.bad .err{display:block}
 
 /* ---------- option buttons ---------- */
 .opts{display:flex;flex-direction:column;gap:9px}
@@ -197,6 +198,14 @@ textarea.fin{resize:none;overflow:hidden;min-height:78px;line-height:1.5}
 .btn-ghost svg{color:var(--accent-ink)}
 .btn-ghost:hover{background:var(--ink);color:#fff}
 .btn-ghost:hover svg{color:var(--accent)}
+.btn-mini{
+  width:54px;height:54px;flex:none;display:grid;place-items:center;
+  border:1px solid var(--hairline);background:var(--canvas);color:var(--ink);
+  transition:background .28s var(--ease),border-color .28s var(--ease),color .28s var(--ease),opacity .28s ease;
+}
+.btn-mini:hover:not(:disabled){background:var(--ink);border-color:var(--ink);color:#fff}
+.btn-mini:disabled{opacity:.32;cursor:not-allowed}
+.btn-mini svg{width:16px;height:16px}
 .hint{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:7px}
 .hint kbd{
   font-family:var(--fb);font-size:10.5px;font-weight:700;letter-spacing:.06em;
@@ -204,23 +213,48 @@ textarea.fin{resize:none;overflow:hidden;min-height:78px;line-height:1.5}
 }
 @media (hover:none){.hint{display:none}}
 
-/* ---------- chapter card ---------- */
-.chap .ghost{
-  font-family:var(--fd);font-size:clamp(72px,12vw,140px);font-weight:700;line-height:1;
-  color:var(--hairline);letter-spacing:-.04em;font-variant-numeric:lining-nums;
-  display:block;margin-bottom:20px;
+/* ==========================================================================
+   WELCOME — the site's own hero device: copy left on cream, photography
+   bleeding to the right edge at full height. Same split, same proportions.
+   ========================================================================== */
+body.welcome .stage{padding:0;align-items:stretch;overflow:hidden}
+body.welcome .card{max-width:none;margin:0;width:100%;display:flex}
+.wcard{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);width:100%;align-items:stretch}
+.wcopy{
+  position:relative;display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(34px,4.4vw,64px) clamp(30px,3.6vw,60px);
+  width:100%;max-width:748px;margin-left:auto;
 }
-.chap .lab{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:16px;display:block}
-.chap h2{font-size:clamp(31px,4.6vw,54px);line-height:1.06}
-.chap .rule{width:64px;height:3px;background:var(--accent);margin:26px 0}
-.chap p{font-size:clamp(16px,1.4vw,18.5px);line-height:1.66;color:var(--body);max-width:52ch;text-wrap:pretty}
+.wcopy::before{content:"";position:absolute;left:0;top:clamp(34px,4.4vw,64px);bottom:clamp(34px,4.4vw,64px);width:3px;background:var(--accent)}
+.wcopy .chip,.wcopy .go,.wcopy .sig{align-self:flex-start}
+.wcopy .qt{font-size:clamp(30px,3.6vw,50px)}
+/* the emphasis line always gets its own line - it is the whole device */
+.wcopy .qt .it{display:block}
+.wcopy .qh{font-size:16.5px;max-width:50ch;margin-top:18px}
+/* the welcome carries its own reassurance and has nowhere to go back to */
+body.welcome .ctrl,body.welcome .legal{display:none}
+/* photo panel + floating quote plate, lifted from the site's own hero */
+.wfig{position:relative;overflow:hidden;background:#dfe6ee;min-height:0}
+.wfig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:52% 20%}
+.wquote{
+  position:absolute;right:0;bottom:clamp(26px,4.4vw,58px);z-index:2;
+  max-width:min(410px,74%);
+  background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  padding:24px 28px 24px 24px;
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:15px;align-items:start;
+  box-shadow:0 34px 70px -34px rgba(6,16,32,.55),0 2px 6px -2px rgba(6,16,32,.16);
+}
+.wquote .qm{font-family:var(--fd);font-size:44px;font-weight:700;color:var(--accent);line-height:.7;margin-top:6px}
+.wquote p{font-size:15px;line-height:1.5;color:var(--ink)}
+.wquote cite{display:block;margin-top:9px;font-style:normal;font-size:12.5px;color:var(--accent-ink);font-weight:600}
 
-/* ---------- welcome + review ---------- */
-.meta{display:flex;flex-wrap:wrap;margin-top:38px;border-top:1px solid var(--hairline)}
-.meta div{padding:18px clamp(16px,2.4vw,30px) 0 0;margin-right:clamp(16px,2.4vw,30px);border-right:1px solid var(--hairline)}
-.meta div:last-child{border-right:0;margin-right:0;padding-right:0}
-.meta .k{display:block;font-family:var(--fd);font-size:21px;font-weight:700;color:var(--ink);line-height:1;font-variant-numeric:lining-nums}
-.meta .v{display:block;font-size:9.5px;font-weight:700;letter-spacing:.19em;text-transform:uppercase;color:var(--muted);margin-top:9px}
+/* signature — a person is asking, not a form */
+.sig{display:flex;align-items:center;gap:14px;margin-top:30px;padding-top:26px;border-top:1px solid var(--hairline)}
+.sig img{width:46px;height:46px;object-fit:cover;object-position:center 28%;flex:none}
+.sig b{display:block;font-family:var(--fd);font-size:16.5px;font-weight:700;color:var(--ink);letter-spacing:-.006em}
+.sig i{display:block;font-style:normal;font-size:9.5px;font-weight:700;letter-spacing:.19em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.reassure{margin-top:20px;font-size:12.5px;color:var(--muted);letter-spacing:.01em}
+.reassure b{color:var(--ink);font-weight:600}
 .rev{border:1px solid var(--hairline);background:var(--canvas);max-height:min(42vh,400px);overflow-y:auto;padding:6px 22px}
 .rev h4{font-family:var(--fb);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-ink);margin:22px 0 10px;padding-bottom:9px;border-bottom:1px solid var(--ink)}
 .rev .r{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px;padding:9px 0;border-bottom:1px solid var(--hairline-2);font-size:13.5px;line-height:1.5}
@@ -287,9 +321,20 @@ textarea.fin{resize:none;overflow:hidden;min-height:78px;line-height:1.5}
 }
 
 /* ---------- responsive ---------- */
+@media (max-width:900px){
+  .wcard{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto}
+  .wfig{order:1;min-height:min(44vh,360px)}
+  .wquote{right:var(--gut);bottom:20px;max-width:min(410px,calc(100% - var(--gut) * 2))}
+  .wcopy{order:2;max-width:none;margin-left:0;padding:clamp(30px,6vw,48px) var(--gut) clamp(38px,7vw,56px)}
+  .wcopy::before{left:var(--gut);right:var(--gut);top:0;bottom:auto;width:auto;height:3px}
+  body.welcome .stage{align-items:flex-start;overflow-y:auto}
+  body.welcome .card{display:block}
+}
 @media (max-width:640px){
   :root{--top-h:60px}
   .top .wm{display:none}
+  .btn-mini{width:100%;height:52px}
+  .go{gap:10px}
   .pair{grid-template-columns:minmax(0,1fr);gap:22px}
   .opts.grid{grid-template-columns:minmax(0,1fr)}
   .scale{gap:7px;max-width:none}
@@ -373,34 +418,31 @@ var S = [
 {t:'welcome'},
 
 /* ---------- 1 ---------- */
-{t:'chapter', ch:1, body:'The basics, so I know who I&rsquo;m building the search around.'},
 {t:'text',  ch:1, n:'name',  q:'First things first &mdash; <span class="it">what&rsquo;s your name?</span>', ph:'Full name', req:true, ac:'name'},
 {t:'email', ch:1, n:'email', q:'And the best email to reach you at?', ph:'you@company.com', req:true, ac:'email'},
-{t:'tel',   ch:1, n:'phone', q:'What&rsquo;s the best number for you?', h:'Only used to confirm the call. No lists, no drip.', ph:'(555) 123-4567', ac:'tel'},
-{t:'number',ch:1, n:'age',   q:'How old are you?', ph:'Age'},
+{t:'tel',   ch:1, n:'phone', q:'What&rsquo;s the best number for you?', h:'Only used to confirm the call. No lists, no drip.', ph:'(555) 123-4567', ac:'tel', v:'phone', req:true},
+{t:'text',  ch:1, n:'age',   q:'How old are you?', ph:'Age', v:'age'},
 {t:'pair',  ch:1, q:'Where are you based?', h:'Territory availability is checked market by market, so the address matters more than you&rsquo;d think.',
   f:[{n:'address', l:'Address', ac:'street-address'},{n:'city_state_zip', l:'City / State / Zip'}]},
 {t:'single',ch:1, n:'own_home', q:'Do you own your home?', h:'Home equity is one of the more common ways people fund a first franchise.', o:['Yes','No']},
 {t:'single',ch:1, n:'veteran',  q:'Are you a veteran?', h:'A lot of brands discount their franchise fee for veterans. Worth knowing up front.', o:['Yes','No']},
 {t:'single',ch:1, n:'partnered',q:'Are you married or partnered?', h:'If you are, the next few questions cover them too &mdash; they&rsquo;re usually part of this decision.', o:['Yes','No']},
 {t:'pair',  ch:1, q:'Tell me about your spouse or partner.', if:partnered,
-  f:[{n:'spouse_name', l:'Their name'},{n:'spouse_age', l:'Their age', ty:'number'}]},
+  f:[{n:'spouse_name', l:'Their name'},{n:'spouse_age', l:'Their age', v:'age'}]},
 {t:'email', ch:1, n:'spouse_email', q:'And their email?', ph:'them@email.com', if:partnered},
 
 /* ---------- 2 ---------- */
-{t:'chapter', ch:2, body:'Where you are now, and what you&rsquo;ve liked and disliked about getting here. The dislikes are usually the more useful half.'},
 {t:'pair',  ch:2, q:'What do you do right now?', f:[{n:'position', l:'Your current position'},{n:'employer', l:'Employer'}]},
-{t:'text',  ch:2, n:'income', q:'Roughly what do you earn a year?', h:'A rough figure is fine. This is confidential and it never leaves me.', ph:'e.g. $185,000'},
+{t:'text',  ch:2, n:'income', q:'Roughly what do you earn a year?', h:'A rough figure is fine. This is confidential and it never leaves me.', ph:'e.g. $185,000', v:'money'},
 {t:'long',  ch:2, n:'duties', q:'What do your duties actually look like day to day?'},
 {t:'pair',  ch:2, q:'What does your spouse or partner do?', if:partnered,
   f:[{n:'spouse_position', l:'Their current position'},{n:'spouse_employer', l:'Their employer'}]},
-{t:'text',  ch:2, n:'spouse_income', q:'And roughly what do they earn a year?', ph:'Rough figure is fine', if:partnered},
+{t:'text',  ch:2, n:'spouse_income', q:'And roughly what do they earn a year?', ph:'Rough figure is fine', v:'money', if:partnered},
 {t:'long',  ch:2, n:'spouse_duties', q:'What do their duties look like?', if:partnered},
 {t:'long',  ch:2, n:'liked_most',  q:'What have you liked <span class="it">most</span> about your past or current employment?'},
 {t:'long',  ch:2, n:'liked_least', q:'And what have you liked <span class="it">least</span>?', h:'Be honest here. What you want to get away from shapes the search as much as what you want to run toward.'},
 
 /* ---------- 3 ---------- */
-{t:'chapter', ch:3, body:'The most important chapter. What you actually want out of this is what the whole search gets built around.'},
 {t:'single',ch:3, n:'describe', q:'Which best describes you right now?', o:[
   'Corporate executive &mdash; considering a transition out of corporate',
   'Business owner &mdash; expanding or adding a second income stream',
@@ -418,16 +460,14 @@ var S = [
 {t:'single',ch:3, n:'job_plan', q:'Do you plan to keep your current job while building the business, or transition out?', o:['Keep my job and build alongside it','Transition out','Not sure yet']},
 
 /* ---------- 4 ---------- */
-{t:'chapter', ch:4, body:'What pulls you toward owning, and what keeps you up about it. Both are useful.'},
 {t:'single',ch:4, n:'owned', q:'Have you ever owned a business?', o:['Yes','No']},
 {t:'long',  ch:4, n:'owned_explain', q:'Tell me about it.', h:'What it was, how long you ran it, and how it ended.', if:function(a){ return a.owned === 'Yes'; }},
 {t:'long',  ch:4, n:'attracts', q:'What attracts you to the idea of <span class="it">business ownership?</span>'},
 {t:'long',  ch:4, n:'concerns', q:'And what are your major concerns with it?'},
 
 /* ---------- 5 ---------- */
-{t:'chapter', ch:5, body:'For each statement, mark how much it sounds like you &mdash; 1 = not really me, 5 = definitely me. This helps me understand how you naturally operate. Twenty-six of them, one keystroke each.'},
 
-{t:'scale', ch:5, n:'style_a_1', g:'How you approach things', q:'I make decisions quickly and move on, even without all the information.'},
+{t:'scale', ch:5, n:'style_a_1', g:'How you approach things', q:'I make decisions quickly and move on, even without all the information.', h:'Twenty-six short statements. 1 = not really me, 5 = definitely me. Go with your gut &mdash; there are no wrong answers.'},
 {t:'scale', ch:5, n:'style_a_2', g:'How you approach things', q:'I&rsquo;m at my best meeting new people and building relationships.'},
 {t:'scale', ch:5, n:'style_a_3', g:'How you approach things', q:'I prefer a steady, predictable routine over constant change.'},
 {t:'scale', ch:5, n:'style_a_4', g:'How you approach things', q:'I study the details and data before I commit.'},
@@ -459,7 +499,6 @@ var S = [
 {t:'scale', ch:5, n:'style_e_4', g:'How you work with others', q:'I&rsquo;d rather run my own show than compare notes with everyone.'},
 
 /* ---------- 6 ---------- */
-{t:'chapter', ch:6, body:'What you&rsquo;re genuinely good at narrows the list faster than almost anything else.'},
 {t:'multi', ch:6, n:'roles', q:'Which roles appeal to your strengths?', h:'Pick as many as fit.', grid:true, o:[
   'Sales','Marketing','Networking','Prospecting new customers','Selling a new / emerging idea',
   'Managing employees','Leadership','Financials / accounting','Operations','Customer-focused']},
@@ -468,8 +507,7 @@ var S = [
 {t:'long', ch:6, n:'never_again', q:'Something you&rsquo;re good at but would be happy to never do again?'},
 
 /* ---------- 7 ---------- */
-{t:'chapter', ch:7, body:'Check anything that appeals &mdash; several or none is fine, we&rsquo;ll refine on the call.'},
-{t:'multi', ch:7, n:'bm_setting', q:'What kind of setting appeals to you?', grid:true, o:['Home-based','Office-based','Retail / brick-and-mortar','Open to everything']},
+{t:'multi', ch:7, n:'bm_setting', q:'What kind of setting appeals to you?', h:'Check anything that appeals &mdash; several or none is fine, we&rsquo;ll refine on the call.', grid:true, o:['Home-based','Office-based','Retail / brick-and-mortar','Open to everything']},
 {t:'multi', ch:7, n:'bm_owner', q:'Which ownership model appeals to you?', o:['Owner-operator (hands-on, running it day to day)','Executive model (managing the team and resources to grow)','Not sure yet']},
 {t:'multi', ch:7, n:'bm_customer', q:'Who&rsquo;s your ideal customer?', grid:true, o:['B2B','B2C','Children','Seniors','Blue-collar','White-collar','Fairly open']},
 {t:'multi', ch:7, n:'bm_revenue', q:'What revenue style appeals to you?', o:['High-ticket (fewer, larger jobs)','Recurring revenue (repeat / subscription)','Either']},
@@ -477,8 +515,7 @@ var S = [
 {t:'multi', ch:7, n:'bm_employees', q:'Preferred number of employees to start?', grid:true, o:['None / just me','Less than 5','5-15','15+','Open to options']},
 
 /* ---------- 8 ---------- */
-{t:'chapter', ch:8, body:'Twelve categories. Check anything that interests you, leave blank anything you&rsquo;d rule out. Sub-categories help me research precisely.'},
-{t:'multi', ch:8, n:'ind_health', q:'Healthcare &amp; beauty care', grid:true, o:['Senior care &mdash; home health (medical)','Senior care &mdash; home health (non-medical)','Senior care placement','Anti-aging','Barber services','Eyelashes / nail salons','Massage / spa / skin care','Tanning / waxing','Mobility equipment','Medical staffing']},
+{t:'multi', ch:8, n:'ind_health', q:'Healthcare &amp; beauty care', h:'Twelve categories coming up. Check anything that interests you, leave blank anything you&rsquo;d rule out.', grid:true, o:['Senior care &mdash; home health (medical)','Senior care &mdash; home health (non-medical)','Senior care placement','Anti-aging','Barber services','Eyelashes / nail salons','Massage / spa / skin care','Tanning / waxing','Mobility equipment','Medical staffing']},
 {t:'multi', ch:8, n:'ind_auto', q:'Automotive', grid:true, o:['Auto repair','Tinting','Detailing']},
 {t:'multi', ch:8, n:'ind_biz', q:'Business services', grid:true, o:['Business coaching','Cost reduction','Bookkeeping','Commercial cleaning','Recruiting','Marketing','Medical billing','Logistics','Payroll']},
 {t:'multi', ch:8, n:'ind_child', q:'Child services', grid:true, o:['Fitness','Education','Cooking','Music','Language']},
@@ -493,16 +530,14 @@ var S = [
 {t:'long',  ch:8, n:'industry_experience', q:'Do you have any experience working in or around the industries you checked?'},
 
 /* ---------- 9 ---------- */
-{t:'chapter', ch:9, body:'Rough figures are fine, especially this early &mdash; everything is confidential. This is what sets the realistic range, so a guess beats a blank.'},
-{t:'text', ch:9, n:'liquid_capital', q:'How much liquid capital do you have available to invest?', h:'Liquid capital = money you can access quickly without having to sell long-term investments or major assets &mdash; like checking, savings, and money market funds.', ph:'e.g. $150,000'},
-{t:'text', ch:9, n:'brokerage', q:'What&rsquo;s in brokerage or investment accounts?', h:'Stocks and funds you could tap if needed.', ph:'Rough figure'},
-{t:'text', ch:9, n:'retirement', q:'And retirement funds &mdash; 401(k), IRA?', ph:'Rough figure'},
+{t:'text', ch:9, n:'liquid_capital', q:'How much liquid capital do you have available to invest?', h:'Rough figures are fine, especially this early &mdash; everything is confidential. Liquid capital = money you can access quickly without having to sell long-term investments or major assets &mdash; like checking, savings, and money market funds.', ph:'e.g. $150,000', v:'money'},
+{t:'text', ch:9, n:'brokerage', q:'What&rsquo;s in brokerage or investment accounts?', h:'Stocks and funds you could tap if needed.', ph:'Rough figure', v:'money'},
+{t:'text', ch:9, n:'retirement', q:'And retirement funds &mdash; 401(k), IRA?', ph:'Rough figure', v:'money'},
 {t:'text', ch:9, n:'investment_range', q:'What investment range are you considering?', ph:'e.g. $100k&ndash;$250k'},
-{t:'text', ch:9, n:'net_worth', q:'Approximate net worth?', h:'Net worth = everything you own (home, savings, investments, retirement, other assets) minus everything you owe (mortgage, loans, debts).', ph:'Rough figure'},
+{t:'text', ch:9, n:'net_worth', q:'Approximate net worth?', h:'Net worth = everything you own (home, savings, investments, retirement, other assets) minus everything you owe (mortgage, loans, debts).', ph:'Rough figure', v:'money'},
 {t:'multi', ch:9, n:'funding', q:'How do you plan to fund it?', grid:true, o:['Cash / savings','SBA loan','Home equity','401(k) / ROBS','Partner or investor','Not sure &mdash; would like guidance']},
 
 /* ---------- 10 ---------- */
-{t:'chapter', ch:10, body:'Last one. Then send it over and we&rsquo;ll build your search around it.'},
 {t:'long', ch:10, n:'decision_makers', q:'Is anyone else part of this decision? Will anyone help run the business?'},
 
 {t:'review'}
@@ -533,88 +568,100 @@ function qList(){ return vis().filter(isQ); }
 function plain(html){ var d = document.createElement('div'); d.innerHTML = html; return d.textContent.trim(); }
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-/* ---------- head + shell shared by every question screen ---------- */
-function head(s, qi, qn){
+/* ---------- head + shell shared by every question screen ----------
+   The section label rides on top of the question. There are no chapter
+   pages and no running question total - a count of 89 reads as a chore
+   before anyone has answered one.                                       */
+function head(s){
   var h = '';
-  if (s.ch) h += '<span class="chip"><i aria-hidden="true"></i>' + (s.g || CH[s.ch-1]) + '</span>';
-  if (qi)   h += '<div class="qn"><b>' + String(qi).padStart(2,'0') + '</b>' +
-                 '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>' +
-                 '<b style="color:var(--faint)">of ' + qn + '</b></div>';
+  if (s.ch) h += '<span class="chip"><i aria-hidden="true"></i>Step ' + s.ch + ' &middot; ' + (s.g || CH[s.ch-1]) + '</span>';
   h += '<h2 class="qt">' + s.q + '</h2>';
   if (s.h) h += '<p class="qh">' + s.h + '</p>';
   return h;
 }
+var BACKSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>';
 function advRow(label, hint){
   return '<div class="go">' +
-    '<button type="button" class="btn btn-solid" id="ok">' + (label || 'OK') + ARROW + '</button>' +
-    (hint === false ? '' : '<span class="hint">press <kbd>Enter</kbd></span>') +
+    '<button type="button" class="btn-mini back" aria-label="Previous question">' + BACKSVG + '</button>' +
+    (label === false ? '' : '<button type="button" class="btn btn-solid" id="ok">' + (label || 'OK') + ARROW + '</button>') +
+    '<span class="hint">' + (hint || 'press <kbd>Enter</kbd>') + '</span>' +
     '</div>';
+}
+function field(spec, val, focus){
+  return '<label class="fwrap">' +
+    (spec.l ? '<span class="pl">' + spec.l + '</span>' : '') +
+    '<input class="fin" type="' + (spec.ty || (spec.v === 'phone' ? 'tel' : spec.t === 'email' ? 'email' : 'text')) + '"' +
+      ' data-n="' + spec.n + '"' + (spec.v ? ' data-v="' + spec.v + '"' : '') +
+      (spec.v === 'phone' || spec.v === 'age' ? ' inputmode="numeric"' : '') +
+      (spec.ac ? ' autocomplete="' + spec.ac + '"' : '') +
+      (focus ? ' data-focus' : '') +
+      ' placeholder="' + (spec.ph || '') + '" value="' + esc(val || '') + '">' +
+    '<span class="err"></span></label>';
 }
 
 /* ---------- render ---------- */
 function render(){
   var list = vis(), s = list[idx], qs = qList();
-  var qi = isQ(s) ? qs.indexOf(s) + 1 : 0;
   var h = '';
+  document.body.classList.toggle('welcome', s.t === 'welcome');
 
   if (s.t === 'welcome') {
-    h = '<span class="chip"><i aria-hidden="true"></i>Confidential Questionnaire</span>' +
-        '<h2 class="qt" style="font-size:clamp(32px,5vw,58px)">The questions I&rsquo;d ask on the call, <span class="it">answered first.</span></h2>' +
-        '<p class="qh" style="font-size:17px;max-width:52ch">This helps me understand your goals, style, and what you&rsquo;re looking for before we talk &mdash; so our call is spent on finding the right fit, not gathering basics. Everything is confidential. Go with your gut; there are no wrong answers.</p>' +
-        '<div class="meta">' +
-          '<div><span class="k">' + qs.length + '</span><span class="v">Questions</span></div>' +
-          '<div><span class="k">12&ndash;15</span><span class="v">Minutes</span></div>' +
-          '<div><span class="k">Auto</span><span class="v">Saved as you go</span></div>' +
-          '<div><span class="k">Private</span><span class="v">Josh only, never a franchisor</span></div>' +
+    h = '<div class="wcard">' +
+        '<div class="wcopy">' +
+          '<span class="chip"><i aria-hidden="true"></i>Confidential Questionnaire</span>' +
+          '<h2 class="qt">The questions I&rsquo;d ask on the call, <span class="it">answered first.</span></h2>' +
+          '<p class="qh">This helps me understand your goals, style, and what you&rsquo;re looking for before we talk &mdash; so our call is spent on finding the right fit, not gathering basics. Go with your gut; there are no wrong answers.</p>' +
+          '<div class="sig">' +
+            '<img src="assets/josh-avatar-sm.jpg" width="120" height="120" alt="Josh DuBois" onerror="this.style.display=\'none\'">' +
+            '<span><b>Josh DuBois</b><i>Founder, JD Strategic Franchising</i></span>' +
+          '</div>' +
+          '<div class="go">' +
+            '<button type="button" class="btn btn-solid" id="ok">Begin' + ARROW + '</button>' +
+            '<span class="hint">press <kbd>Enter</kbd></span>' +
+          '</div>' +
+          '<p class="reassure"><b>Confidential.</b> Saved as you go, so you can finish it later. Never shared with a franchisor.</p>' +
         '</div>' +
-        advRow('Begin');
-
-  } else if (s.t === 'chapter') {
-    h = '<div class="chap">' +
-        '<span class="ghost" aria-hidden="true">' + String(s.ch).padStart(2,'0') + '</span>' +
-        '<span class="lab">Chapter ' + s.ch + ' of 10</span>' +
-        '<h2>' + CH[s.ch-1] + '</h2>' +
-        '<div class="rule" aria-hidden="true"></div>' +
-        '<p>' + s.body + '</p>' +
-        advRow('Continue') + '</div>';
+        '<div class="wfig">' +
+          '<img src="assets/hero-josh.jpg" width="1400" height="1750" alt="Josh DuBois, founder of JD Strategic Franchising" fetchpriority="high" decoding="async">' +
+          '<figure class="wquote">' +
+            '<span class="qm" aria-hidden="true">&ldquo;</span>' +
+            '<div><p>I&rsquo;ve lived every side of it, the good deals and the bad ones.</p>' +
+            '<cite>Josh DuBois, Founder</cite></div>' +
+          '</figure>' +
+        '</div>' +
+        '</div>';
 
   } else if (s.t === 'review') {
     h = '<span class="chip"><i aria-hidden="true"></i>One last look</span>' +
         '<h2 class="qt">That&rsquo;s everything. <span class="it">Ready to send?</span></h2>' +
         '<p class="qh">Check anything you want to change &mdash; every line is editable. Nothing here is shared with a franchisor.</p>' +
         '<div class="qb"><div class="rev" id="rev">' + reviewHTML() + '</div></div>' +
-        '<div class="go"><button type="button" class="btn btn-solid" id="ok">Send to Josh' + ARROW + '</button>' +
-        '<span class="hint">You&rsquo;ll get a printable copy next</span></div>';
+        advRow('Send to Josh', 'You&rsquo;ll get a printable copy next');
 
   } else if (s.t === 'pair') {
-    h = head(s, qi, qs.length) + '<div class="qb"><div class="pair">' +
-        s.f.map(function(f, k){
-          return '<label><span class="pl">' + f.l + '</span>' +
-                 '<input class="fin" type="' + (f.ty || 'text') + '" data-n="' + f.n + '"' +
-                 (f.ac ? ' autocomplete="' + f.ac + '"' : '') +
-                 ' value="' + esc(A[f.n] || '') + '"' + (k === 0 ? ' data-focus' : '') + '></label>';
-        }).join('') +
+    h = head(s) + '<div class="qb"><div class="pair">' +
+        s.f.map(function(f, k){ return field(f, A[f.n], k === 0); }).join('') +
         '</div></div>' + advRow();
 
   } else if (s.t === 'long') {
-    h = head(s, qi, qs.length) + '<div class="qb">' +
+    h = head(s) + '<div class="qb"><label class="fwrap">' +
         '<textarea class="fin" data-n="' + s.n + '" rows="2" data-focus placeholder="' + (s.ph || 'Type your answer&hellip;') + '">' + esc(A[s.n] || '') + '</textarea>' +
-        '<span class="err">Please add an answer.</span></div>' +
-        advRow('OK') .replace('press <kbd>Enter</kbd>', 'press <kbd>Enter</kbd> &nbsp;&middot;&nbsp; <kbd>Shift</kbd> + <kbd>Enter</kbd> for a new line');
+        '<span class="err"></span></label></div>' +
+        advRow('OK', 'press <kbd>Enter</kbd> &nbsp;&middot;&nbsp; <kbd>Shift</kbd> + <kbd>Enter</kbd> for a new line');
 
   } else if (s.t === 'single') {
-    h = head(s, qi, qs.length) + '<div class="qb"><div class="opts' + (s.grid ? ' grid' : '') + '" role="radiogroup">' +
+    h = head(s) + '<div class="qb"><div class="opts' + (s.grid ? ' grid' : '') + '" role="radiogroup">' +
         s.o.map(function(o, k){
           return '<button type="button" class="opt' + (A[s.n] === plain(o) ? ' sel' : '') + '" data-v="' + esc(plain(o)) + '" role="radio" aria-checked="' + (A[s.n] === plain(o)) + '">' +
                  '<span class="k">' + LETTERS[k] + '</span><span>' + o + '</span>' +
                  '<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 6 6L20 6"/></svg></button>';
         }).join('') +
         '</div></div>' +
-        '<div class="go"><span class="hint">Pick one &mdash; or press <kbd>' + LETTERS[0] + '</kbd>&ndash;<kbd>' + LETTERS[s.o.length-1] + '</kbd></span></div>';
+        advRow(false, 'Pick one &mdash; or press <kbd>' + LETTERS[0] + '</kbd>&ndash;<kbd>' + LETTERS[s.o.length-1] + '</kbd>');
 
   } else if (s.t === 'multi') {
     var chosen = A[s.n] || [];
-    h = head(s, qi, qs.length) + '<div class="qb"><div class="opts' + (s.grid ? ' grid' : '') + '">' +
+    h = head(s) + '<div class="qb"><div class="opts' + (s.grid ? ' grid' : '') + '">' +
         s.o.map(function(o, k){
           return '<button type="button" class="opt' + (chosen.indexOf(plain(o)) > -1 ? ' sel' : '') + '" data-v="' + esc(plain(o)) + '" aria-pressed="' + (chosen.indexOf(plain(o)) > -1) + '">' +
                  '<span class="k">' + LETTERS[k] + '</span><span>' + o + '</span>' +
@@ -623,21 +670,15 @@ function render(){
         '</div></div>' + advRow('OK');
 
   } else if (s.t === 'scale') {
-    h = head(s, qi, qs.length) + '<div class="qb"><div class="scale" role="radiogroup">' +
+    h = head(s) + '<div class="qb"><div class="scale" role="radiogroup">' +
         [1,2,3,4,5].map(function(v){
           return '<button type="button" class="sc' + (A[s.n] === String(v) ? ' sel' : '') + '" data-v="' + v + '" role="radio" aria-checked="' + (A[s.n] === String(v)) + '" aria-label="' + v + ' of 5">' + v + '</button>';
         }).join('') +
         '</div><div class="sclab"><span>Not really me</span><span>Definitely me</span></div></div>' +
-        '<div class="go"><span class="hint">Press <kbd>1</kbd>&ndash;<kbd>5</kbd></span></div>';
+        advRow(false, 'Press <kbd>1</kbd>&ndash;<kbd>5</kbd>');
 
   } else {
-    h = head(s, qi, qs.length) + '<div class="qb">' +
-        '<input class="fin" type="' + s.t + '" data-n="' + s.n + '" data-focus' +
-        (s.ac ? ' autocomplete="' + s.ac + '"' : '') +
-        (s.t === 'number' ? ' inputmode="numeric"' : '') +
-        ' placeholder="' + (s.ph || '') + '" value="' + esc(A[s.n] || '') + '">' +
-        '<span class="err">' + (s.t === 'email' ? 'That email doesn&rsquo;t look right.' : 'This one I do need.') + '</span></div>' +
-        advRow();
+    h = head(s) + '<div class="qb">' + field(s, A[s.n], true) + '</div>' + advRow();
   }
 
   card.className = 'card';
@@ -646,18 +687,20 @@ function render(){
   card.className = 'card in' + (dir < 0 ? ' rev' : '');
   stage.scrollTop = 0;
   wire(s);
-  chrome(s, qi, qs.length);
+  chrome(s, qs);
 }
 
-function chrome(s, qi, qn){
+function chrome(s, qs){
+  var qi = isQ(s) ? qs.indexOf(s) + 1 : 0;
   counter.textContent = s.t === 'welcome' ? 'Confidential Questionnaire'
-                      : s.t === 'chapter' ? 'Chapter ' + s.ch + ' of 10'
                       : s.t === 'review'  ? 'Review'
-                      : qi + ' of ' + qn;
-  var pct = s.t === 'review' ? 1 : (qi ? qi / qn : 0);
+                      : 'Step ' + s.ch + ' of 10';
+  /* the bar still tracks real position - it just never puts a number on it */
+  var pct = s.t === 'review' ? 1 : (qi ? qi / qs.length : 0);
   bar.style.transform = 'scaleX(' + pct + ')';
   prevBtn.disabled = idx === 0;
   nextBtn.disabled = idx >= vis().length - 1;
+  card.querySelectorAll('.btn-mini.back').forEach(function(b){ b.disabled = idx === 0; });
 }
 
 /* ---------- wiring ---------- */
@@ -668,13 +711,31 @@ function wire(s){
   var f = card.querySelector('[data-focus]');
   if (f && !('ontouchstart' in window)) setTimeout(function(){ f.focus({preventScroll:true}); }, RM ? 0 : 340);
 
+  card.querySelectorAll('.btn-mini.back').forEach(function(b){
+    b.addEventListener('click', prev);
+  });
+
   card.querySelectorAll('.fin').forEach(function(el){
     if (el.tagName === 'TEXTAREA') { grow(el); el.addEventListener('input', function(){ grow(el); }); }
     el.addEventListener('input', function(){
+      /* keep the field physically incapable of holding the wrong shape */
+      if (el.dataset.v === 'phone') {
+        var at = el.selectionStart, was = el.value.length;
+        el.value = fmtPhone(el.value);
+        if (at !== null && at < was) el.setSelectionRange(at + (el.value.length - was), at + (el.value.length - was));
+      }
+      if (el.dataset.v === 'age') el.value = el.value.replace(/\D/g, '').slice(0, 3);
       A[el.dataset.n] = el.value;
-      el.closest('.qb').classList.remove('bad');
+      var w = el.closest('.fwrap'); if (w) w.classList.remove('bad');
       save();
     });
+    if (el.dataset.v === 'money') {
+      el.addEventListener('blur', function(){
+        el.value = fmtMoney(el.value);
+        A[el.dataset.n] = el.value;
+        save();
+      });
+    }
   });
 
   if (s.t === 'single') {
@@ -738,14 +799,60 @@ function next(){
 }
 function prev(){ if (idx > 0) { dir = -1; idx--; render(); save(); } }
 
+/* ---------- validation ----------------------------------------------------
+   Only name, email and phone are required. Everything else is optional but
+   is checked for SHAPE the moment it is filled in - a phone that is not ten
+   digits, an age that is not a number, a dollar amount with no digits in it.
+   ------------------------------------------------------------------------ */
+var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+function fmtPhone(v){
+  var d = String(v).replace(/\D/g, '').slice(0, 10);
+  if (d.length < 4) return d;
+  if (d.length < 7) return '(' + d.slice(0,3) + ') ' + d.slice(3);
+  return '(' + d.slice(0,3) + ') ' + d.slice(3,6) + '-' + d.slice(6);
+}
+function fmtMoney(v){
+  var t = String(v).trim();
+  /* only tidy a plain amount - leave ranges, words and "k" notation alone */
+  if (!/^\$?[\d,]+$/.test(t)) return t;
+  var d = t.replace(/\D/g, '');
+  return d ? '$' + Number(d).toLocaleString('en-US') : t;
+}
+function fieldErr(spec, raw){
+  var v = String(raw || '').trim();
+  if (!v) return spec.req ? (spec.t === 'email' ? 'I need an email to send anything back to.'
+                          : spec.v === 'phone' ? 'I need a number to confirm the call.'
+                          : 'This one I do need.') : null;
+  if (spec.v === 'phone') {
+    var d = v.replace(/\D/g, '');
+    if (d.length !== 10) return 'That\u2019s ' + d.length + ' digit' + (d.length === 1 ? '' : 's') + ' \u2014 a US number needs 10.';
+  }
+  if (spec.v === 'age') {
+    if (!/^\d+$/.test(v)) return 'Numbers only, please.';
+    var n = Number(v);
+    if (n < 18 || n > 100) return 'Please enter an age between 18 and 100.';
+  }
+  if (spec.v === 'money' && !/\d/.test(v)) return 'Please include a number \u2014 a rough figure is fine.';
+  if ((spec.t === 'email' || spec.ty === 'email') && !EMAIL_RE.test(v)) return 'That email doesn\u2019t look right.';
+  return null;
+}
 function valid(s){
-  if (!s.req) return true;
-  var el = card.querySelector('.fin');
-  if (!el) return true;
-  var v = (el.value || '').trim();
-  var bad = !v || (s.t === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v));
-  if (bad) { el.closest('.qb').classList.add('bad'); el.focus(); return false; }
-  return true;
+  var specs = s.t === 'pair' ? s.f : [s];
+  var els = card.querySelectorAll('.fin');
+  var ok = true, first = null;
+  specs.forEach(function(spec, i){
+    var el = els[i]; if (!el) return;
+    var msg = fieldErr(spec, el.value);
+    var w = el.closest('.fwrap'); if (!w) return;
+    w.classList.toggle('bad', !!msg);
+    if (msg) {
+      var e = w.querySelector('.err'); if (e) e.innerHTML = msg;
+      ok = false; if (!first) first = el;
+    }
+  });
+  if (first) first.focus();
+  return ok;
 }
 
 prevBtn.addEventListener('click', prev);
