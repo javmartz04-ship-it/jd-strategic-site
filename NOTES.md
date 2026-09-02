@@ -351,3 +351,63 @@ Flagged but NOT changed, because it is a content call: the "Why franchising at a
 section (be your own boss / proven playbook / minimized risk / financing) is the one
 block on the page that could appear on any franchise broker's site. It answers a real
 buyer question but differentiates Josh not at all.
+
+---
+
+# ROUND 5 (2026-08-29): the structural leap. "Make it 20x better."
+
+Javier, after four rounds of polish: *"improve the site dramatically... not just little
+tweaks, but immensely... make things twenty times better."* Model switched to Fable 5.1
+for this round.
+
+## The diagnosis that changed the approach
+
+Four rounds of increasingly careful polish had hit diminishing returns because the
+page's PROBLEM was never polish. Zoomed out it was eleven sections of the same height,
+the same width and the same density. Polishing a metronome makes a shinier metronome.
+
+So this round was a rebuild around a concept, not a pass: **the page reads like a
+private briefing from someone who has been inside the industry.**
+
+## What the concept gave the page
+
+- **Seven numbered chapters instead of eleven similar sections.** Point-of-view and
+  broker-vs-coach merged into "01 The position". Why-franchising and categories merged
+  into "04 Where the money is". FAQ and contact merged into "07 The call". Each chapter
+  opens with a ghost numeral at up to 168px, a running header with an orange rule, and
+  the title. That single component is what makes the page feel authored.
+- **A side index rail** (desktop, appears once past the hero) that tracks the active
+  chapter in `mix-blend-mode:difference` so it reads on both cream and navy.
+- **Real dynamic range in section height**: 886 / 2488 / 1190 / 1422 / 1835 / 1812 /
+  1258 / 1125 instead of everything at ~1100.
+- **Josh's two photographs used at chapter scale.** The studio headshot, which had been a
+  small square in a column, is now a half-bleed chapter opener at 1400px, dissolved into
+  navy on three edges so it sits at that size without a hard rectangle or a visible
+  upscale. Built as a composite asset, not CSS.
+- **A horizontal scroll-snap strip** for the categories (native scroll, arrow nudges,
+  never scroll-jacking) replacing the static 4-up grid. 2.5 tiles visible invites the
+  scroll.
+- **The podcast guests as a proof marquee.** Hall of Famer, first Great American Cookies
+  franchisee and former IFA chairman, Sandler's executive chairman: all real, all from
+  the episode art already on the page. This is the authority signal the site never used.
+- Wordmark instead of "JD" in a box: Playfair "JD Strategic", orange rule, small caps
+  FRANCHISING.
+- Hero headline pushed to 118px, sitting right at the seam with the photograph.
+
+## Defects caught by looking, first render
+
+- The insider chapter's opener was inside a half-width column, so the 168px numeral left
+  the title ~300px and it wrapped one word per line and CLIPPED ("franchisin"). Stacked
+  the opener and sized it for the column.
+- The portrait crop showed half a face: `object-position:right bottom` on a centred
+  subject. `50% 100%`.
+- The rail crowded the hero's eyebrow; now appears at 55% of hero height.
+
+Harness was rebuilt as one script (`h.mjs verify|interact|rhythm|close`) after the
+scratchpad was wiped a second time.
+
+## Still open
+
+Real client wins and a booking URL. And the honest note from round 4 stands: photography
+is now used at the scale a premium site needs, but there are still only two photographs of
+Josh in existence. A half-day shoot remains the single highest-leverage thing available.
