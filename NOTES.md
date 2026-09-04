@@ -555,3 +555,28 @@ Section rhythm: 937 / 2490 / 1190 / 1422 / 2088 / 1508 / 1606 / 1128.
 4. **Photography of Josh.** Still two frames in existence, one of them a video still. A
    half-day shoot remains the single highest-leverage thing available, and it is now the
    only thing on the page that a better asset would obviously improve.
+
+---
+
+# ROUND 7 (2026-08-29): the two things Javier did not like
+
+Javier on the Round 6 build: *"looks amazing! the only thing I don't like are these
+things"* with two screenshots: the side chapter index (01-07 with dashes) and the giant
+ghost chapter numeral above each chapter title.
+
+Removed both. Chapter openers keep the running header and the title, which is enough to
+carry the chaptered-brief concept; the footer index lost its "01 / 02" prefixes too so
+nothing refers to a numbering that no longer exists on the page. The step numerals inside
+the process rows, point-of-view columns and why-cards stayed: they number real steps and
+were not what the screenshots pointed at.
+
+**Found while doing it:** a Round 6 had landed on top of my Round 5 (floating island nav,
+lit gradient grounds, a rebuilt hero). My first removal pass ran against the file I
+remembered rather than the file that existed, stripped the markup, and left Round 6's
+rail CSS and scroll bookkeeping behind. Read `git log` before editing a build that
+another session may have touched.
+
+Also caught by the width sweep, not by eye: Round 6's hero capped the headline box at
+124% of a ~730px column and let the type climb to 132px, so "Buy a franchise" wrapped to
+two lines from 1800px to 2199px. Capped at 119px there, full 132px again from 2200px
+where the rail widens. Holds one line per row at all eleven measured widths, 375 to 3440.
