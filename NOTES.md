@@ -411,3 +411,147 @@ scratchpad was wiped a second time.
 Real client wins and a booking URL. And the honest note from round 4 stands: photography
 is now used at the scale a premium site needs, but there are still only two photographs of
 Josh in existence. A half-day shoot remains the single highest-leverage thing available.
+
+---
+
+# ROUND 6 (2026-09-04): the material pass. "Make it feel like the web."
+
+Javier: *"it's in the right direction but I don't think it's in the right direction
+regarding the design, it can be way better… make this the best website in the world…
+the feeling should feel very premium and like this is the web."*
+
+## The diagnosis
+
+Round 5 fixed the *structure* (seven chapters, real dynamic range) and Javier confirmed
+the direction. So this round was not another structural rebuild. Screenshotting the live
+page in viewport slices and reading them showed one consistent problem underneath every
+section: **the page was printed, not lit.**
+
+Every surface was a flat fill — flat cream, flat `#0A1D3A` navy — with a solid navy
+chrome slab bolted across the top of every screen. That is a very good newspaper. It is
+not the web. Nothing on the page did anything a sheet of paper could not do.
+
+So: keep the spine, change the material.
+
+## The six moves
+
+**1. The chrome became a floating island.** A 40px utility bar plus a 74px solid navy
+nav owned the top 114px of every screen and sliced through five of the seven chapter
+headlines. Both are gone. The nav is now transparent over the hero and condenses into a
+detached capsule — `backdrop-filter: blur(24px) saturate(1.75)`, hairline, inset top
+highlight, long soft shadow, 3px radius to stay in the editorial register rather than
+the SaaS pill. It **inverts over dark chapters**, driven by `elementsFromPoint` at the
+island's own centre, never `mix-blend-mode`. Verified on all seven chapters: light on
+the four paper ones, dark on money / insider / call.
+
+**2. Every ground is lit.** `--lit-paper`, `--lit-cream`, `--lit-band` and `--lit-navy`
+replace flat fills. Navy is now a room: `#183D73` top-left falling to `#050D1C` at the
+base, a light hairline along the top edge, and a `rgba(4,11,24,.72)` shadow across the
+top 26% so **consecutive dark chapters meet dark-on-dark instead of showing a seam**.
+That seam was visible between 04 and 05 on the first render.
+
+**3. The hero is a lit room, not a split.** The old hero ran a transparent cutout
+composited onto a blurred stock office. Rebuilt:
+- **The matte was decontaminated.** The cutout had been lifted off a bright ground, so
+  every partial-alpha pixel carried a slice of white — a visible halo around the head
+  and shoulders. Un-premultiplied it back out, eroded the matte 1px, steepened the
+  falloff, then a light grade (WB at 0.34 strength; people take a third of what rooms
+  take) and an unsharp pass on the subject only. The bottom 210px of alpha is feathered
+  so he melts into the floor instead of ending on a crop line.
+- **The room is CSS, not baked into the JPG.** One warm bloom upper-right, a brand-orange
+  wash at 5.5%, a floor shade opposite. It **drifts ~34px with the pointer** — depth, not
+  parallax, and off under `prefers-reduced-motion` or a coarse pointer.
+- **The figure and the layout interleave.** The hero's full-bleed hairline passes behind
+  him; he overhangs the stat band by up to 88px. No panel, no plinth.
+- Headline to `clamp(44px,7vw,132px)`. Hero holds exactly 2 lines at all nine viewports.
+
+**4. Photography triage, which is where most of the "cheap" was hiding.**
+- **Fourteen 320×180 YouTube thumbnails, deleted.** Baked-in yellow display type,
+  SUBSCRIBE buttons, a red play badge, cyan and orange and black art from four different
+  designers. No grade rescues a 320px source. The 1280×720 "latest episode" poster went
+  with them for the same reason.
+- **In their place, the episode register.** Enlarging the thumbnails to read them
+  surfaced the real proof the site had been burying: Eric Martin (SVP of Franchise
+  Development, Happinest Brands), Doc Cohen (first franchisee of Great American Cookies,
+  former IFA chairman), Sandler's executive chairman, Andy Fuller (founder/CEO, Mosquito
+  Hunters), Jolita Brilliant. Eight episodes set as a two-column index with numbers,
+  titles and guest credentials. Every word is read off the client's own episode art —
+  nothing invented.
+- **The insider portrait stopped being a face.** `object-fit:cover` in a 720×1508 cell
+  had blown a 1400×1500 head-and-shoulders crop up to forehead-and-teeth filling half the
+  viewport. Now it renders at its own scale (600px) with a radial mask dissolving it into
+  the navy — the composite's studio backdrop was reading as a rectangle sitting on the
+  page — plus a blue key light behind it and a hairline name plate under it.
+- **The set was re-measured and unified.** `josh-process.jpg` was carrying a 0.111 colour
+  cast (cyan, from the source footage) and sitting at 0.601 luminance against a set at
+  0.46. Corrected to 0.512 / 0.055. Category stills lifted out of the murk to one family
+  (0.46–0.50). Its crop was also cutting the subject's head off — `object-position:50% 78%`
+  now frames the hands and the document.
+
+**5. The index rail was rebuilt.** `mix-blend-mode:difference` rendered as scrambled
+illegible glyphs over photographs and as grey debris on light sections. Now hairline
+ticks on the right, themed by the same ground detection as the nav, chapter names on
+hover only, and it appears at 92% of hero height instead of 55% so it never crowds the
+first chapter.
+
+**6. Composition variance.** The 01 point-of-view trio was three equal cards — the banned
+family, and it also flattened an argument literally about narrowing; it now narrows
+(1.3fr / 1.02fr / 0.86fr with a descending type ramp, the third cell a lit navy card with
+its own shadow). The 04 benefits block was a cramped four-up; now 2×2 with real air and a
+bigger heading. Four repeated "WATCHING CLOSELY" eyebrows on the category tiles deleted —
+that was four accent leaks doing nothing.
+
+## Contrast, which was also a premium problem
+
+The a11y pass found **62 elements under AA**. Almost all of them traced to one token:
+`--muted: #8494A6` at 2.95:1 on cream, carrying every eyebrow, caption, label and
+risk-reducer on the page. Washed-out micro-copy is not only an accessibility failure, it
+is exactly what makes a page read thin. The ramp moved to `--body:#4E5F73` /
+`--muted:#63727F` / `--faint:#A9B4C1`.
+
+Two more that needed a design answer rather than a darker grey:
+- **White on `#FF6A00` is 2.87:1 and cannot be fixed without leaving the brand orange.**
+  The accent CTA now runs **ink on orange at 5.85:1** — sharper, more editorial, and the
+  true brand colour survives.
+- **Large orange display text on cream is 2.73:1 against a 3.0 floor.** Added
+  `--accent-text:#E85B00` for exactly that role. Indistinguishable at a glance, passes.
+- Small orange labels on paper can never reach 4.5:1 without going brown, so `.pod-k` and
+  the guest-marquee label switched to the house run-header device: muted caps with an
+  orange tick. Better design and a fixed contrast in one move.
+
+Remaining flags are probe false positives (text over the bleed scrim, `rgba` tiles on
+navy). Down from 62 to 2 real ones, both resolved. Headings no longer skip a level
+(`.tl-r` h4 → h3).
+
+## Verification
+
+Nine viewports, 3440 → 375: **0 horizontal scroll, 0 console errors, 0 unrevealed
+`[data-r]` nodes, hero holds exactly 2 lines at every tier.**
+
+A 14px horizontal scroll at 1440 and 8px at 375 took a bisect to find: `.insider-fig::before`
+was `width:min(104%,760px)` centred in a 720px column, so it hung 14px past each edge.
+Neither an element-rect probe nor a clipped-ancestor probe found it, because the offender
+was a decorative pseudo-element. **A `display:none` bisect down the tree is the tool that
+actually finds these.**
+
+- All **48 quiz paths** reach the result; restart resyncs.
+- FAQ opens, sets `aria-expanded`, closes siblings.
+- 46 links: 0 broken anchors, 0 YouTube links, every external link `target` + `noopener`.
+- CTA label "Book a Call" ×6 verbatim, plus the hero's "Find My Franchise Fit" (a
+  different action).
+- Three arrival conditions all resolve to a visible hero: normal, `prefers-reduced-motion`,
+  and **webfonts aborted at the route level**.
+- Accent emphasis line count: **3** (hero, positioning turn, final CTA). Em-dashes: 0.
+
+Section rhythm: 937 / 2490 / 1190 / 1422 / 2088 / 1508 / 1606 / 1128.
+
+## Still open
+
+1. **Real client wins.** Still none supplied; the section stays deleted, per round 4.
+2. **A booking URL.** Every CTA still resolves to `#contact`; the primary button dials.
+3. **Podcast artwork.** The show chapter is now typographic because the existing art
+   cannot carry a premium page. Real episode stills or commissioned art drop straight back
+   in — the register is built to take a photograph beside it.
+4. **Photography of Josh.** Still two frames in existence, one of them a video still. A
+   half-day shoot remains the single highest-leverage thing available, and it is now the
+   only thing on the page that a better asset would obviously improve.
