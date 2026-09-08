@@ -1273,25 +1273,25 @@ function textSummary(){
   return out.join('\n').trim();
 }
 
-/* GHL's hook endpoint does not answer a CORS preflight, so the body goes as
-   text/plain - that keeps it a "simple request" and it is sent without one.
-   If the response still cannot be read, retry opaquely: the POST is delivered
-   either way, we just lose the ability to confirm it. */
+/* application/json, plainly. GHL answers the CORS preflight (204, allow-headers *)
+   so there is nothing to work around.
+
+   CRITICAL: this endpoint returns HTTP 200 even when it REJECTS the body -
+   a text/plain post comes back 200 with
+     {"status":"Error: Request has invalid data: Body payload..."}
+   and nothing reaches the workflow. So the status code is not the result.
+   Read the body and treat an "Error" status as a failure. */
 function send(data){
-  var body = JSON.stringify(data);
   return fetch(WEBHOOK, {
     method: 'POST',
-    headers: {'Content-Type': 'text/plain;charset=UTF-8'},
-    body: body
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
   }).then(function(r){
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    return 'ok';
-  }).catch(function(){
-    return fetch(WEBHOOK, {
-      method: 'POST', mode: 'no-cors',
-      headers: {'Content-Type': 'text/plain;charset=UTF-8'},
-      body: body
-    }).then(function(){ return 'opaque'; });
+    return r.text().then(function(txt){
+      if (!r.ok) throw new Error('HTTP ' + r.status + ' ' + txt.slice(0, 160));
+      if (/error/i.test(txt)) throw new Error(txt.slice(0, 200));
+      return txt;
+    });
   });
 }
 
