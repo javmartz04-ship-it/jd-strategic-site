@@ -99,7 +99,7 @@ input,textarea{font:inherit}
 }
 .card{width:100%;max-width:720px;margin:0 auto}
 .card.in{animation:cardIn .52s var(--ease) both}
-.card.in.rev{animation-name:cardInRev}
+.card.in.bk{animation-name:cardInRev}
 @keyframes cardIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
 @keyframes cardInRev{from{opacity:0;transform:translateY(-22px)}to{opacity:1;transform:none}}
 
@@ -325,7 +325,9 @@ body.welcome .ctrl,body.welcome .legal{display:none}
    The big Playfair line is the conversational beat; the items under it carry
    quiet uppercase labels so the screen still reads as one question, not a form.
    ========================================================================== */
-.items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(22px,3.2vh,34px) 26px;align-items:start}
+/* controls bottom-align, so two items sharing a row put their underlines on
+   the same line no matter how tall their labels or helper text run */
+.items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(22px,3.2vh,34px) 26px;align-items:end}
 .item{grid-column:1/-1;min-width:0}
 .item[data-half]{grid-column:auto}
 .item.hide{display:none}
@@ -335,6 +337,14 @@ body.welcome .ctrl,body.welcome .legal{display:none}
 .item .fin{font-size:clamp(17px,1.5vw,19px);padding:4px 2px 10px}
 .item textarea.fin{min-height:62px}
 .item .opts{gap:7px}
+/* a short choice list (Yes / No, three brief options) sits in a row so its
+   height matches a text field instead of towering over one */
+.item .opts.bin{flex-direction:row;flex-wrap:wrap;gap:8px}
+.item .opts.bin .opt{width:auto;flex:0 0 auto;min-width:126px}
+/* short answers get short fields - a full-bleed rule under a two-digit age
+   reads as a mistake */
+.item[data-w="s"] .fin{max-width:190px}
+.item[data-w="m"] .fin{max-width:400px}
 .item .opt{padding:13px 40px 13px 14px;font-size:15px;gap:12px}
 .item .opt .k{width:24px;height:24px;font-size:10.5px}
 
@@ -510,14 +520,16 @@ var S = [
 
 {ch:1, q:'Where are you based?', h:'Territory availability is checked market by market, so the address matters more than you&rsquo;d think.', items:[
   {t:'text', n:'address', l:'Address', ac:'street-address', ph:'Street address'},
-  {t:'text', n:'city_state_zip', l:'City / State / Zip', ph:'Miami, FL 33131', half:1},
-  {t:'single', n:'own_home', l:'Do you own your home?', o:['Yes','No'], half:1,
-   ih:'Home equity is one of the more common ways people fund a first franchise.'}
+  {t:'text', n:'city_state_zip', l:'City / State / Zip', ph:'Miami, FL 33131', w:'m'}
 ]},
 
+/* four short facts, each on its own full-width row: one narrow field and
+   three inline Yes/No pairs, all sharing a left edge */
 {ch:1, q:'And a few quick facts.', items:[
-  {t:'text', n:'age', l:'Your age', v:'age', ph:'Age', half:1},
-  {t:'single', n:'veteran', l:'Are you a veteran?', o:['Yes','No'], half:1,
+  {t:'text', n:'age', l:'Your age', v:'age', ph:'Age', w:'s'},
+  {t:'single', n:'own_home', l:'Do you own your home?', o:['Yes','No'],
+   ih:'Home equity is one of the more common ways people fund a first franchise.'},
+  {t:'single', n:'veteran', l:'Are you a veteran?', o:['Yes','No'],
    ih:'A lot of brands discount the franchise fee for veterans.'},
   {t:'single', n:'partnered', l:'Are you married or partnered?', o:['Yes','No'],
    ih:'If you are, I&rsquo;ll ask about them too &mdash; they&rsquo;re usually part of this decision.'}
@@ -525,7 +537,7 @@ var S = [
 
 {ch:1, q:'Tell me about your spouse or partner.', if:partnered, items:[
   {t:'text', n:'spouse_name', l:'Their name', ph:'First and last', half:1},
-  {t:'text', n:'spouse_age', l:'Their age', v:'age', ph:'Age', half:1},
+  {t:'text', n:'spouse_age', l:'Their age', v:'age', ph:'Age', w:'s', half:1},
   {t:'text', n:'spouse_email', l:'Their email', ty:'email', ph:'them@email.com'}
 ]},
 
@@ -576,7 +588,7 @@ var S = [
 
 {ch:3, q:'Have you reviewed any FDDs yet?', h:'The Franchise Disclosure Document &mdash; the legal document a franchisor has to hand you before you can buy.', items:[
   {t:'single', n:'fdds', o:['Yes, several','One or two','No, not yet']},
-  {t:'text', n:'fdds_which', l:'Which ones?', ph:'Brand names',
+  {t:'text', n:'fdds_which', l:'Which ones?', ph:'Brand names', w:'m',
    if:function(a){ return a.fdds && a.fdds !== 'No, not yet'; }}
 ]},
 
@@ -704,16 +716,16 @@ var S = [
 
 /* ─────────── 9. FINANCIALS ─────────── */
 {ch:9, q:'What could you <span class="it">put into this?</span>', h:'Rough figures are fine, especially this early &mdash; everything here is confidential and never goes to a franchisor. A guess beats a blank; this is what sets the realistic range.', items:[
-  {t:'text', n:'liquid_capital', l:'Liquid capital available to invest', v:'money', ph:'e.g. $150,000',
+  {t:'text', n:'liquid_capital', l:'Liquid capital available to invest', v:'money', ph:'e.g. $150,000', w:'m',
    ih:'Money you can access quickly without selling long-term investments or major assets &mdash; checking, savings, money market funds.'},
-  {t:'text', n:'brokerage', l:'Brokerage / investment accounts', v:'money', ph:'Rough figure', half:1,
+  {t:'text', n:'brokerage', l:'Brokerage / investment accounts', v:'money', ph:'Rough figure', w:'m',
    ih:'Stocks and funds you could tap if needed.'},
-  {t:'text', n:'retirement', l:'Retirement funds / 401(k) / IRA', v:'money', ph:'Rough figure', half:1}
+  {t:'text', n:'retirement', l:'Retirement funds / 401(k) / IRA', v:'money', ph:'Rough figure', w:'m'}
 ]},
 
 {ch:9, q:'And what are you planning?', items:[
-  {t:'text', n:'investment_range', l:'Investment range you&rsquo;re considering', ph:'e.g. $100k&ndash;$250k', half:1},
-  {t:'text', n:'net_worth', l:'Approximate net worth', v:'money', ph:'Rough figure', half:1,
+  {t:'text', n:'investment_range', l:'Investment range you&rsquo;re considering', ph:'e.g. $100k&ndash;$250k', w:'m'},
+  {t:'text', n:'net_worth', l:'Approximate net worth', v:'money', ph:'Rough figure', w:'m',
    ih:'Everything you own (home, savings, investments, retirement) minus everything you owe (mortgage, loans, debts).'},
   {t:'multi', n:'funding', l:'How do you plan to fund it?', grid:1, o:['Cash / savings','SBA loan','Home equity','401(k) / ROBS','Partner or investor','Not sure &mdash; would like guidance']}
 ]},
@@ -792,7 +804,10 @@ function renderItem(it, i, focusFirst){
     body = '<label class="fwrap">' + tag + '<span class="err"></span></label>';
 
   } else if (it.t === 'single') {
-    body = '<div class="opts' + (it.grid ? ' grid' : '') + '" role="radiogroup"' + (it.l ? '' : ' aria-label="Choose one"') + '>' +
+    /* Yes/No and other brief lists lay out in a row so the block is one field
+       tall - a stacked pair of cards next to a text input never lines up */
+    var brief = it.o.length <= 3 && it.o.every(function(o){ return plain(o).length <= 14; });
+    body = '<div class="opts' + (it.grid ? ' grid' : (brief ? ' bin' : '')) + '" role="radiogroup"' + (it.l ? '' : ' aria-label="Choose one"') + '>' +
       it.o.map(function(o, k){ return optBtn(it, o, k, A[it.n] === plain(o), false); }).join('') + '</div>';
 
   } else if (it.t === 'multi') {
@@ -801,7 +816,7 @@ function renderItem(it, i, focusFirst){
       it.o.map(function(o, k){ return optBtn(it, o, k, chosen.indexOf(plain(o)) > -1, true); }).join('') + '</div>';
   }
 
-  return '<div class="item" data-i="' + i + '"' + (it.half ? ' data-half="1"' : '') + '>' +
+  return '<div class="item" data-i="' + i + '"' + (it.half ? ' data-half="1"' : '') + (it.w ? ' data-w="' + it.w + '"' : '') + '>' +
     (it.sub ? '<span class="subh">' + it.sub + '</span>' : '') +
     (it.l ? '<span class="il">' + it.l + '</span>' : '') +
     (it.ih ? '<span class="ih">' + it.ih + '</span>' : '') +
@@ -880,7 +895,7 @@ function render(){
   card.className = 'card';
   void card.offsetWidth;
   card.innerHTML = h;
-  card.className = 'card in' + (dir < 0 ? ' rev' : '');
+  card.className = 'card in' + (dir < 0 ? ' bk' : '');
   stage.scrollTop = 0;
   wire(s);
   chrome(s, qs);
