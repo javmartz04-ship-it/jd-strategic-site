@@ -603,3 +603,39 @@ which invert on dark ground: white box, navy JD. Orange is literal and never cha
 Favicon and apple-touch-icon generated from the same square geometry in headless Chromium
 so the tab icon is the real mark. Verified 375 to 3440, both nav states, footer, all
 interaction and arrival checks green.
+
+---
+
+# ROUND 9 (2026-09-08): the risk round
+
+Javier: *"it needs to be 100% more premium... make it feel like a 🚀 website... do not just
+make one little change... actually take some risks."*
+
+The honest diagnosis: eight rounds had produced a tasteful editorial page, and tasteful
+was never the target. A rocket-ship site has a moment where the visitor's chest tightens.
+This one had none. So the round took the risks the brief authorised:
+
+1. **The hero went dark and cinematic.** Navy-black lit ground, the headline at up to 176px
+   spanning the full stage in white with the orange italic, Josh's cutout standing BEHIND
+   the headline's right end with a warm glow under him, a glass quote card, the orange CTA,
+   and the three stats rebuilt as giant serif numerals along the bottom edge. The page now
+   opens dark and brightens into the cream chapters: the light/dark arc is the story.
+2. **The thesis became a pinned scroll sequence.** "Most franchises are not worth owning."
+   holds sticky on the left with an orange progress rail while the three rules pass on the
+   right, each lighting up in the middle of the viewport. Native sticky, never hijacked.
+3. **Photographs move with the scroll.** `animation-timeline: view()` zooms every bleed and
+   portrait from 1.16 to 1 as it enters; the class-based reveal remains as the fallback.
+4. **A kinetic Playfair-italic marquee** between process and money: type as texture.
+5. **The dark chapters and the hero answer the cursor** with a warm radial spotlight
+   (pointer:fine only, rAF-throttled, two custom properties).
+6. **The category strip is a hover accordion on desktop**, native scroll-snap on touch.
+7. **The closing headline at 156px.**
+
+Caught by the harness, not the eye: the island nav's ground detector did not know the
+hero was dark (navy logo on navy), the compressed accordion tiles clipped their titles,
+and the mobile headline wrapped at 375 until the ≤640 size came down to 11.2vw. The 58px
+mobile overflow was the pinned grid; bisected with display:none in one pass.
+
+House rules held: three orange accents, one voice, headline one line per row at every
+width, and no scroll hijacking anywhere. Parallax is still banned; scroll-LINKED motion on
+a native timeline is not parallax.
