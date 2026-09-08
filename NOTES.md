@@ -580,3 +580,26 @@ Also caught by the width sweep, not by eye: Round 6's hero capped the headline b
 124% of a ~730px column and let the type climb to 132px, so "Buy a franchise" wrapped to
 two lines from 1800px to 2199px. Capped at 119px there, full 132px again from 2200px
 where the rail widens. Holds one line per row at all eleven measured widths, 375 to 3440.
+
+---
+
+# ROUND 8 (2026-09-08): the real logo
+
+Javier supplied the actual JD Strategic Franchising mark as a raster in chat: navy square
+with an inset white line and a heavy white "JD", an orange L-bracket hugging the square's
+bottom-right corner, then STRATEGIC (heavy geometric sans) over FRANCHISING (light, wide-
+tracked), with navy rules above and below the wordmark that end in short orange segments.
+
+Rebuilt it as one inline `<symbol id="jd-mark">` and placed it with `<use>` in the nav and
+the footer. Never the pasted raster: it was a noisy JPEG-style render and would have gone
+soft at 40px in a sticky bar. Montserrat 400/800 loaded for the letterforms; the supplied
+mark is a geometric sans and Montserrat is the closest face already on Google Fonts.
+
+Colour states with no duplicate markup: wordmark and rules are `currentColor`, so they
+follow `.brand`'s colour (navy on light ground, white when the island nav is `.on-dark` and
+in the footer). The square uses two custom properties, `--logo-box` and `--logo-on-box`,
+which invert on dark ground: white box, navy JD. Orange is literal and never changes.
+
+Favicon and apple-touch-icon generated from the same square geometry in headless Chromium
+so the tab icon is the real mark. Verified 375 to 3440, both nav states, footer, all
+interaction and arrival checks green.
