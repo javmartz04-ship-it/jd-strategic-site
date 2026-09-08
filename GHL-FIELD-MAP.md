@@ -4,9 +4,21 @@ Every key the questionnaire can POST to the inbound webhook.
 
 **Endpoint:** `https://services.leadconnectorhq.com/hooks/kv44OG3YsodryGm2KCvt/webhook-trigger/f23bd6a8-c76f-4dbe-849c-e67e88d2c9a8`
 
-**Verified live 2026-09-08** — real submission returned `HTTP 200` on the first
-(CORS) attempt, 8,415 bytes, 86 populated keys. Look for the contact named
-**TEST Questionnaire** / `test.questionnaire@example.com` and delete it once mapped.
+**Content type must be `application/json`.** This endpoint returns **HTTP 200 even when
+it rejects the body**, so the status code is not the result — read the response body:
+
+| sent as | response |
+|---|---|
+| `text/plain` | `200` `{"status":"Error: Request has invalid data: Body payload…"}` — **discarded** |
+| `application/json` | `200` `{"status":"Success: request sent to trigger execution server","id":"…"}` |
+
+**Verified live 2026-09-08**, submitted through the deployed page:
+`application/json` · 7,850 bytes · 85 populated keys ·
+`{"status":"Success: request sent to trigger execution server","id":"VvCzTauOI3WopzDPUVgs"}`
+
+Test contact to delete once mapped: **TEST Questionnaire Two** / `test.two@example.com` /
+`(305) 555-0188`. (An earlier attempt named **TEST Questionnaire** never arrived — it was
+sent as `text/plain` and GHL threw it away.)
 
 ---
 
