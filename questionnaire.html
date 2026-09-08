@@ -95,7 +95,7 @@ input,textarea{font:inherit}
   position:fixed;top:var(--top-h);left:0;right:0;bottom:0;
   overflow-y:auto;overflow-x:hidden;
   display:flex;align-items:center;
-  padding:clamp(28px,5vh,64px) var(--gut) clamp(96px,14vh,132px);
+  padding:clamp(28px,5vh,64px) var(--gut) clamp(112px,16vh,150px);
 }
 .card{width:100%;max-width:720px;margin:0 auto}
 .card.in{animation:cardIn .52s var(--ease) both}
@@ -320,6 +320,74 @@ body.welcome .ctrl,body.welcome .legal{display:none}
   @page{margin:15mm}
 }
 
+/* ==========================================================================
+   BUNDLED SCREENS — several related questions answered in one breath.
+   The big Playfair line is the conversational beat; the items under it carry
+   quiet uppercase labels so the screen still reads as one question, not a form.
+   ========================================================================== */
+.items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(22px,3.2vh,34px) 26px;align-items:start}
+.item{grid-column:1/-1;min-width:0}
+.item[data-half]{grid-column:auto}
+.item.hide{display:none}
+.il{display:block;font-size:11.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);margin-bottom:10px;line-height:1.45}
+.il em{font-style:normal;color:var(--accent-ink)}
+.ih{display:block;font-size:13.5px;line-height:1.55;color:var(--muted);margin:-3px 0 12px;max-width:58ch;text-wrap:pretty}
+.item .fin{font-size:clamp(17px,1.5vw,19px);padding:4px 2px 10px}
+.item textarea.fin{min-height:62px}
+.item .opts{gap:7px}
+.item .opt{padding:13px 40px 13px 14px;font-size:15px;gap:12px}
+.item .opt .k{width:24px;height:24px;font-size:10.5px}
+
+/* a sub-heading when one screen carries two labelled option groups */
+.subh{
+  display:block;font-family:var(--fb);font-size:10.5px;font-weight:700;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--accent-ink);
+  padding-bottom:9px;border-bottom:1px solid var(--ink);margin-bottom:13px;
+}
+
+/* ---------- rating rows stacked on one screen ---------- */
+.srows{display:block;border-top:1px solid var(--hairline)}
+.srow{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(14px,2.4vw,28px);align-items:center;
+  padding:clamp(8px,1.25vh,13px) 0;border-bottom:1px solid var(--hairline-2);
+  transition:background .25s var(--ease);
+}
+.srow:last-child{border-bottom:0}
+.srow .st{font-size:15px;line-height:1.45;color:var(--body);text-wrap:pretty;transition:color .25s var(--ease)}
+.srow.ans .st{color:var(--ink)}
+.srow.act .st{color:var(--ink);font-weight:500}
+.srow.act::before{
+  content:"";position:absolute;left:calc(var(--gut) * -1);width:3px;height:26px;
+  background:var(--accent);margin-top:-13px;
+}
+.srow{position:relative}
+.sopts{display:grid;grid-template-columns:repeat(5,clamp(36px,4vw,42px));gap:5px}
+.sc-sm{
+  display:grid;place-items:center;height:clamp(36px,4vw,42px);
+  background:var(--canvas);border:1px solid var(--hairline);
+  font-family:var(--fd);font-size:16px;font-weight:700;color:var(--faint);
+  font-variant-numeric:lining-nums;
+  transition:border-color .2s var(--ease),background .2s var(--ease),color .2s var(--ease);
+}
+.sc-sm:hover{border-color:var(--ink);color:var(--ink)}
+.sc-sm.sel{background:var(--ink);border-color:var(--ink);color:#fff}
+.sc-sm:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.shead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(14px,2.4vw,28px);align-items:end;padding-bottom:10px}
+.shead .sl{font-size:10px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--muted)}
+.shead .sopts span{text-align:center;font-size:10px;font-weight:700;color:var(--faint);font-variant-numeric:tabular-nums}
+.scount{margin-top:16px;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.scount b{color:var(--accent-ink);font-weight:700}
+
+@media (max-width:760px){
+  .items{grid-template-columns:minmax(0,1fr)}
+  .item[data-half]{grid-column:1/-1}
+  .shead{display:none}
+  .srow{grid-template-columns:minmax(0,1fr);gap:11px;padding:16px 0}
+  .srow.act::before{display:none}
+  .sopts{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .sc-sm{height:46px}
+}
+
 /* ---------- responsive ---------- */
 @media (max-width:900px){
   .wcard{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto}
@@ -333,8 +401,11 @@ body.welcome .ctrl,body.welcome .legal{display:none}
 @media (max-width:640px){
   :root{--top-h:60px}
   .top .wm{display:none}
-  .btn-mini{width:100%;height:52px}
-  .go{gap:10px}
+  /* back stays a square beside the primary, never a full-width empty box */
+  .go{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center}
+  .btn-mini{width:54px;height:54px}
+  .go .btn{width:100%;justify-content:space-between}
+  .go .hint{grid-column:1/-1}
   .pair{grid-template-columns:minmax(0,1fr);gap:22px}
   .opts.grid{grid-template-columns:minmax(0,1fr)}
   .scale{gap:7px;max-width:none}
@@ -393,19 +464,31 @@ body.welcome .ctrl,body.welcome .legal{display:none}
 <script>
 (function(){
 'use strict';
-
 /* ==========================================================================
-   THE QUESTIONS
-   Straight out of Josh's "Full Confidential Questionnaire.docx". Every question
-   keeps its meaning and every option list is verbatim; the phrasing is opened
-   up from form-label to spoken question because that is what a one-at-a-time
-   journey needs. Helper text that defines a term (liquid capital, net worth)
-   is the client's own wording, untouched.
+   THE QUESTIONS — bundled
+   Every question from Josh's "Full Confidential Questionnaire.docx", in the
+   document's order, grouped onto screens that a person would answer in one
+   breath. 89 single screens became 35.
 
-   One question is NOT in the docx: "Are you married or partnered?" (chapter 1).
-   It exists purely to route — a No skips the five spouse questions instead of
-   walking a single person past them. Delete the screen and the four `if:`
-   lines below it to go back to asking everyone.
+   How the bundling was decided:
+   - One retrieval context per screen. Name/email/phone is one act of memory;
+     asking them on three screens is three.
+   - Open reflection questions get room, and pair only with their natural
+     opposite (liked most / liked least, attracts / concerns). The contrast is
+     the point - seeing both at once produces a better answer than either alone.
+   - Never mix a heavy open question with a list of tickboxes. Different gears.
+   - Sensitive money questions bundle INTO one snapshot rather than isolating.
+     Five separate probes feels like an interrogation; one panel with one
+     reassurance reads as routine paperwork.
+   - Conditional follow-ups stay on the SAME screen and appear in place
+     ("which FDDs?", "tell me about it") instead of becoming another screen.
+   - The 26 style statements stay one-per-row but sit in their five natural
+     groups, five screens. Number keys answer and jump to the next row, so a
+     group is still five keystrokes.
+
+   One question is NOT in the docx: "Are you married or partnered?" It exists
+   purely to route - a No hides the spouse items. Delete the item and the
+   four `if:` lines to go back to asking everyone.
    ========================================================================== */
 var CH = ['Personal Information','Employment','Your Goals','Business Ownership',
           'A Little About Your Style','Your Strengths','Business Model Preferences',
@@ -417,128 +500,228 @@ var S = [
 
 {t:'welcome'},
 
-/* ---------- 1 ---------- */
-{t:'text',  ch:1, n:'name',  q:'First things first &mdash; <span class="it">what&rsquo;s your name?</span>', ph:'Full name', req:true, ac:'name'},
-{t:'email', ch:1, n:'email', q:'And the best email to reach you at?', ph:'you@company.com', req:true, ac:'email'},
-{t:'tel',   ch:1, n:'phone', q:'What&rsquo;s the best number for you?', h:'Only used to confirm the call. No lists, no drip.', ph:'(555) 123-4567', ac:'tel', v:'phone', req:true},
-{t:'text',  ch:1, n:'age',   q:'How old are you?', ph:'Age', v:'age'},
-{t:'pair',  ch:1, q:'Where are you based?', h:'Territory availability is checked market by market, so the address matters more than you&rsquo;d think.',
-  f:[{n:'address', l:'Address', ac:'street-address'},{n:'city_state_zip', l:'City / State / Zip'}]},
-{t:'single',ch:1, n:'own_home', q:'Do you own your home?', h:'Home equity is one of the more common ways people fund a first franchise.', o:['Yes','No']},
-{t:'single',ch:1, n:'veteran',  q:'Are you a veteran?', h:'A lot of brands discount their franchise fee for veterans. Worth knowing up front.', o:['Yes','No']},
-{t:'single',ch:1, n:'partnered',q:'Are you married or partnered?', h:'If you are, the next few questions cover them too &mdash; they&rsquo;re usually part of this decision.', o:['Yes','No']},
-{t:'pair',  ch:1, q:'Tell me about your spouse or partner.', if:partnered,
-  f:[{n:'spouse_name', l:'Their name'},{n:'spouse_age', l:'Their age', v:'age'}]},
-{t:'email', ch:1, n:'spouse_email', q:'And their email?', ph:'them@email.com', if:partnered},
+/* ─────────── 1. PERSONAL ─────────── */
+{ch:1, q:'First &mdash; <span class="it">how do I reach you?</span>', items:[
+  {t:'text', n:'name',  l:'Full name <em aria-hidden="true">*</em>', req:true, ac:'name', ph:'First and last', half:1},
+  {t:'text', n:'email', l:'Email <em aria-hidden="true">*</em>', ty:'email', req:true, ac:'email', ph:'you@company.com', half:1},
+  {t:'text', n:'phone', l:'Phone <em aria-hidden="true">*</em>', v:'phone', req:true, ac:'tel', ph:'(555) 123-4567',
+   ih:'Only used to confirm the call. No lists, no drip.'}
+]},
 
-/* ---------- 2 ---------- */
-{t:'pair',  ch:2, q:'What do you do right now?', f:[{n:'position', l:'Your current position'},{n:'employer', l:'Employer'}]},
-{t:'text',  ch:2, n:'income', q:'Roughly what do you earn a year?', h:'A rough figure is fine. This is confidential and it never leaves me.', ph:'e.g. $185,000', v:'money'},
-{t:'long',  ch:2, n:'duties', q:'What do your duties actually look like day to day?'},
-{t:'pair',  ch:2, q:'What does your spouse or partner do?', if:partnered,
-  f:[{n:'spouse_position', l:'Their current position'},{n:'spouse_employer', l:'Their employer'}]},
-{t:'text',  ch:2, n:'spouse_income', q:'And roughly what do they earn a year?', ph:'Rough figure is fine', v:'money', if:partnered},
-{t:'long',  ch:2, n:'spouse_duties', q:'What do their duties look like?', if:partnered},
-{t:'long',  ch:2, n:'liked_most',  q:'What have you liked <span class="it">most</span> about your past or current employment?'},
-{t:'long',  ch:2, n:'liked_least', q:'And what have you liked <span class="it">least</span>?', h:'Be honest here. What you want to get away from shapes the search as much as what you want to run toward.'},
+{ch:1, q:'Where are you based?', h:'Territory availability is checked market by market, so the address matters more than you&rsquo;d think.', items:[
+  {t:'text', n:'address', l:'Address', ac:'street-address', ph:'Street address'},
+  {t:'text', n:'city_state_zip', l:'City / State / Zip', ph:'Miami, FL 33131', half:1},
+  {t:'single', n:'own_home', l:'Do you own your home?', o:['Yes','No'], half:1,
+   ih:'Home equity is one of the more common ways people fund a first franchise.'}
+]},
 
-/* ---------- 3 ---------- */
-{t:'single',ch:3, n:'describe', q:'Which best describes you right now?', o:[
-  'Corporate executive &mdash; considering a transition out of corporate',
-  'Business owner &mdash; expanding or adding a second income stream',
-  'Recently exited &mdash; redeploying capital from a business sale',
-  'New entrepreneur &mdash; recently left a job or looking to start something']},
-{t:'long',  ch:3, n:'why_franchise', q:'Why are you exploring <span class="it">franchise ownership?</span>'},
-{t:'long',  ch:3, n:'hoping', q:'What are you hoping ownership gives you that your current situation doesn&rsquo;t?'},
-{t:'long',  ch:3, n:'brands_interest', q:'Which brand or brands first got you interested, and what drew you to them?'},
-{t:'long',  ch:3, n:'industries_interest', q:'Which industry or industries first got you interested, and what&rsquo;s the draw?'},
-{t:'long',  ch:3, n:'brands_requested', q:'Any brands you&rsquo;ve already requested info on or inquired with?', h:'So I can check they&rsquo;re available in your market and run them through my screening.'},
-{t:'long',  ch:3, n:'already_speaking', q:'Are you already speaking with any brands or other consultants?', h:'So I don&rsquo;t overlap or get in the way.'},
-{t:'single',ch:3, n:'fdds', q:'Have you reviewed any FDDs yet?', h:'The Franchise Disclosure Document &mdash; the legal document a franchisor has to hand you before you can buy.', o:['Yes, several','One or two','No, not yet']},
-{t:'text',  ch:3, n:'fdds_which', q:'Which ones?', ph:'Brand names', if:function(a){ return a.fdds && a.fdds !== 'No, not yet'; }},
-{t:'single',ch:3, n:'timeline', q:'What&rsquo;s your ideal timeline to open?', o:['Ready now','1&ndash;3 months','3&ndash;6 months','6&ndash;12 months','Just exploring'], grid:true},
-{t:'single',ch:3, n:'job_plan', q:'Do you plan to keep your current job while building the business, or transition out?', o:['Keep my job and build alongside it','Transition out','Not sure yet']},
+{ch:1, q:'And a few quick facts.', items:[
+  {t:'text', n:'age', l:'Your age', v:'age', ph:'Age', half:1},
+  {t:'single', n:'veteran', l:'Are you a veteran?', o:['Yes','No'], half:1,
+   ih:'A lot of brands discount the franchise fee for veterans.'},
+  {t:'single', n:'partnered', l:'Are you married or partnered?', o:['Yes','No'],
+   ih:'If you are, I&rsquo;ll ask about them too &mdash; they&rsquo;re usually part of this decision.'}
+]},
 
-/* ---------- 4 ---------- */
-{t:'single',ch:4, n:'owned', q:'Have you ever owned a business?', o:['Yes','No']},
-{t:'long',  ch:4, n:'owned_explain', q:'Tell me about it.', h:'What it was, how long you ran it, and how it ended.', if:function(a){ return a.owned === 'Yes'; }},
-{t:'long',  ch:4, n:'attracts', q:'What attracts you to the idea of <span class="it">business ownership?</span>'},
-{t:'long',  ch:4, n:'concerns', q:'And what are your major concerns with it?'},
+{ch:1, q:'Tell me about your spouse or partner.', if:partnered, items:[
+  {t:'text', n:'spouse_name', l:'Their name', ph:'First and last', half:1},
+  {t:'text', n:'spouse_age', l:'Their age', v:'age', ph:'Age', half:1},
+  {t:'text', n:'spouse_email', l:'Their email', ty:'email', ph:'them@email.com'}
+]},
 
-/* ---------- 5 ---------- */
+/* ─────────── 2. EMPLOYMENT ─────────── */
+{ch:2, q:'What do you <span class="it">do right now?</span>', items:[
+  {t:'text', n:'position', l:'Your current position', ph:'Job title', half:1},
+  {t:'text', n:'employer', l:'Employer', ph:'Company name', half:1},
+  {t:'text', n:'income', l:'Your annual income', v:'money', ph:'e.g. $185,000',
+   ih:'A rough figure is fine. This is confidential and it never leaves me.'},
+  {t:'long', n:'duties', l:'What your duties actually look like day to day'}
+]},
 
-{t:'scale', ch:5, n:'style_a_1', g:'How you approach things', q:'I make decisions quickly and move on, even without all the information.', h:'Twenty-six short statements. 1 = not really me, 5 = definitely me. Go with your gut &mdash; there are no wrong answers.'},
-{t:'scale', ch:5, n:'style_a_2', g:'How you approach things', q:'I&rsquo;m at my best meeting new people and building relationships.'},
-{t:'scale', ch:5, n:'style_a_3', g:'How you approach things', q:'I prefer a steady, predictable routine over constant change.'},
-{t:'scale', ch:5, n:'style_a_4', g:'How you approach things', q:'I study the details and data before I commit.'},
-{t:'scale', ch:5, n:'style_a_5', g:'How you approach things', q:'I&rsquo;d rather be in charge than be told what to do.'},
-{t:'scale', ch:5, n:'style_a_6', g:'How you approach things', q:'I&rsquo;m persuasive &mdash; I can bring people around to my thinking.'},
-{t:'scale', ch:5, n:'style_a_7', g:'How you approach things', q:'I&rsquo;m patient and loyal; I stick with things for the long haul.'},
-{t:'scale', ch:5, n:'style_a_8', g:'How you approach things', q:'I hold myself and others to high standards for accuracy.'},
+{ch:2, q:'And your spouse or partner?', if:partnered, items:[
+  {t:'text', n:'spouse_position', l:'Their current position', ph:'Job title', half:1},
+  {t:'text', n:'spouse_employer', l:'Their employer', ph:'Company name', half:1},
+  {t:'text', n:'spouse_income', l:'Their annual income', v:'money', ph:'Rough figure is fine'},
+  {t:'long', n:'spouse_duties', l:'Their duties'}
+]},
 
-{t:'scale', ch:5, n:'style_b_1', g:'What drives you', q:'Financial security and stability matter more to me than a big upside.'},
-{t:'scale', ch:5, n:'style_b_2', g:'What drives you', q:'I want the freedom to control my own time and be my own boss.'},
-{t:'scale', ch:5, n:'style_b_3', g:'What drives you', q:'I&rsquo;m driven by achievement &mdash; hitting goals and growing.'},
-{t:'scale', ch:5, n:'style_b_4', g:'What drives you', q:'I want work that feels meaningful and helps people.'},
-{t:'scale', ch:5, n:'style_b_5', g:'What drives you', q:'Building something I can pass on to my family is a big motivator.'},
+{ch:2, q:'What have you liked <span class="it">most and least?</span>', h:'About your past or current employment. The second answer usually shapes the search more than the first &mdash; what you want to get away from matters.', items:[
+  {t:'long', n:'liked_most',  l:'Liked most'},
+  {t:'long', n:'liked_least', l:'Liked least'}
+]},
 
-{t:'scale', ch:5, n:'style_c_1', g:'How you like to work', q:'I like a fast pace with lots happening at once.'},
-{t:'scale', ch:5, n:'style_c_2', g:'How you like to work', q:'I do my best work with clear structure and a proven process.'},
-{t:'scale', ch:5, n:'style_c_3', g:'How you like to work', q:'I&rsquo;m organized &mdash; I plan ahead and keep things on track.'},
-{t:'scale', ch:5, n:'style_c_4', g:'How you like to work', q:'I&rsquo;m comfortable wearing many hats and switching between tasks.'},
-{t:'scale', ch:5, n:'style_c_5', g:'How you like to work', q:'I&rsquo;m comfortable with the financial side &mdash; budgets, numbers, cash flow.'},
+/* ─────────── 3. GOALS ─────────── */
+{ch:3, q:'Which best describes you right now?', items:[
+  {t:'single', n:'describe', o:[
+    'Corporate executive &mdash; considering a transition out of corporate',
+    'Business owner &mdash; expanding or adding a second income stream',
+    'Recently exited &mdash; redeploying capital from a business sale',
+    'New entrepreneur &mdash; recently left a job or looking to start something']}
+]},
 
-{t:'scale', ch:5, n:'style_d_1', g:'Risk &amp; the kind of brand you&rsquo;d want', q:'I&rsquo;m comfortable taking a big risk on something unproven for a bigger reward.'},
-{t:'scale', ch:5, n:'style_d_2', g:'Risk &amp; the kind of brand you&rsquo;d want', q:'I&rsquo;d rather help shape and build a young brand than follow an established one.'},
-{t:'scale', ch:5, n:'style_d_3', g:'Risk &amp; the kind of brand you&rsquo;d want', q:'I want the safety of a proven system with lots of other owners to learn from.'},
-{t:'scale', ch:5, n:'style_d_4', g:'Risk &amp; the kind of brand you&rsquo;d want', q:'Being one of the first in a market excites me more than it scares me.'},
+{ch:3, q:'Why are you exploring <span class="it">franchise ownership?</span>', items:[
+  {t:'long', n:'why_franchise', l:'Why now'},
+  {t:'long', n:'hoping', l:'What you&rsquo;re hoping ownership gives you that your current situation doesn&rsquo;t'}
+]},
 
-{t:'scale', ch:5, n:'style_e_1', g:'How you work with others', q:'I do my best when I&rsquo;m collaborating and sharing with others.'},
-{t:'scale', ch:5, n:'style_e_2', g:'How you work with others', q:'I&rsquo;m competitive &mdash; I want to outperform and win.'},
-{t:'scale', ch:5, n:'style_e_3', g:'How you work with others', q:'I&rsquo;d value a close network of other owners I can lean on.'},
-{t:'scale', ch:5, n:'style_e_4', g:'How you work with others', q:'I&rsquo;d rather run my own show than compare notes with everyone.'},
+{ch:3, q:'What first caught your interest?', items:[
+  {t:'long', n:'brands_interest', l:'Which brand or brands &mdash; and what drew you to them'},
+  {t:'long', n:'industries_interest', l:'Which industry or industries &mdash; and what&rsquo;s the draw'}
+]},
 
-/* ---------- 6 ---------- */
-{t:'multi', ch:6, n:'roles', q:'Which roles appeal to your strengths?', h:'Pick as many as fit.', grid:true, o:[
-  'Sales','Marketing','Networking','Prospecting new customers','Selling a new / emerging idea',
-  'Managing employees','Leadership','Financials / accounting','Operations','Customer-focused']},
-{t:'long', ch:6, n:'strongest', q:'What are you strongest at &mdash; <span class="it">what do people rely on you for?</span>'},
-{t:'long', ch:6, n:'managed_team', q:'Have you managed a team before? How many, and did you enjoy it?'},
-{t:'long', ch:6, n:'never_again', q:'Something you&rsquo;re good at but would be happy to never do again?'},
+{ch:3, q:'What&rsquo;s already in motion?', h:'So I can check availability in your market, run anything you&rsquo;re looking at through my screening, and stay out of the way of conversations you&rsquo;ve already started.', items:[
+  {t:'long', n:'brands_requested', l:'Brands you&rsquo;ve already requested info on or inquired with'},
+  {t:'long', n:'already_speaking', l:'Any brands or other consultants you&rsquo;re already speaking with'}
+]},
 
-/* ---------- 7 ---------- */
-{t:'multi', ch:7, n:'bm_setting', q:'What kind of setting appeals to you?', h:'Check anything that appeals &mdash; several or none is fine, we&rsquo;ll refine on the call.', grid:true, o:['Home-based','Office-based','Retail / brick-and-mortar','Open to everything']},
-{t:'multi', ch:7, n:'bm_owner', q:'Which ownership model appeals to you?', o:['Owner-operator (hands-on, running it day to day)','Executive model (managing the team and resources to grow)','Not sure yet']},
-{t:'multi', ch:7, n:'bm_customer', q:'Who&rsquo;s your ideal customer?', grid:true, o:['B2B','B2C','Children','Seniors','Blue-collar','White-collar','Fairly open']},
-{t:'multi', ch:7, n:'bm_revenue', q:'What revenue style appeals to you?', o:['High-ticket (fewer, larger jobs)','Recurring revenue (repeat / subscription)','Either']},
-{t:'multi', ch:7, n:'bm_other', q:'Any of these matter to you?', o:['I&rsquo;d like it to be recession-resistant','I want the ability to scale to multiple units / territories','I need it to be E2 visa-friendly']},
-{t:'multi', ch:7, n:'bm_employees', q:'Preferred number of employees to start?', grid:true, o:['None / just me','Less than 5','5-15','15+','Open to options']},
+{ch:3, q:'Have you reviewed any FDDs yet?', h:'The Franchise Disclosure Document &mdash; the legal document a franchisor has to hand you before you can buy.', items:[
+  {t:'single', n:'fdds', o:['Yes, several','One or two','No, not yet']},
+  {t:'text', n:'fdds_which', l:'Which ones?', ph:'Brand names',
+   if:function(a){ return a.fdds && a.fdds !== 'No, not yet'; }}
+]},
 
-/* ---------- 8 ---------- */
-{t:'multi', ch:8, n:'ind_health', q:'Healthcare &amp; beauty care', h:'Twelve categories coming up. Check anything that interests you, leave blank anything you&rsquo;d rule out.', grid:true, o:['Senior care &mdash; home health (medical)','Senior care &mdash; home health (non-medical)','Senior care placement','Anti-aging','Barber services','Eyelashes / nail salons','Massage / spa / skin care','Tanning / waxing','Mobility equipment','Medical staffing']},
-{t:'multi', ch:8, n:'ind_auto', q:'Automotive', grid:true, o:['Auto repair','Tinting','Detailing']},
-{t:'multi', ch:8, n:'ind_biz', q:'Business services', grid:true, o:['Business coaching','Cost reduction','Bookkeeping','Commercial cleaning','Recruiting','Marketing','Medical billing','Logistics','Payroll']},
-{t:'multi', ch:8, n:'ind_child', q:'Child services', grid:true, o:['Fitness','Education','Cooking','Music','Language']},
-{t:'multi', ch:8, n:'ind_clean', q:'Cleaning services', grid:true, o:['Residential','Commercial','Junk removal','Dry cleaning / laundry','Window cleaning','Vent / duct cleaning']},
-{t:'multi', ch:8, n:'ind_food', q:'Food', grid:true, o:['Acai / frozen yogurt','Breakfast','QSR','Food truck']},
-{t:'multi', ch:8, n:'ind_home', q:'Home improvement &amp; maintenance', grid:true, o:['Artificial turf','Bath / kitchen remodeling','Closet organization','Electrical','Fencing','Flooring','Garage','Home inspection','HVAC','Mosquito control','Painting','Plumbing','Pool cleaning','Power washing','Roofing','Storage services','Window cleaning','Landscaping']},
-{t:'multi', ch:8, n:'ind_pet', q:'Pet services', grid:true, o:['Boarding','Daycare','Dog walking','Grooming','Cremation services','Pet waste','Supplies','Training']},
-{t:'multi', ch:8, n:'ind_re', q:'Real estate', grid:true, o:['Estate sales','Home inspection','Home staging','Property management','Real estate sales','Salon suites']},
-{t:'multi', ch:8, n:'ind_repair', q:'Repair &amp; restoration', grid:true, o:['Restoration','Handyman']},
-{t:'multi', ch:8, n:'ind_sport', q:'Sports &amp; fitness', grid:true, o:['Stretching','Pilates','Gym','Personal trainer','Youth sports / enrichment']},
-{t:'multi', ch:8, n:'ind_tech', q:'Technology', grid:true, o:['Computer / electronic services']},
-{t:'long',  ch:8, n:'industry_experience', q:'Do you have any experience working in or around the industries you checked?'},
+{ch:3, q:'And your timing?', items:[
+  {t:'single', n:'timeline', l:'Ideal timeline to open', grid:1,
+   o:['Ready now','1&ndash;3 months','3&ndash;6 months','6&ndash;12 months','Just exploring']},
+  {t:'single', n:'job_plan', l:'Do you plan to keep your current job while building the business, or transition out?',
+   o:['Keep my job and build alongside it','Transition out','Not sure yet']}
+]},
 
-/* ---------- 9 ---------- */
-{t:'text', ch:9, n:'liquid_capital', q:'How much liquid capital do you have available to invest?', h:'Rough figures are fine, especially this early &mdash; everything is confidential. Liquid capital = money you can access quickly without having to sell long-term investments or major assets &mdash; like checking, savings, and money market funds.', ph:'e.g. $150,000', v:'money'},
-{t:'text', ch:9, n:'brokerage', q:'What&rsquo;s in brokerage or investment accounts?', h:'Stocks and funds you could tap if needed.', ph:'Rough figure', v:'money'},
-{t:'text', ch:9, n:'retirement', q:'And retirement funds &mdash; 401(k), IRA?', ph:'Rough figure', v:'money'},
-{t:'text', ch:9, n:'investment_range', q:'What investment range are you considering?', ph:'e.g. $100k&ndash;$250k'},
-{t:'text', ch:9, n:'net_worth', q:'Approximate net worth?', h:'Net worth = everything you own (home, savings, investments, retirement, other assets) minus everything you owe (mortgage, loans, debts).', ph:'Rough figure', v:'money'},
-{t:'multi', ch:9, n:'funding', q:'How do you plan to fund it?', grid:true, o:['Cash / savings','SBA loan','Home equity','401(k) / ROBS','Partner or investor','Not sure &mdash; would like guidance']},
+/* ─────────── 4. BUSINESS OWNERSHIP ─────────── */
+{ch:4, q:'Have you ever <span class="it">owned a business?</span>', items:[
+  {t:'single', n:'owned', o:['Yes','No']},
+  {t:'long', n:'owned_explain', l:'Tell me about it', ih:'What it was, how long you ran it, and how it ended.',
+   if:function(a){ return a.owned === 'Yes'; }}
+]},
 
-/* ---------- 10 ---------- */
-{t:'long', ch:10, n:'decision_makers', q:'Is anyone else part of this decision? Will anyone help run the business?'},
+{ch:4, q:'What pulls you toward it &mdash; <span class="it">and what worries you?</span>', h:'Both halves are useful. The concerns are usually the more honest signal.', items:[
+  {t:'long', n:'attracts', l:'What attracts you to business ownership'},
+  {t:'long', n:'concerns', l:'Your major concerns with it'}
+]},
+
+/* ─────────── 5. STYLE — five groups, 26 statements ─────────── */
+{ch:5, q:'How you approach things', h:'Twenty-six short statements over the next few screens. 1 = not really me, 5 = definitely me. Go with your gut &mdash; there are no wrong answers.', scale:[
+  {n:'style_a_1', l:'I make decisions quickly and move on, even without all the information.'},
+  {n:'style_a_2', l:'I&rsquo;m at my best meeting new people and building relationships.'},
+  {n:'style_a_3', l:'I prefer a steady, predictable routine over constant change.'},
+  {n:'style_a_4', l:'I study the details and data before I commit.'},
+  {n:'style_a_5', l:'I&rsquo;d rather be in charge than be told what to do.'},
+  {n:'style_a_6', l:'I&rsquo;m persuasive &mdash; I can bring people around to my thinking.'},
+  {n:'style_a_7', l:'I&rsquo;m patient and loyal; I stick with things for the long haul.'},
+  {n:'style_a_8', l:'I hold myself and others to high standards for accuracy.'}
+]},
+
+{ch:5, q:'What drives you', scale:[
+  {n:'style_b_1', l:'Financial security and stability matter more to me than a big upside.'},
+  {n:'style_b_2', l:'I want the freedom to control my own time and be my own boss.'},
+  {n:'style_b_3', l:'I&rsquo;m driven by achievement &mdash; hitting goals and growing.'},
+  {n:'style_b_4', l:'I want work that feels meaningful and helps people.'},
+  {n:'style_b_5', l:'Building something I can pass on to my family is a big motivator.'}
+]},
+
+{ch:5, q:'How you like to work', scale:[
+  {n:'style_c_1', l:'I like a fast pace with lots happening at once.'},
+  {n:'style_c_2', l:'I do my best work with clear structure and a proven process.'},
+  {n:'style_c_3', l:'I&rsquo;m organized &mdash; I plan ahead and keep things on track.'},
+  {n:'style_c_4', l:'I&rsquo;m comfortable wearing many hats and switching between tasks.'},
+  {n:'style_c_5', l:'I&rsquo;m comfortable with the financial side &mdash; budgets, numbers, cash flow.'}
+]},
+
+{ch:5, q:'Risk, and the kind of brand you&rsquo;d want', scale:[
+  {n:'style_d_1', l:'I&rsquo;m comfortable taking a big risk on something unproven for a bigger reward.'},
+  {n:'style_d_2', l:'I&rsquo;d rather help shape and build a young brand than follow an established one.'},
+  {n:'style_d_3', l:'I want the safety of a proven system with lots of other owners to learn from.'},
+  {n:'style_d_4', l:'Being one of the first in a market excites me more than it scares me.'}
+]},
+
+{ch:5, q:'How you work with others', scale:[
+  {n:'style_e_1', l:'I do my best when I&rsquo;m collaborating and sharing with others.'},
+  {n:'style_e_2', l:'I&rsquo;m competitive &mdash; I want to outperform and win.'},
+  {n:'style_e_3', l:'I&rsquo;d value a close network of other owners I can lean on.'},
+  {n:'style_e_4', l:'I&rsquo;d rather run my own show than compare notes with everyone.'}
+]},
+
+/* ─────────── 6. STRENGTHS ─────────── */
+{ch:6, q:'What are you <span class="it">actually good at?</span>', items:[
+  {t:'multi', n:'roles', l:'Which roles appeal to your strengths?', ih:'Check as many as fit.', grid:1, o:[
+    'Sales','Marketing','Networking','Prospecting new customers','Selling a new / emerging idea',
+    'Managing employees','Leadership','Financials / accounting','Operations','Customer-focused']},
+  {t:'long', n:'strongest', l:'In your own words &mdash; what do people rely on you for?'}
+]},
+
+{ch:6, q:'Experience, and the things you&rsquo;d rather not repeat.', items:[
+  {t:'long', n:'managed_team', l:'Have you managed a team before? How many, and did you enjoy it?'},
+  {t:'long', n:'never_again', l:'Something you&rsquo;re good at but would be happy to never do again'}
+]},
+
+/* ─────────── 7. BUSINESS MODEL ─────────── */
+{ch:7, q:'Where and how would you <span class="it">want to run it?</span>', h:'Check anything that appeals &mdash; several or none is fine, we&rsquo;ll refine on the call.', items:[
+  {t:'multi', n:'bm_setting', l:'Setting', grid:1, o:['Home-based','Office-based','Retail / brick-and-mortar','Open to everything']},
+  {t:'multi', n:'bm_owner', l:'Ownership model', o:['Owner-operator (hands-on, running it day to day)','Executive model (managing the team and resources to grow)','Not sure yet']}
+]},
+
+{ch:7, q:'Who would you serve, and how should it make money?', items:[
+  {t:'multi', n:'bm_customer', l:'Ideal customer', grid:1, o:['B2B','B2C','Children','Seniors','Blue-collar','White-collar','Fairly open']},
+  {t:'multi', n:'bm_revenue', l:'Revenue style', o:['High-ticket (fewer, larger jobs)','Recurring revenue (repeat / subscription)','Either']}
+]},
+
+{ch:7, q:'A few last preferences.', items:[
+  {t:'multi', n:'bm_other', l:'Anything here matter to you?', o:['I&rsquo;d like it to be recession-resistant','I want the ability to scale to multiple units / territories','I need it to be E2 visa-friendly']},
+  {t:'multi', n:'bm_employees', l:'Preferred number of employees to start', grid:1, o:['None / just me','Less than 5','5-15','15+','Open to options']}
+]},
+
+/* ─────────── 8. INDUSTRIES ─────────── */
+{ch:8, q:'Which industries <span class="it">interest you?</span>', h:'Six screens of categories. Check anything that interests you, leave blank anything you&rsquo;d rule out. Sub-categories help me research precisely.', items:[
+  {t:'multi', n:'ind_health', sub:'Healthcare &amp; beauty care', grid:1, o:['Senior care &mdash; home health (medical)','Senior care &mdash; home health (non-medical)','Senior care placement','Anti-aging','Barber services','Eyelashes / nail salons','Massage / spa / skin care','Tanning / waxing','Mobility equipment','Medical staffing']},
+  {t:'multi', n:'ind_auto', sub:'Automotive', grid:1, o:['Auto repair','Tinting','Detailing']}
+]},
+
+{ch:8, q:'Services &mdash; business and children.', items:[
+  {t:'multi', n:'ind_biz', sub:'Business services', grid:1, o:['Business coaching','Cost reduction','Bookkeeping','Commercial cleaning','Recruiting','Marketing','Medical billing','Logistics','Payroll']},
+  {t:'multi', n:'ind_child', sub:'Child services', grid:1, o:['Fitness','Education','Cooking','Music','Language']}
+]},
+
+{ch:8, q:'Cleaning and food.', items:[
+  {t:'multi', n:'ind_clean', sub:'Cleaning services', grid:1, o:['Residential','Commercial','Junk removal','Dry cleaning / laundry','Window cleaning','Vent / duct cleaning']},
+  {t:'multi', n:'ind_food', sub:'Food', grid:1, o:['Acai / frozen yogurt','Breakfast','QSR','Food truck']}
+]},
+
+{ch:8, q:'Home improvement &amp; maintenance.', h:'The biggest category in franchising, and the one most first-time owners end up in.', items:[
+  {t:'multi', n:'ind_home', grid:1, o:['Artificial turf','Bath / kitchen remodeling','Closet organization','Electrical','Fencing','Flooring','Garage','Home inspection','HVAC','Mosquito control','Painting','Plumbing','Pool cleaning','Power washing','Roofing','Storage services','Window cleaning','Landscaping']}
+]},
+
+{ch:8, q:'Pets and property.', items:[
+  {t:'multi', n:'ind_pet', sub:'Pet services', grid:1, o:['Boarding','Daycare','Dog walking','Grooming','Cremation services','Pet waste','Supplies','Training']},
+  {t:'multi', n:'ind_re', sub:'Real estate', grid:1, o:['Estate sales','Home inspection','Home staging','Property management','Real estate sales','Salon suites']}
+]},
+
+{ch:8, q:'Repair, fitness and tech.', items:[
+  {t:'multi', n:'ind_repair', sub:'Repair &amp; restoration', grid:1, o:['Restoration','Handyman']},
+  {t:'multi', n:'ind_sport', sub:'Sports &amp; fitness', grid:1, o:['Stretching','Pilates','Gym','Personal trainer','Youth sports / enrichment']},
+  {t:'multi', n:'ind_tech', sub:'Technology', grid:1, o:['Computer / electronic services']},
+  {t:'long', n:'industry_experience', l:'Any experience working in or around the industries you checked?'}
+]},
+
+/* ─────────── 9. FINANCIALS ─────────── */
+{ch:9, q:'What could you <span class="it">put into this?</span>', h:'Rough figures are fine, especially this early &mdash; everything here is confidential and never goes to a franchisor. A guess beats a blank; this is what sets the realistic range.', items:[
+  {t:'text', n:'liquid_capital', l:'Liquid capital available to invest', v:'money', ph:'e.g. $150,000',
+   ih:'Money you can access quickly without selling long-term investments or major assets &mdash; checking, savings, money market funds.'},
+  {t:'text', n:'brokerage', l:'Brokerage / investment accounts', v:'money', ph:'Rough figure', half:1,
+   ih:'Stocks and funds you could tap if needed.'},
+  {t:'text', n:'retirement', l:'Retirement funds / 401(k) / IRA', v:'money', ph:'Rough figure', half:1}
+]},
+
+{ch:9, q:'And what are you planning?', items:[
+  {t:'text', n:'investment_range', l:'Investment range you&rsquo;re considering', ph:'e.g. $100k&ndash;$250k', half:1},
+  {t:'text', n:'net_worth', l:'Approximate net worth', v:'money', ph:'Rough figure', half:1,
+   ih:'Everything you own (home, savings, investments, retirement) minus everything you owe (mortgage, loans, debts).'},
+  {t:'multi', n:'funding', l:'How do you plan to fund it?', grid:1, o:['Cash / savings','SBA loan','Home equity','401(k) / ROBS','Partner or investor','Not sure &mdash; would like guidance']}
+]},
+
+/* ─────────── 10. DECISION MAKING ─────────── */
+{ch:10, q:'Last one. <span class="it">Who else is in this with you?</span>', items:[
+  {t:'long', n:'decision_makers', l:'Is anyone else part of this decision? Will anyone help run the business?'}
+]},
 
 {t:'review'}
 ];
@@ -546,9 +729,9 @@ var S = [
 /* ==========================================================================
    ENGINE
    ========================================================================== */
-var KEY = 'jds_questionnaire_v2';
-var A = {};                                   /* answers */
-var idx = 0, dir = 1, advancing = false;
+var KEY = 'jds_questionnaire_v3';
+var A = {};
+var idx = 0, dir = 1, advancing = false, actRow = 0;
 
 var card    = document.getElementById('card');
 var stage   = document.getElementById('stage');
@@ -561,42 +744,83 @@ var doneEl  = document.getElementById('done');
 var RM      = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var LETTERS = 'ABCDEFGHIJKLMNOPQRST';
 var ARROW   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+var BACKSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>';
 
 function vis(){ return S.filter(function(s){ return !s.if || s.if(A); }); }
-function isQ(s){ return s.t !== 'welcome' && s.t !== 'chapter' && s.t !== 'review'; }
+function isQ(s){ return s.t !== 'welcome' && s.t !== 'review'; }
 function qList(){ return vis().filter(isQ); }
+function items(s){ return (s.items || []).filter(function(it){ return !it.if || it.if(A); }); }
 function plain(html){ var d = document.createElement('div'); d.innerHTML = html; return d.textContent.trim(); }
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-/* ---------- head + shell shared by every question screen ----------
-   The section label rides on top of the question. There are no chapter
-   pages and no running question total - a count of 89 reads as a chore
-   before anyone has answered one.                                       */
+/* screens where the whole screen IS one choice — those keep auto-advance */
+function isSolo(s){ return s.items && s.items.length === 1 && s.items[0].t === 'single'; }
+
+/* ---------- pieces ---------- */
 function head(s){
   var h = '';
-  if (s.ch) h += '<span class="chip"><i aria-hidden="true"></i>Step ' + s.ch + ' &middot; ' + (s.g || CH[s.ch-1]) + '</span>';
+  if (s.ch) h += '<span class="chip"><i aria-hidden="true"></i>Step ' + s.ch + ' &middot; ' + CH[s.ch-1] + '</span>';
   h += '<h2 class="qt">' + s.q + '</h2>';
   if (s.h) h += '<p class="qh">' + s.h + '</p>';
   return h;
 }
-var BACKSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>';
 function advRow(label, hint){
   return '<div class="go">' +
-    '<button type="button" class="btn-mini back" aria-label="Previous question">' + BACKSVG + '</button>' +
-    (label === false ? '' : '<button type="button" class="btn btn-solid" id="ok">' + (label || 'OK') + ARROW + '</button>') +
+    '<button type="button" class="btn-mini back" aria-label="Previous">' + BACKSVG + '</button>' +
+    (label === false ? '' : '<button type="button" class="btn btn-solid" id="ok">' + (label || 'Continue') + ARROW + '</button>') +
     '<span class="hint">' + (hint || 'press <kbd>Enter</kbd>') + '</span>' +
     '</div>';
 }
-function field(spec, val, focus){
-  return '<label class="fwrap">' +
-    (spec.l ? '<span class="pl">' + spec.l + '</span>' : '') +
-    '<input class="fin" type="' + (spec.ty || (spec.v === 'phone' ? 'tel' : spec.t === 'email' ? 'email' : 'text')) + '"' +
-      ' data-n="' + spec.n + '"' + (spec.v ? ' data-v="' + spec.v + '"' : '') +
-      (spec.v === 'phone' || spec.v === 'age' ? ' inputmode="numeric"' : '') +
-      (spec.ac ? ' autocomplete="' + spec.ac + '"' : '') +
-      (focus ? ' data-focus' : '') +
-      ' placeholder="' + (spec.ph || '') + '" value="' + esc(val || '') + '">' +
-    '<span class="err"></span></label>';
+function optBtn(it, o, k, on, multi){
+  return '<button type="button" class="opt' + (on ? ' sel' : '') + '" data-n="' + it.n + '" data-v="' + esc(plain(o)) + '"' +
+    (multi ? ' aria-pressed="' + on + '"' : ' role="radio" aria-checked="' + on + '"') + '>' +
+    '<span class="k">' + LETTERS[k] + '</span><span>' + o + '</span>' +
+    '<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 6 6L20 6"/></svg></button>';
+}
+function renderItem(it, i, focusFirst){
+  var body = '';
+  if (it.t === 'text' || it.t === 'long') {
+    var tag = it.t === 'long'
+      ? '<textarea class="fin" data-n="' + it.n + '" rows="2"' + (focusFirst ? ' data-focus' : '') +
+        ' placeholder="' + (it.ph || '') + '">' + esc(A[it.n] || '') + '</textarea>'
+      : '<input class="fin" type="' + (it.ty || (it.v === 'phone' ? 'tel' : 'text')) + '" data-n="' + it.n + '"' +
+        (it.v ? ' data-v="' + it.v + '"' : '') +
+        (it.v === 'phone' || it.v === 'age' ? ' inputmode="numeric"' : '') +
+        (it.ac ? ' autocomplete="' + it.ac + '"' : '') +
+        (focusFirst ? ' data-focus' : '') +
+        ' placeholder="' + (it.ph || '') + '" value="' + esc(A[it.n] || '') + '">';
+    body = '<label class="fwrap">' + tag + '<span class="err"></span></label>';
+
+  } else if (it.t === 'single') {
+    body = '<div class="opts' + (it.grid ? ' grid' : '') + '" role="radiogroup"' + (it.l ? '' : ' aria-label="Choose one"') + '>' +
+      it.o.map(function(o, k){ return optBtn(it, o, k, A[it.n] === plain(o), false); }).join('') + '</div>';
+
+  } else if (it.t === 'multi') {
+    var chosen = A[it.n] || [];
+    body = '<div class="opts' + (it.grid ? ' grid' : '') + '">' +
+      it.o.map(function(o, k){ return optBtn(it, o, k, chosen.indexOf(plain(o)) > -1, true); }).join('') + '</div>';
+  }
+
+  return '<div class="item" data-i="' + i + '"' + (it.half ? ' data-half="1"' : '') + '>' +
+    (it.sub ? '<span class="subh">' + it.sub + '</span>' : '') +
+    (it.l ? '<span class="il">' + it.l + '</span>' : '') +
+    (it.ih ? '<span class="ih">' + it.ih + '</span>' : '') +
+    body + '</div>';
+}
+function renderScale(s){
+  var h = '<div class="shead" aria-hidden="true"><span class="sl">Statement</span>' +
+          '<span class="sopts"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span></div>' +
+          '<div class="srows">';
+  s.scale.forEach(function(r, i){
+    var v = A[r.n];
+    h += '<div class="srow' + (v ? ' ans' : '') + '" data-row="' + i + '" role="radiogroup" aria-label="' + esc(plain(r.l)) + '">' +
+         '<span class="st">' + r.l + '</span><div class="sopts">' +
+         [1,2,3,4,5].map(function(n){
+           return '<button type="button" class="sc-sm' + (v === String(n) ? ' sel' : '') + '" data-row="' + i + '" data-n="' + r.n + '" data-v="' + n + '" role="radio" aria-checked="' + (v === String(n)) + '" aria-label="' + n + ' of 5">' + n + '</button>';
+         }).join('') + '</div></div>';
+  });
+  h += '</div><p class="scount"><b id="scDone">0</b> of ' + s.scale.length + ' answered &nbsp;&middot;&nbsp; press <kbd>1</kbd>&ndash;<kbd>5</kbd> to answer and jump to the next</p>';
+  return h;
 }
 
 /* ---------- render ---------- */
@@ -623,13 +847,10 @@ function render(){
         '</div>' +
         '<div class="wfig">' +
           '<img src="assets/hero-josh.jpg" width="1400" height="1750" alt="Josh DuBois, founder of JD Strategic Franchising" fetchpriority="high" decoding="async">' +
-          '<figure class="wquote">' +
-            '<span class="qm" aria-hidden="true">&ldquo;</span>' +
-            '<div><p>I&rsquo;ve lived every side of it, the good deals and the bad ones.</p>' +
-            '<cite>Josh DuBois, Founder</cite></div>' +
+          '<figure class="wquote"><span class="qm" aria-hidden="true">&ldquo;</span>' +
+          '<div><p>I&rsquo;ve lived every side of it, the good deals and the bad ones.</p><cite>Josh DuBois, Founder</cite></div>' +
           '</figure>' +
-        '</div>' +
-        '</div>';
+        '</div></div>';
 
   } else if (s.t === 'review') {
     h = '<span class="chip"><i aria-hidden="true"></i>One last look</span>' +
@@ -638,47 +859,22 @@ function render(){
         '<div class="qb"><div class="rev" id="rev">' + reviewHTML() + '</div></div>' +
         advRow('Send to Josh', 'You&rsquo;ll get a printable copy next');
 
-  } else if (s.t === 'pair') {
-    h = head(s) + '<div class="qb"><div class="pair">' +
-        s.f.map(function(f, k){ return field(f, A[f.n], k === 0); }).join('') +
-        '</div></div>' + advRow();
-
-  } else if (s.t === 'long') {
-    h = head(s) + '<div class="qb"><label class="fwrap">' +
-        '<textarea class="fin" data-n="' + s.n + '" rows="2" data-focus placeholder="' + (s.ph || 'Type your answer&hellip;') + '">' + esc(A[s.n] || '') + '</textarea>' +
-        '<span class="err"></span></label></div>' +
-        advRow('OK', 'press <kbd>Enter</kbd> &nbsp;&middot;&nbsp; <kbd>Shift</kbd> + <kbd>Enter</kbd> for a new line');
-
-  } else if (s.t === 'single') {
-    h = head(s) + '<div class="qb"><div class="opts' + (s.grid ? ' grid' : '') + '" role="radiogroup">' +
-        s.o.map(function(o, k){
-          return '<button type="button" class="opt' + (A[s.n] === plain(o) ? ' sel' : '') + '" data-v="' + esc(plain(o)) + '" role="radio" aria-checked="' + (A[s.n] === plain(o)) + '">' +
-                 '<span class="k">' + LETTERS[k] + '</span><span>' + o + '</span>' +
-                 '<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 6 6L20 6"/></svg></button>';
-        }).join('') +
-        '</div></div>' +
-        advRow(false, 'Pick one &mdash; or press <kbd>' + LETTERS[0] + '</kbd>&ndash;<kbd>' + LETTERS[s.o.length-1] + '</kbd>');
-
-  } else if (s.t === 'multi') {
-    var chosen = A[s.n] || [];
-    h = head(s) + '<div class="qb"><div class="opts' + (s.grid ? ' grid' : '') + '">' +
-        s.o.map(function(o, k){
-          return '<button type="button" class="opt' + (chosen.indexOf(plain(o)) > -1 ? ' sel' : '') + '" data-v="' + esc(plain(o)) + '" aria-pressed="' + (chosen.indexOf(plain(o)) > -1) + '">' +
-                 '<span class="k">' + LETTERS[k] + '</span><span>' + o + '</span>' +
-                 '<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 6 6L20 6"/></svg></button>';
-        }).join('') +
-        '</div></div>' + advRow('OK');
-
-  } else if (s.t === 'scale') {
-    h = head(s) + '<div class="qb"><div class="scale" role="radiogroup">' +
-        [1,2,3,4,5].map(function(v){
-          return '<button type="button" class="sc' + (A[s.n] === String(v) ? ' sel' : '') + '" data-v="' + v + '" role="radio" aria-checked="' + (A[s.n] === String(v)) + '" aria-label="' + v + ' of 5">' + v + '</button>';
-        }).join('') +
-        '</div><div class="sclab"><span>Not really me</span><span>Definitely me</span></div></div>' +
-        advRow(false, 'Press <kbd>1</kbd>&ndash;<kbd>5</kbd>');
+  } else if (s.scale) {
+    actRow = firstUnanswered(s);
+    h = head(s) + '<div class="qb">' + renderScale(s) + '</div>' + advRow('Continue', false === false ? 'press <kbd>Enter</kbd> when you&rsquo;re done' : '');
 
   } else {
-    h = head(s) + '<div class="qb">' + field(s, A[s.n], true) + '</div>' + advRow();
+    var its = items(s), focused = false;
+    h = head(s) + '<div class="qb"><div class="items">' +
+        its.map(function(it){
+          var f = !focused && (it.t === 'text' || it.t === 'long');
+          if (f) focused = true;
+          return renderItem(it, S.indexOf(s) * 100 + s.items.indexOf(it), f);
+        }).join('') +
+        '</div></div>' +
+        (isSolo(s)
+          ? advRow(false, 'Pick one &mdash; or press <kbd>A</kbd>&ndash;<kbd>' + LETTERS[s.items[0].o.length-1] + '</kbd>')
+          : advRow());
   }
 
   card.className = 'card';
@@ -695,7 +891,6 @@ function chrome(s, qs){
   counter.textContent = s.t === 'welcome' ? 'Confidential Questionnaire'
                       : s.t === 'review'  ? 'Review'
                       : 'Step ' + s.ch + ' of 10';
-  /* the bar still tracks real position - it just never puts a number on it */
   var pct = s.t === 'review' ? 1 : (qi ? qi / qs.length : 0);
   bar.style.transform = 'scaleX(' + pct + ')';
   prevBtn.disabled = idx === 0;
@@ -707,22 +902,19 @@ function chrome(s, qs){
 function wire(s){
   var ok = card.querySelector('#ok');
   if (ok) ok.addEventListener('click', function(){ next(); });
+  card.querySelectorAll('.btn-mini.back').forEach(function(b){ b.addEventListener('click', prev); });
 
   var f = card.querySelector('[data-focus]');
   if (f && !('ontouchstart' in window)) setTimeout(function(){ f.focus({preventScroll:true}); }, RM ? 0 : 340);
 
-  card.querySelectorAll('.btn-mini.back').forEach(function(b){
-    b.addEventListener('click', prev);
-  });
-
   card.querySelectorAll('.fin').forEach(function(el){
     if (el.tagName === 'TEXTAREA') { grow(el); el.addEventListener('input', function(){ grow(el); }); }
     el.addEventListener('input', function(){
-      /* keep the field physically incapable of holding the wrong shape */
       if (el.dataset.v === 'phone') {
         var at = el.selectionStart, was = el.value.length;
         el.value = fmtPhone(el.value);
-        if (at !== null && at < was) el.setSelectionRange(at + (el.value.length - was), at + (el.value.length - was));
+        var d = el.value.length - was;
+        if (at !== null && at < was) el.setSelectionRange(at + d, at + d);
       }
       if (el.dataset.v === 'age') el.value = el.value.replace(/\D/g, '').slice(0, 3);
       A[el.dataset.n] = el.value;
@@ -731,63 +923,99 @@ function wire(s){
     });
     if (el.dataset.v === 'money') {
       el.addEventListener('blur', function(){
-        el.value = fmtMoney(el.value);
-        A[el.dataset.n] = el.value;
-        save();
+        el.value = fmtMoney(el.value); A[el.dataset.n] = el.value; save();
       });
     }
   });
 
-  if (s.t === 'single') {
-    card.querySelectorAll('.opt').forEach(function(b){
-      b.addEventListener('click', function(){ pickOne(s, b); });
+  card.querySelectorAll('.opt').forEach(function(b){
+    var it = findItem(s, b.dataset.n);
+    b.addEventListener('click', function(){
+      if (it.t === 'single') pickOne(s, it, b); else toggle(it, b);
     });
-  }
-  if (s.t === 'multi') {
-    card.querySelectorAll('.opt').forEach(function(b){
-      b.addEventListener('click', function(){ toggle(s, b); });
-    });
-  }
-  if (s.t === 'scale') {
-    card.querySelectorAll('.sc').forEach(function(b){
-      b.addEventListener('click', function(){ pickScale(s, b); });
-    });
-  }
-  if (s.t === 'review') {
-    card.querySelectorAll('.edit').forEach(function(b){
-      b.addEventListener('click', function(){
-        var target = vis().indexOf(S[+b.dataset.i]);
-        if (target > -1) { dir = -1; idx = target; render(); }
-      });
-    });
-  }
-}
-function grow(el){ el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 260) + 'px'; }
+  });
 
-function pickOne(s, b){
-  card.querySelectorAll('.opt').forEach(function(x){ x.classList.remove('sel'); x.setAttribute('aria-checked','false'); });
-  b.classList.add('sel'); b.setAttribute('aria-checked','true');
-  A[s.n] = b.dataset.v; save();
-  hop();
+  card.querySelectorAll('.sc-sm').forEach(function(b){
+    b.addEventListener('click', function(){ setScale(s, +b.dataset.row, b.dataset.v); });
+  });
+  if (s.scale) markRow(s);
 }
-function pickScale(s, b){
-  card.querySelectorAll('.sc').forEach(function(x){ x.classList.remove('sel'); x.setAttribute('aria-checked','false'); });
-  b.classList.add('sel'); b.setAttribute('aria-checked','true');
-  A[s.n] = b.dataset.v; save();
-  hop();
+function findItem(s, n){
+  var out = null;
+  (s.items || []).forEach(function(it){ if (it.n === n) out = it; });
+  return out;
 }
-function toggle(s, b){
-  var v = b.dataset.v, list = A[s.n] || [], at = list.indexOf(v);
+function grow(el){ el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 220) + 'px'; }
+
+function pickOne(s, it, b){
+  card.querySelectorAll('.opt[data-n="' + it.n + '"]').forEach(function(x){
+    x.classList.remove('sel'); x.setAttribute('aria-checked', 'false');
+  });
+  b.classList.add('sel'); b.setAttribute('aria-checked', 'true');
+  A[it.n] = b.dataset.v;
+  save();
+  syncItems(s);
+  if (isSolo(s)) hop();
+}
+function toggle(it, b){
+  var v = b.dataset.v, list = A[it.n] || [], at = list.indexOf(v);
   if (at > -1) list.splice(at, 1); else list.push(v);
-  A[s.n] = list;
+  A[it.n] = list;
   b.classList.toggle('sel', at === -1);
   b.setAttribute('aria-pressed', String(at === -1));
   save();
 }
+/* a conditional follow-up appears in place instead of becoming another screen */
+function syncItems(s){
+  if (!s.items) return;
+  s.items.forEach(function(it, i){
+    if (!it.if) return;
+    var el = card.querySelector('.item[data-i="' + (S.indexOf(s) * 100 + i) + '"]');
+    var show = it.if(A);
+    if (el) { el.classList.toggle('hide', !show); return; }
+    if (show) render();
+  });
+}
+
+/* ---------- rating rows ---------- */
+function firstUnanswered(s){
+  for (var i = 0; i < s.scale.length; i++) if (!A[s.scale[i].n]) return i;
+  return s.scale.length - 1;
+}
+function markRow(s){
+  var done = 0;
+  card.querySelectorAll('.srow').forEach(function(r){
+    var i = +r.dataset.row;
+    r.classList.toggle('act', i === actRow);
+    var on = !!A[s.scale[i].n];
+    r.classList.toggle('ans', on);
+    if (on) done++;
+  });
+  var c = card.querySelector('#scDone'); if (c) c.textContent = done;
+  return done;
+}
+function setScale(s, row, val){
+  A[s.scale[row].n] = String(val);
+  card.querySelectorAll('.sc-sm[data-row="' + row + '"]').forEach(function(x){
+    var on = x.dataset.v === String(val);
+    x.classList.toggle('sel', on); x.setAttribute('aria-checked', String(on));
+  });
+  save();
+  var nextRow = -1;
+  for (var i = 0; i < s.scale.length; i++) if (!A[s.scale[i].n]) { nextRow = i; break; }
+  actRow = nextRow > -1 ? nextRow : row;
+  var done = markRow(s);
+  if (nextRow > -1) {
+    var el = card.querySelector('.srow[data-row="' + nextRow + '"]');
+    if (el) el.scrollIntoView({block:'nearest', behavior: RM ? 'auto' : 'smooth'});
+  } else if (done === s.scale.length) {
+    hop();  /* whole group answered - move on */
+  }
+}
 function hop(){
   if (advancing) return;
   advancing = true;
-  setTimeout(function(){ advancing = false; next(); }, RM ? 60 : 300);
+  setTimeout(function(){ advancing = false; next(); }, RM ? 60 : 340);
 }
 
 /* ---------- movement ---------- */
@@ -799,10 +1027,12 @@ function next(){
 }
 function prev(){ if (idx > 0) { dir = -1; idx--; render(); save(); } }
 
+prevBtn.addEventListener('click', prev);
+nextBtn.addEventListener('click', function(){ next(); });
+
 /* ---------- validation ----------------------------------------------------
-   Only name, email and phone are required. Everything else is optional but
-   is checked for SHAPE the moment it is filled in - a phone that is not ten
-   digits, an age that is not a number, a dollar amount with no digits in it.
+   Only name, email and phone are required. Everything else is optional but is
+   checked for SHAPE the moment it is filled in.
    ------------------------------------------------------------------------ */
 var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -814,36 +1044,36 @@ function fmtPhone(v){
 }
 function fmtMoney(v){
   var t = String(v).trim();
-  /* only tidy a plain amount - leave ranges, words and "k" notation alone */
-  if (!/^\$?[\d,]+$/.test(t)) return t;
+  if (!/^\$?[\d,]+$/.test(t)) return t;      /* leave ranges, words and "k" alone */
   var d = t.replace(/\D/g, '');
   return d ? '$' + Number(d).toLocaleString('en-US') : t;
 }
-function fieldErr(spec, raw){
+function fieldErr(it, raw){
   var v = String(raw || '').trim();
-  if (!v) return spec.req ? (spec.t === 'email' ? 'I need an email to send anything back to.'
-                          : spec.v === 'phone' ? 'I need a number to confirm the call.'
-                          : 'This one I do need.') : null;
-  if (spec.v === 'phone') {
+  if (!v) return it.req ? (it.ty === 'email' ? 'I need an email to send anything back to.'
+                        : it.v === 'phone' ? 'I need a number to confirm the call.'
+                        : 'This one I do need.') : null;
+  if (it.v === 'phone') {
     var d = v.replace(/\D/g, '');
-    if (d.length !== 10) return 'That\u2019s ' + d.length + ' digit' + (d.length === 1 ? '' : 's') + ' \u2014 a US number needs 10.';
+    if (d.length !== 10) return 'That’s ' + d.length + ' digit' + (d.length === 1 ? '' : 's') + ' — a US number needs 10.';
   }
-  if (spec.v === 'age') {
+  if (it.v === 'age') {
     if (!/^\d+$/.test(v)) return 'Numbers only, please.';
     var n = Number(v);
     if (n < 18 || n > 100) return 'Please enter an age between 18 and 100.';
   }
-  if (spec.v === 'money' && !/\d/.test(v)) return 'Please include a number \u2014 a rough figure is fine.';
-  if ((spec.t === 'email' || spec.ty === 'email') && !EMAIL_RE.test(v)) return 'That email doesn\u2019t look right.';
+  if (it.v === 'money' && !/\d/.test(v)) return 'Please include a number — a rough figure is fine.';
+  if (it.ty === 'email' && !EMAIL_RE.test(v)) return 'That email doesn’t look right.';
   return null;
 }
 function valid(s){
-  var specs = s.t === 'pair' ? s.f : [s];
-  var els = card.querySelectorAll('.fin');
+  if (!s.items) return true;
   var ok = true, first = null;
-  specs.forEach(function(spec, i){
-    var el = els[i]; if (!el) return;
-    var msg = fieldErr(spec, el.value);
+  items(s).forEach(function(it){
+    if (it.t !== 'text' && it.t !== 'long') return;
+    var el = card.querySelector('.fin[data-n="' + it.n + '"]');
+    if (!el) return;
+    var msg = fieldErr(it, el.value);
     var w = el.closest('.fwrap'); if (!w) return;
     w.classList.toggle('bad', !!msg);
     if (msg) {
@@ -851,12 +1081,9 @@ function valid(s){
       ok = false; if (!first) first = el;
     }
   });
-  if (first) first.focus();
+  if (first) { first.focus(); first.scrollIntoView({block:'center', behavior: RM ? 'auto' : 'smooth'}); }
   return ok;
 }
-
-prevBtn.addEventListener('click', prev);
-nextBtn.addEventListener('click', function(){ next(); });
 
 /* ---------- keyboard ---------- */
 document.addEventListener('keydown', function(e){
@@ -873,16 +1100,20 @@ document.addEventListener('keydown', function(e){
   if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); next(); return; }
   if (e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); prev(); return; }
 
-  if (s.t === 'scale' && /^[1-5]$/.test(e.key)) {
-    e.preventDefault();
-    var sc = card.querySelector('.sc[data-v="' + e.key + '"]');
-    if (sc) pickScale(s, sc);
-    return;
-  }
-  if ((s.t === 'single' || s.t === 'multi') && /^[a-z]$/i.test(e.key)) {
+  /* rating group: answer the live row and drop to the next one */
+  if (s.scale && /^[1-5]$/.test(e.key)) { e.preventDefault(); setScale(s, actRow, e.key); return; }
+  if (s.scale && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) return;
+
+  /* letter keys only when exactly one choice list is on screen */
+  if (s.items && /^[a-z]$/i.test(e.key)) {
+    var choice = items(s).filter(function(it){ return it.t === 'single' || it.t === 'multi'; });
+    if (choice.length !== 1) return;
     var k = LETTERS.indexOf(e.key.toUpperCase());
-    var btns = card.querySelectorAll('.opt');
-    if (k > -1 && btns[k]) { e.preventDefault(); s.t === 'single' ? pickOne(s, btns[k]) : toggle(s, btns[k]); }
+    var btns = card.querySelectorAll('.opt[data-n="' + choice[0].n + '"]');
+    if (k > -1 && btns[k]) {
+      e.preventDefault();
+      choice[0].t === 'single' ? pickOne(s, choice[0], btns[k]) : toggle(choice[0], btns[k]);
+    }
   }
 });
 
@@ -914,18 +1145,20 @@ document.getElementById('clearBtn').addEventListener('click', function(){
   A = {}; idx = 0; dir = 1; render();
 });
 
-/* ---------- review + summary ---------- */
+/* ---------- review + printable summary ---------- */
 function rows(forPrint){
   var out = '', lastCh = 0;
   vis().forEach(function(s){
     if (!isQ(s)) return;
     var pairs = [];
-    if (s.t === 'pair') {
-      s.f.forEach(function(f){ if (A[f.n]) pairs.push([plain(f.l), A[f.n]]); });
+    if (s.scale) {
+      s.scale.forEach(function(r){ if (A[r.n]) pairs.push([plain(r.l), A[r.n] + ' / 5']); });
     } else {
-      var v = A[s.n];
-      if (Array.isArray(v)) v = v.join(', ');
-      if (v) pairs.push([plain(s.q), v]);
+      items(s).forEach(function(it){
+        var v = A[it.n];
+        if (Array.isArray(v)) v = v.join(', ');
+        if (v) pairs.push([plain(it.l || it.sub || s.q), v]);
+      });
     }
     if (!pairs.length) return;
     if (s.ch !== lastCh) {
@@ -941,10 +1174,8 @@ function rows(forPrint){
   return out;
 }
 function reviewHTML(){
-  var r = rows(false);
-  return r || '<p class="none">Nothing answered yet. Use the arrow keys to go back through the questions.</p>';
+  return rows(false) || '<p class="none">Nothing answered yet. Use the arrows to go back through the questions.</p>';
 }
-
 function finish(){
   var nm = A.name ? ' &middot; ' + esc(A.name) : '';
   document.getElementById('psum').innerHTML =
@@ -971,6 +1202,12 @@ function finish(){
    ----------------------------------------------------------------------- */
 
 document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+
+card.addEventListener('click', function(e){
+  var b = e.target.closest('.edit'); if (!b) return;
+  var target = vis().indexOf(S[+b.dataset.i]);
+  if (target > -1) { dir = -1; idx = target; render(); }
+});
 
 render();
 })();
