@@ -234,8 +234,8 @@ body.welcome .card{max-width:none;margin:0;width:100%;display:flex}
 /* the welcome carries its own reassurance and has nowhere to go back to */
 body.welcome .ctrl,body.welcome .legal{display:none}
 /* photo panel + floating quote plate, lifted from the site's own hero */
-.wfig{position:relative;overflow:hidden;background:#dfe6ee;min-height:0}
-.wfig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:52% 20%}
+.wfig{position:relative;overflow:hidden;background:var(--ink);min-height:0}
+.wfig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:52% 28%}
 .wquote{
   position:absolute;right:0;bottom:clamp(26px,4.4vw,58px);z-index:2;
   max-width:min(410px,74%);
@@ -250,7 +250,7 @@ body.welcome .ctrl,body.welcome .legal{display:none}
 
 /* signature — a person is asking, not a form */
 .sig{display:flex;align-items:center;gap:14px;margin-top:30px;padding-top:26px;border-top:1px solid var(--hairline)}
-.sig img{width:46px;height:46px;object-fit:cover;object-position:center 28%;flex:none}
+.sig img{width:46px;height:46px;object-fit:cover;object-position:center 26%;flex:none}
 .sig b{display:block;font-family:var(--fd);font-size:16.5px;font-weight:700;color:var(--ink);letter-spacing:-.006em}
 .sig i{display:block;font-style:normal;font-size:9.5px;font-weight:700;letter-spacing:.19em;text-transform:uppercase;color:var(--muted);margin-top:6px}
 .reassure{margin-top:20px;font-size:12.5px;color:var(--muted);letter-spacing:.01em}
@@ -846,7 +846,7 @@ function render(){
           '<p class="reassure"><b>Confidential.</b> Saved as you go, so you can finish it later. Never shared with a franchisor.</p>' +
         '</div>' +
         '<div class="wfig">' +
-          '<img src="assets/hero-josh.jpg" width="1400" height="1750" alt="Josh DuBois, founder of JD Strategic Franchising" fetchpriority="high" decoding="async">' +
+          '<img src="assets/josh-portrait.jpg" width="1400" height="1500" alt="Josh DuBois, founder of JD Strategic Franchising" fetchpriority="high" decoding="async">' +
           '<figure class="wquote"><span class="qm" aria-hidden="true">&ldquo;</span>' +
           '<div><p>I&rsquo;ve lived every side of it, the good deals and the bad ones.</p><cite>Josh DuBois, Founder</cite></div>' +
           '</figure>' +
