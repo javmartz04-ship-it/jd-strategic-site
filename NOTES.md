@@ -667,3 +667,31 @@ Verification changed shape to match the complaint: the hero measured and capture
 eight real screens (1280x720, 1366x768, 1536x864, 1440x900, 1728x1117, 1920x1080,
 2560x1440, 390x844) on one contact sheet, plus six chapters at 1366x768. Headline-to-
 paragraph gap 55–67px everywhere; face clear everywhere; one line per row everywhere.
+
+---
+
+# ROUND 10 (2026-09-08): the correction round
+
+Javier, verbatim, on round 9: *"why would you make it this fucking big?"* (a picture of
+the giant type) · *"most franchises are not worth owning, that is garbage. This little
+animation you have is garbage"* · *"raised in franchising... it's supposed to be about
+him... he's so small"* · *"you already have the skill set... why are the words so
+fucking big like they're fucking old"* · *"footer is garbage"* · *"fix everything else."*
+
+What the file dump showed that he had not said: the three rules were rendered TWICE
+(round 9's regex missed the old `.pov` block), and the "small picture" was a 600px
+contained image in a half column.
+
+Changes:
+- **Position**: pinned/fading thesis deleted. One opener, the bleed, the three rules once.
+- **Kinetic marquee**: deleted.
+- **Hero stats**: 116px numerals to 60px. Stats, not billboards.
+- **Closing**: 156px override removed; chapter-title scale.
+- **Insider**: rebuilt so the portrait fills its column at cover scale, name at 88px
+  over the image, run label "Raised in it", copy beside. The chapter is him now.
+- **Footer**: closing plate. Brand line large with the CTA beside it, three columns,
+  legal in two 12px columns, copyright row.
+
+Verified at eleven sizes 375 to 3440 (zero overflow, zero errors, one line per hero row,
+comparison rows aligned, largest type outside the hero now 88px), all interactions, and
+element captures of each rebuilt block plus a page strip.
