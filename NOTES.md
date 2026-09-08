@@ -639,3 +639,31 @@ mobile overflow was the pinned grid; bisected with display:none in one pass.
 House rules held: three orange accents, one voice, headline one line per row at every
 width, and no scroll hijacking anywhere. Parallax is still banned; scroll-LINKED motion on
 a native timeline is not parallax.
+
+---
+
+# ROUND 10 (2026-09-08): the geometry round
+
+Javier: *"the headline's all the way in North Africa, that's how long the spacing and
+padding is... it's not optimized for everything... before you show me anything, make sure
+it's good."*
+
+He was right and the cause was mechanical, not taste. The dark hero was a 100vh grid row
+with the copy set to `align-self:end`, so on any tall screen the headline sat at the top
+and the paragraph and button fell to the bottom, hundreds of pixels apart. On his monitor
+that gap was enormous. My 1440x900 captures never showed it.
+
+Fixes:
+- The copy now follows the headline in flow (`align-self:start`, gap ~57px at every
+  size) and the hero height is capped at `min(100svh, 940px)` so tall screens do not
+  stretch it into a void.
+- Josh's figure is absolutely anchored bottom-right and no longer drives the row height;
+  it was also pulled right so the headline's tail clears his face at every width (the
+  period of "owning." was sitting on his cheek at 1440).
+- Global section padding 150 → 124px max, chapter-opener margins and the pinned-claim
+  heights brought down. Air, not emptiness.
+
+Verification changed shape to match the complaint: the hero measured and captured at
+eight real screens (1280x720, 1366x768, 1536x864, 1440x900, 1728x1117, 1920x1080,
+2560x1440, 390x844) on one contact sheet, plus six chapters at 1366x768. Headline-to-
+paragraph gap 55–67px everywhere; face clear everywhere; one line per row everywhere.
