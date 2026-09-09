@@ -695,3 +695,23 @@ Changes:
 Verified at eleven sizes 375 to 3440 (zero overflow, zero errors, one line per hero row,
 comparison rows aligned, largest type outside the hero now 88px), all interactions, and
 element captures of each rebuilt block plus a page strip.
+
+---
+
+# ROUND 11 (2026-09-09): "this does not feel like a website"
+
+He was right and the diagnosis was structural: one 12,700px page with anchors is a
+landing page, not a website. The reference he chose has real destinations.
+
+Now: `index.html` (home, 10k px: hero, position, process, categories, About teaser,
+Podcast teaser, closing), `about.html` (portrait chapter, timeline, broker vs coach,
+credentials), `process.html` (five steps, questionnaire CTA), `podcast.html` (show,
+guests, episodes), `contact.html` (call, tiles, FAQ), plus the existing
+`questionnaire.html` as the intake. Shared `assets/site.css` and `assets/site.js`.
+Nav links are pages with `aria-current`; every inner page opens with a dark page
+header; the footer carries the sitemap. `Find my fit` goes to the questionnaire.
+
+Generator: `gen.py` in the session scratchpad rebuilds all pages from the last
+single-page source (`index.pre-pages.html`), so a copy change is one edit + one run.
+Verified: every internal link resolves to an existing file and anchor across all pages;
+four sizes per page, zero overflow, zero errors; FAQ, menus, logo on every page.
