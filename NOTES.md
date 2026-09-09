@@ -733,3 +733,100 @@ on the site and the opposite of the client's stated taste (Apple-light, not dark
 Bugs caught on the way: the page generator still told the nav the hero was dark ground
 (white links over cream at every desktop size); a leftover >=2200px override pushed the
 headline to 132px and wrapped it; the 560px copy column wrapped the headline at 1920.
+
+---
+
+# ROUND 13 (2026-09-09): the reference hero, for real this time
+
+Javier: *"make everything a little bit more premium... the hero section: I give you the
+reference site, it should feel like the hero's section here... we like how that looks, so
+let's make sure it looks like that. But first, you gotta fix the about him section; I don't
+know why that would ever happen. Please take that off... this is garbage... take a new
+approach because we've been trying to rebuild this over and over again and you keep
+coming up with the same shit."*
+
+## What he was pointing at
+
+Rendered both sites in viewport slices before touching anything (the standing rule).
+
+- **"The about him section"** was the home page's `#insider` block: `object-fit:cover` on a
+  1400x1500 head-and-shoulders portrait inside a 720x630 cell with `object-position:50% 0%`,
+  so the viewer got eyebrows-to-chin filling half the screen. Removed from the home page
+  entirely. About Josh has its own page.
+- **The hero** was round 12's calm split: a video-still cutout on a navy 4:5 panel with an
+  orange glow and a floating quote. That is the "image dropped on a panel" rejection that
+  has been on file since the hero-poster build, reintroduced.
+- **The credential band** `<div>` was never closed, so the rest of `<main>` rendered inside
+  it (the harness reported a 6,928px "credband"). Harmless visually, wrong structurally.
+
+## What the reference hero actually is, measured
+
+Utility line (white, one sentence, one link) over a **solid black bar** (small logo, caps
+links, icon trio, BOOK A CALL), then a true 50/50: eyebrow, ~96px Playfair with a
+mid-sentence italic in gold, grey sub, black rect CTA with a gold arrow, hairline, three
+stats with gold outline icons and serif numerals, and a **real photograph bleeding to the
+viewport's right edge at full hero height**. Then a black "AS FEATURED IN" strip.
+
+## The photograph decision, which was the whole round
+
+Josh has two usable images: the 1510x1952 video-still cutout and the 1400x1500 studio
+portrait on a navy backdrop. The reference's photo is waist-up in a real place, so the
+first attempt was the documented recipe: cutout composited into a real interior (24
+Pexels candidates on a contact sheet, three rooms tried, depth-of-field ramp, light wrap,
+warm grade, lapel mic painted out). Looked at a 1:1 crop of the result: **a video frame is
+soft at hero scale and the matte still reads as a cutout.** That is the "pixelated"
+complaint from round 2 waiting to happen again. Scripts kept in the session scratchpad
+(`comp2.py`), asset not shipped.
+
+Shipped instead: **the real studio portrait, with its own backdrop extended into a
+2400x2200 field** (`assets/hero-josh.jpg`). Edge pixels replicated outward, blurred on a
+distance ramp so the extension is a smooth continuation of the exact local colours, a
+gentle studio falloff, and the untouched portrait laid back in with a 260px smoothstep
+feather on its three open edges. No seam at any crop. The backdrop is already the brand
+navy, so the right half reads as a lit studio, not a CSS panel. Face sits in the middle
+third at 1440 with real headroom; on a 2560 monitor the crop tightens the way the
+reference's does. Same asset now carries the About page portrait at a sane crop
+(`object-position:50% 100%`).
+
+Honest limit: a headshot's face is ~45% of the frame. Only a waist-up shoot changes that.
+
+## Structure, home page
+
+1. **Chrome is the reference's:** a 38px utility line ("Free to clients, always...") over a
+   sticky solid-navy bar with white caps links, icon trio and a bordered Book a Call. The
+   floating island and its ground detection are gone; nothing morphs.
+2. **Hero:** split as above. Headline held to two lines at every width by giving the copy
+   its own left edge (`--hero-edge`, keyed to the 1560px chrome container, not the 1240px
+   grid, which had squeezed the column to 492px and wrapped the headline to four lines
+   while the harness said one).
+3. **Credential band:** static six-item navy strip with an orange label, the reference's
+   press strip shape with what Josh can actually claim. Three columns under 1500px.
+4. **Fit finder, inline.** The reference puts step one of its quiz right under the hero.
+   Ours shows the questionnaire's real "Which best describes you right now?" as four
+   tiles; a click stores `{describe, __i:1}` under the questionnaire's own localStorage
+   key (`jds_questionnaire_v3`) and opens it on step one with the answer already saved.
+   Option strings are byte-identical to the questionnaire's (verified), so the review
+   screen shows the choice. Hero CTA scrolls here; both buttons say "Find My Franchise Fit".
+5. Position, process, money and the show as before; insider removed; closing centred.
+
+Eyebrow count is 7 on 7 sections, the reference's signature, same deliberate deviation as
+every round since 2. Em-dashes on visible text: 0 (podcast page had five `&mdash;`
+entities, now commas).
+
+## Verification
+
+Off-screen Chromium at 1440x900, 1920x1080, 2560x1440, 1280x700, 1366x768 and 390x844
+on all five pages: **0 horizontal overflow, 0 console errors, hero one line per row
+everywhere, hero plus stats above the fold at every desktop size** (784px at 1440, 584 at
+1280x700 via a short-viewport tier). Every internal href resolves to a file and anchor.
+The credential grid overflowed by 151px at 1280 on the first pass (six `auto` columns in
+a flex child); caught by the sweep, not the eye.
+
+Harness lesson: `getClientRects().length` on a block span is 1 however many lines it
+wraps. Count lines as `height / line-height`.
+
+## Open
+
+1. A half-day shoot. Still the only thing that would obviously improve the page.
+2. A booking URL; every Book a Call still dials or lands on the contact page.
+3. `assets/og.jpg` still shows the round-2 hero; regenerate from the new one when convenient.
