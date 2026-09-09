@@ -715,3 +715,21 @@ Generator: `gen.py` in the session scratchpad rebuilds all pages from the last
 single-page source (`index.pre-pages.html`), so a copy change is one edit + one run.
 Verified: every internal link resolves to an existing file and anchor across all pages;
 four sizes per page, zero overflow, zero errors; FAQ, menus, logo on every page.
+
+---
+
+# ROUND 12 (2026-09-09): "make everything a little smaller first. hero needs to change"
+
+Global step down: body 18 to 17px; chapter titles 70 to 54px max; inner page titles 86 to
+60px; display 76 to 58; numerals 72 to 50; buttons 21/30 to 12/24 padding at 12.5px; section
+padding cap 124 to 100px; bleed image 800 to 620px; category tiles 620 to 480px; insider
+panel 880 to 720px; footer line 52 to 38px; FAQ questions 27 to 21px.
+
+Hero: the dark 172px cinematic opening replaced by a light split, headline capped at 70px
+(no wrap from 375 to 3440), copy and small stats left, Josh on a navy portrait panel right
+with the quote plate, nothing overlapping. Reason: the dark opening was the loudest thing
+on the site and the opposite of the client's stated taste (Apple-light, not dark glass).
+
+Bugs caught on the way: the page generator still told the nav the hero was dark ground
+(white links over cream at every desktop size); a leftover >=2200px override pushed the
+headline to 132px and wrapped it; the 560px copy column wrapped the headline at 1920.

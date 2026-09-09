@@ -36,9 +36,9 @@
 
   /* spotlight: dark chapters and the hero track the pointer */
   if(window.matchMedia('(pointer:fine)').matches && !RM){
-    var lit=[].slice.call(document.querySelectorAll('.dark,.hero')), ptick=false, lastEv=null;
+    var lit=[].slice.call(document.querySelectorAll('.dark')), ptick=false, lastEv=null;
     document.addEventListener('pointermove',function(ev){ lastEv=ev; if(!ptick){ ptick=true; requestAnimationFrame(function(){
-      var el=lastEv.target.closest && lastEv.target.closest('.dark,.hero'); if(el){ var r=el.getBoundingClientRect();
+      var el=lastEv.target.closest && lastEv.target.closest('.dark'); if(el){ var r=el.getBoundingClientRect();
         el.style.setProperty('--mx',((lastEv.clientX-r.left)/r.width*100).toFixed(1)+'%'); el.style.setProperty('--my',((lastEv.clientY-r.top)/r.height*100).toFixed(1)+'%'); }
       ptick=false; }); } },{passive:true});
   }
@@ -51,7 +51,7 @@
     for(var i=0;i<els.length;i++){
       var e=els[i];
       if(e.closest('.nav')||e.closest('.mmenu')) continue;
-      return !!e.closest('.dark,.hero');
+      return !!e.closest('.dark,.page-head');
     }
     return false;
   }
