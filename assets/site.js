@@ -40,15 +40,6 @@
     mm.addEventListener('click',function(e){ if(e.target.closest('a')){ mm.classList.remove('open'); bg.setAttribute('aria-expanded','false'); document.documentElement.style.overflow=''; } });
   }
 
-  /* spotlight: dark chapters answer the pointer */
-  if(window.matchMedia('(pointer:fine)').matches && !RM){
-    var ptick=false, lastEv=null;
-    document.addEventListener('pointermove',function(ev){ lastEv=ev; if(!ptick){ ptick=true; requestAnimationFrame(function(){
-      var el=lastEv.target.closest && lastEv.target.closest('.dark'); if(el){ var r=el.getBoundingClientRect();
-        el.style.setProperty('--mx',((lastEv.clientX-r.left)/r.width*100).toFixed(1)+'%'); el.style.setProperty('--my',((lastEv.clientY-r.top)/r.height*100).toFixed(1)+'%'); }
-      ptick=false; }); } },{passive:true});
-  }
-
   /* reveals: text blocks and the clip-veil photographs, with a failsafe */
   var rev=[].slice.call(document.querySelectorAll('[data-r],[data-bleed]'));
   function revealAll(){ rev.forEach(function(el){ el.classList.add('in'); }); }

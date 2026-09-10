@@ -951,3 +951,32 @@ is a photographer.
 Five pages, six viewports: 0 overflow, 0 console errors, hero one line per row, hero and
 stats above the fold at every desktop size, all links resolve, nav ground correct at all
 seven scroll positions.
+
+---
+
+# ROUND 16 (2026-09-10): the orange glow goes, and a lit hero field
+
+Javier: *"there's that orange behind the background on the blue sections... with the mouse.
+We don't want that... make this 20 times better."*
+
+- **The cursor spotlight is gone.** The warm radial that followed the pointer across dark
+  sections (`.dark::after` plus the pointermove handler) is deleted from CSS and JS. The
+  reviewer had already called the orange-on-navy glow "weird" on the hero; this was the
+  same family.
+- **The hero field is lit, not filled.** A broad soft studio light baked into the upper
+  right of the portrait field (the portrait's own key comes from the right) and a faint fill
+  upper left. The empty area above Josh now reads as a lit studio rather than a void. Same
+  file carries the About portrait.
+- **The fit finder card** gets the house form treatment: a 2px orange bar across the top, a
+  deeper ground, and a long soft shadow so it sits on the section instead of in it.
+- **The competitor's slogan is out of Josh's copy.** "Franchise owners helping future
+  franchise owners" is The Franchise Insiders' own tagline, shown in their logo lockup, and
+  it had been our hero eyebrow and footer line since round 2. Eyebrow is now "Second-
+  generation franchise family. Free to clients." and the footer line is Josh's own About
+  headline, "Raised in franchising. Now on your side of the table." Flagged to Javier.
+- Looked at `_src/josh-process.jpg` as a replacement for the stock review photo in the
+  process section: it is the talking-head video still, soft and mid-sentence, not a
+  document review. Kept the stock frame.
+
+Verified: five pages, six viewports, 0 overflow, 0 errors, nav ground correct at seven
+positions, no spotlight code left anywhere.
