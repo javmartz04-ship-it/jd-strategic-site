@@ -905,3 +905,49 @@ resume key cleared, fresh start on reload.
    ($50K+ investments only), a "Franchise Success Playbook" lead magnet, a resale tab, a
    request-for-information form (its spec is also in the folder), territory checks, and a
    note that Franchise Insiders is the model. None of it is built; it needs Javier's call.
+
+---
+
+# ROUND 15 (2026-09-10): "Make everything way better"
+
+No specifics, so the diagnosis had to be mine. Structure is now fixed by the reviewers, so
+this was a craft round measured against the one thing on the page that still reads cheap:
+the hero's right half was sixty percent empty navy above a headshot.
+
+## The photograph, third attempt, and the answer
+
+1. **Blend the studio portrait into a dark, defocused real room** (four Pexels interiors
+   graded to the backdrop's own colour, feathered 300px). The portrait's rectangular studio
+   backdrop shows as a soft grey block around the head against any room with structure.
+   Rejected at the 1440 crop.
+2. **Lift Josh out of the studio photo with Vision** (`hero-poster/tools/lift.swift`; the
+   matte on a sharp studio image is excellent, hair edge clean) **and composite the cutout
+   on the room** with a cast shadow and a light wrap. A crisp head-and-shoulders bust
+   floating in a corridor. The problem is not edges, it is that a bust with no body and
+   no environment lighting reads as a paste-up whatever the room. Rejected at 1:1.
+3. **Shipped:** the honest studio field, reframed. Canvas 2400x2200 to 2400x2000, so the
+   headroom drops from 40% to a third and the eyes sit near the upper-middle instead of
+   below centre. Face is a little larger; it is a portrait, not a passport. Plus a 26-second
+   breathe (scale 1 to 1.035, alternate, off under reduced motion) so the photograph is
+   never a static block.
+
+Three composite attempts across two rounds now say the same thing: **no composite of the
+assets that exist will read as real at hero scale.** The scripts are in the session
+scratchpad; the finding is in `system/LESSONS.md`. The next real improvement to this page
+is a photographer.
+
+## The rest of the round
+
+- **Credential strip** is four items, not six, set as tracked wordmarks with a serif lead
+  (FranServe / 2nd / 2,400+ / $0) and no icons, so it reads like the reference's press
+  strip rather than a feature list. One row from 1500px, two by two below. The six-item
+  grid overflowed at 1280 the first time; fixed and swept.
+- **Podcast index** trimmed from eight episodes to six, strongest guests first.
+- **Hero reassure** said "about 30 seconds"; the fit finder takes about two minutes. Fixed.
+- Band items stagger in after the hero arrival; `text-wrap:pretty` on paragraphs.
+
+## Verification
+
+Five pages, six viewports: 0 overflow, 0 console errors, hero one line per row, hero and
+stats above the fold at every desktop size, all links resolve, nav ground correct at all
+seven scroll positions.
