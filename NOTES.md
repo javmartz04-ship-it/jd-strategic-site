@@ -830,3 +830,78 @@ wraps. Count lines as `height / line-height`.
 1. A half-day shoot. Still the only thing that would obviously improve the page.
 2. A booking URL; every Book a Call still dials or lands on the contact page.
 3. `assets/og.jpg` still shows the round-2 hero; regenerate from the new one when convenient.
+
+---
+
+# ROUND 14 (2026-09-10): the Fathom review, built
+
+Javier sent the recording of the 2026-09-09 review (Joshua Diaz, joshonmarketing.com,
+screen-sharing the round-11 build against thefranchiseinsiders.com), with: *"the reference
+tells you everything... make those improvements... after that this should be a finished
+website... it still doesn't look premium enough."* Pulled the m3u8 and the transcript from
+the share page, extracted a frame every four seconds across the review, and read both.
+
+## What the recording asked for, and what landed
+
+| Said on the call | Where | Done |
+|---|---|---|
+| *"The EM dashes, we gotta go. Never EM dashes."* (questionnaire) | 1:20 | 29 `&mdash;` entities out of `questionnaire.html`; option labels now join with a colon |
+| *"Only used to confirm the call. No lists, no drip. Let's remove this."* | 1:40 | phone hint deleted |
+| *"The header, great... I love the sticky and then changing in colors is fire."* | 2:01 | round-13's solid bar reverted to the round-12 island: transparent over the page, condenses to a glass capsule on scroll, inverts over dark ground. The credential band now counts as dark ground |
+| *"The hero, we do need to change... the title number one is too big. His image sucks... I like left and right, like a little bit more not so big."* | 2:38 to 3:30 | round 13 already did this (split, real portrait). Headline capped at 72px and 4.7vw |
+| *"The glow of the orange, we're going to take out."* | 3:30 | gone since round 13 |
+| Selects "are not worth owning" with the cursor: *"I want to do something like that, where we highlight it... makes it pop out a little bit more."* | 3:55 to 4:15 | `.hl`: a soft orange marker behind the phrase on the position headline, `box-decoration-break:clone` so it wraps cleanly |
+| *"Things are way too big overall... this sizing is what we want"* (the reference's) | 4:52 to 5:27 | one more notch down: body 16.5, chapter titles 46 max, display 52, numerals 44, section padding 92, bleed 540, inner-page titles 54 |
+| *"That blue, super nice. Very classy."* (inner page heads) | 5:23 | kept |
+| *"He has an abbreviated form... hero, bam, and then after this title, a considered first step... combine something like this with this."* pointing at the reference's step 1 of 2 quiz | 6:19 to 7:05 | the six-step abbreviated questionnaire, on the page |
+| *"He needs a new headshot."* | 0:02 | still true |
+| *"That's his logo? No, right?"* | 2:26 | the mark on the site is the vector rebuild of the raster Javier pasted in round 8. If Josh has the real file, swap it in |
+
+## The abbreviated questionnaire
+
+Source: `Abbreviated Questionnaire.docx` from Josh's Dropbox materials folder (the same
+folder the full questionnaire came from; `dl=1` returns it as a zip). It is a build spec:
+six steps, one screen per step, progress bar, Back on every step after the first, step 5
+optional with a skip, step 6 contact with a summary chip row, submit "Get My Matches".
+
+Built as a data-driven engine in `site.js` (`STEPS`), rendering into `#fitStage`:
+- Steps 1, 3, 4 single-select (auto-advance after 360ms), step 2 multi-select with "Open:
+  show me what fits" exclusive of the others, step 5 four small radio rows plus two short
+  text fields, step 6 first/last/email/phone/target markets required, net worth select
+  optional, SMS consent checkbox required.
+- Validation on submit: email shape, phone must reduce to ten digits, consent checked.
+  Failures mark the field and scroll to the first one.
+- Autosaves to `localStorage` under `jds_fit_v1`; a return visit resumes at the first
+  unanswered required step; a completed submission clears it so the next visit starts fresh.
+- **Not wired.** `FIT_ENDPOINT` is an empty string at the top of the fit block. With it
+  empty the form validates, stores the payload under `jds_fit_last`, and shows the
+  thank-you. Set it to the GHL inbound webhook URL and the same payload posts as JSON
+  (`describe, categories[], timeline, capital, role, scale, setting, matters, background,
+  notes, first, last, email, phone, markets, networth, consent, submitted_at, source`).
+  Never test it against the live webhook: a test submit is a real contact.
+- A no-script fallback inside the stage links to the full questionnaire.
+- Copy is the spec's, in first person, dashes removed. The headline is the spec's own
+  promise: "Discover your two or three best franchise matches."
+
+The round-13 single-question handoff into the full questionnaire is gone; the spec says
+the full questionnaire is sent after the intro call, so the two do not share state.
+
+## Verification
+
+Six viewports, five pages: 0 overflow, 0 console errors, hero one line per row, hero plus
+stats above the fold at every desktop size (760px at 1440x900). Nav ground read at hero,
+band, fit, position, money, show and closing: correct at all seven (the check has to set
+`scroll-behavior:auto` first, or the smooth scroll makes it read the previous section).
+The fit engine driven end to end in Playwright: six steps, exclusive "open" behaviour,
+chips, empty-submit errors, bad email and phone rejected, valid submit to the thank-you,
+resume key cleared, fresh start on reload.
+
+## Still open
+
+1. **Wire `FIT_ENDPOINT`** to the GHL inbound webhook once Josh's sub-account has one.
+2. **Josh's headshot** (waist-up, on location) and the real logo file.
+3. **`Website.docx` in the same Dropbox folder was updated 2026-09-09.** It carries points
+   Josh wants on the site that nobody has briefed yet: a $2K rebate on introductions
+   ($50K+ investments only), a "Franchise Success Playbook" lead magnet, a resale tab, a
+   request-for-information form (its spec is also in the folder), territory checks, and a
+   note that Franchise Insiders is the model. None of it is built; it needs Javier's call.

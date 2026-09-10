@@ -523,11 +523,10 @@ var S = [
 {t:'welcome'},
 
 /* ─────────── 1. PERSONAL ─────────── */
-{ch:1, q:'First &mdash; <span class="it">how do I reach you?</span>', items:[
+{ch:1, q:'First, <span class="it">how do I reach you?</span>', items:[
   {t:'text', n:'name',  l:'Full name <em aria-hidden="true">*</em>', req:true, ac:'name', ph:'First and last', half:1},
   {t:'text', n:'email', l:'Email <em aria-hidden="true">*</em>', ty:'email', req:true, ac:'email', ph:'you@company.com', half:1},
-  {t:'text', n:'phone', l:'Phone <em aria-hidden="true">*</em>', v:'phone', req:true, ac:'tel', ph:'(555) 123-4567',
-   ih:'Only used to confirm the call. No lists, no drip.'}
+  {t:'text', n:'phone', l:'Phone <em aria-hidden="true">*</em>', v:'phone', req:true, ac:'tel', ph:'(555) 123-4567'}
 ]},
 
 {ch:1, q:'Where are you based?', h:'Territory availability is checked market by market, so the address matters more than you&rsquo;d think.', items:[
@@ -544,7 +543,7 @@ var S = [
   {t:'single', n:'veteran', l:'Are you a veteran?', o:['Yes','No'],
    ih:'A lot of brands discount the franchise fee for veterans.'},
   {t:'single', n:'partnered', l:'Are you married or partnered?', o:['Yes','No'],
-   ih:'If you are, I&rsquo;ll ask about them too &mdash; they&rsquo;re usually part of this decision.'}
+   ih:'If you are, I&rsquo;ll ask about them too: they&rsquo;re usually part of this decision.'}
 ]},
 
 {ch:1, q:'Tell me about your spouse or partner.', if:partnered, items:[
@@ -569,7 +568,7 @@ var S = [
   {t:'long', n:'spouse_duties', l:'Their duties'}
 ]},
 
-{ch:2, q:'What have you liked <span class="it">most and least?</span>', h:'About your past or current employment. The second answer usually shapes the search more than the first &mdash; what you want to get away from matters.', items:[
+{ch:2, q:'What have you liked <span class="it">most and least?</span>', h:'About your past or current employment. The second answer usually shapes the search more than the first. What you want to get away from matters.', items:[
   {t:'long', n:'liked_most',  l:'Liked most'},
   {t:'long', n:'liked_least', l:'Liked least'}
 ]},
@@ -577,10 +576,10 @@ var S = [
 /* ─────────── 3. GOALS ─────────── */
 {ch:3, q:'Which best describes you right now?', items:[
   {t:'single', n:'describe', o:[
-    'Corporate executive &mdash; considering a transition out of corporate',
-    'Business owner &mdash; expanding or adding a second income stream',
-    'Recently exited &mdash; redeploying capital from a business sale',
-    'New entrepreneur &mdash; recently left a job or looking to start something']}
+    'Corporate executive: considering a transition out of corporate',
+    'Business owner: expanding or adding a second income stream',
+    'Recently exited: redeploying capital from a business sale',
+    'New entrepreneur: recently left a job or looking to start something']}
 ]},
 
 {ch:3, q:'Why are you exploring <span class="it">franchise ownership?</span>', items:[
@@ -589,8 +588,8 @@ var S = [
 ]},
 
 {ch:3, q:'What first caught your interest?', items:[
-  {t:'long', n:'brands_interest', l:'Which brand or brands &mdash; and what drew you to them'},
-  {t:'long', n:'industries_interest', l:'Which industry or industries &mdash; and what&rsquo;s the draw'}
+  {t:'long', n:'brands_interest', l:'Which brand or brands: and what drew you to them'},
+  {t:'long', n:'industries_interest', l:'Which industry or industries: and what&rsquo;s the draw'}
 ]},
 
 {ch:3, q:'What&rsquo;s already in motion?', h:'So I can check availability in your market, run anything you&rsquo;re looking at through my screening, and stay out of the way of conversations you&rsquo;ve already started.', items:[
@@ -598,7 +597,7 @@ var S = [
   {t:'long', n:'already_speaking', l:'Any brands or other consultants you&rsquo;re already speaking with'}
 ]},
 
-{ch:3, q:'Have you reviewed any FDDs yet?', h:'The Franchise Disclosure Document &mdash; the legal document a franchisor has to hand you before you can buy.', items:[
+{ch:3, q:'Have you reviewed any FDDs yet?', h:'The Franchise Disclosure Document, the legal document a franchisor has to hand you before you can buy.', items:[
   {t:'single', n:'fdds', o:['Yes, several','One or two','No, not yet']},
   {t:'text', n:'fdds_which', l:'Which ones?', ph:'Brand names', w:'m',
    if:function(a){ return a.fdds && a.fdds !== 'No, not yet'; }}
@@ -618,19 +617,19 @@ var S = [
    if:function(a){ return a.owned === 'Yes'; }}
 ]},
 
-{ch:4, q:'What pulls you toward it &mdash; <span class="it">and what worries you?</span>', h:'Both halves are useful. The concerns are usually the more honest signal.', items:[
+{ch:4, q:'What pulls you toward it: <span class="it">and what worries you?</span>', h:'Both halves are useful. The concerns are usually the more honest signal.', items:[
   {t:'long', n:'attracts', l:'What attracts you to business ownership'},
   {t:'long', n:'concerns', l:'Your major concerns with it'}
 ]},
 
 /* ─────────── 5. STYLE — five groups, 26 statements ─────────── */
-{ch:5, q:'How you approach things', h:'Twenty-six short statements over the next few screens. 1 = not really me, 5 = definitely me. Go with your gut &mdash; there are no wrong answers.', scale:[
+{ch:5, q:'How you approach things', h:'Twenty-six short statements over the next few screens. 1 = not really me, 5 = definitely me. Go with your gut: there are no wrong answers.', scale:[
   {n:'style_a_1', l:'I make decisions quickly and move on, even without all the information.'},
   {n:'style_a_2', l:'I&rsquo;m at my best meeting new people and building relationships.'},
   {n:'style_a_3', l:'I prefer a steady, predictable routine over constant change.'},
   {n:'style_a_4', l:'I study the details and data before I commit.'},
   {n:'style_a_5', l:'I&rsquo;d rather be in charge than be told what to do.'},
-  {n:'style_a_6', l:'I&rsquo;m persuasive &mdash; I can bring people around to my thinking.'},
+  {n:'style_a_6', l:'I&rsquo;m persuasive: I can bring people around to my thinking.'},
   {n:'style_a_7', l:'I&rsquo;m patient and loyal; I stick with things for the long haul.'},
   {n:'style_a_8', l:'I hold myself and others to high standards for accuracy.'}
 ]},
@@ -638,7 +637,7 @@ var S = [
 {ch:5, q:'What drives you', scale:[
   {n:'style_b_1', l:'Financial security and stability matter more to me than a big upside.'},
   {n:'style_b_2', l:'I want the freedom to control my own time and be my own boss.'},
-  {n:'style_b_3', l:'I&rsquo;m driven by achievement &mdash; hitting goals and growing.'},
+  {n:'style_b_3', l:'I&rsquo;m driven by achievement: hitting goals and growing.'},
   {n:'style_b_4', l:'I want work that feels meaningful and helps people.'},
   {n:'style_b_5', l:'Building something I can pass on to my family is a big motivator.'}
 ]},
@@ -646,9 +645,9 @@ var S = [
 {ch:5, q:'How you like to work', scale:[
   {n:'style_c_1', l:'I like a fast pace with lots happening at once.'},
   {n:'style_c_2', l:'I do my best work with clear structure and a proven process.'},
-  {n:'style_c_3', l:'I&rsquo;m organized &mdash; I plan ahead and keep things on track.'},
+  {n:'style_c_3', l:'I&rsquo;m organized: I plan ahead and keep things on track.'},
   {n:'style_c_4', l:'I&rsquo;m comfortable wearing many hats and switching between tasks.'},
-  {n:'style_c_5', l:'I&rsquo;m comfortable with the financial side &mdash; budgets, numbers, cash flow.'}
+  {n:'style_c_5', l:'I&rsquo;m comfortable with the financial side: budgets, numbers, cash flow.'}
 ]},
 
 {ch:5, q:'Risk, and the kind of brand you&rsquo;d want', scale:[
@@ -660,7 +659,7 @@ var S = [
 
 {ch:5, q:'How you work with others', scale:[
   {n:'style_e_1', l:'I do my best when I&rsquo;m collaborating and sharing with others.'},
-  {n:'style_e_2', l:'I&rsquo;m competitive &mdash; I want to outperform and win.'},
+  {n:'style_e_2', l:'I&rsquo;m competitive: I want to outperform and win.'},
   {n:'style_e_3', l:'I&rsquo;d value a close network of other owners I can lean on.'},
   {n:'style_e_4', l:'I&rsquo;d rather run my own show than compare notes with everyone.'}
 ]},
@@ -670,7 +669,7 @@ var S = [
   {t:'multi', n:'roles', l:'Which roles appeal to your strengths?', ih:'Check as many as fit.', grid:1, o:[
     'Sales','Marketing','Networking','Prospecting new customers','Selling a new / emerging idea',
     'Managing employees','Leadership','Financials / accounting','Operations','Customer-focused']},
-  {t:'long', n:'strongest', l:'In your own words &mdash; what do people rely on you for?'}
+  {t:'long', n:'strongest', l:'In your own words: what do people rely on you for?'}
 ]},
 
 {ch:6, q:'Experience, and the things you&rsquo;d rather not repeat.', items:[
@@ -679,7 +678,7 @@ var S = [
 ]},
 
 /* ─────────── 7. BUSINESS MODEL ─────────── */
-{ch:7, q:'Where and how would you <span class="it">want to run it?</span>', h:'Check anything that appeals &mdash; several or none is fine, we&rsquo;ll refine on the call.', items:[
+{ch:7, q:'Where and how would you <span class="it">want to run it?</span>', h:'Check anything that appeals. Several or none is fine, we&rsquo;ll refine on the call.', items:[
   {t:'multi', n:'bm_setting', l:'Setting', grid:1, o:['Home-based','Office-based','Retail / brick-and-mortar','Open to everything']},
   {t:'multi', n:'bm_owner', l:'Ownership model', o:['Owner-operator (hands-on, running it day to day)','Executive model (managing the team and resources to grow)','Not sure yet']}
 ]},
@@ -696,11 +695,11 @@ var S = [
 
 /* ─────────── 8. INDUSTRIES ─────────── */
 {ch:8, q:'Which industries <span class="it">interest you?</span>', h:'Six screens of categories. Check anything that interests you, leave blank anything you&rsquo;d rule out. Sub-categories help me research precisely.', items:[
-  {t:'multi', n:'ind_health', sub:'Healthcare &amp; beauty care', grid:1, o:['Senior care &mdash; home health (medical)','Senior care &mdash; home health (non-medical)','Senior care placement','Anti-aging','Barber services','Eyelashes / nail salons','Massage / spa / skin care','Tanning / waxing','Mobility equipment','Medical staffing']},
+  {t:'multi', n:'ind_health', sub:'Healthcare &amp; beauty care', grid:1, o:['Senior care: home health (medical)','Senior care: home health (non-medical)','Senior care placement','Anti-aging','Barber services','Eyelashes / nail salons','Massage / spa / skin care','Tanning / waxing','Mobility equipment','Medical staffing']},
   {t:'multi', n:'ind_auto', sub:'Automotive', grid:1, o:['Auto repair','Tinting','Detailing']}
 ]},
 
-{ch:8, q:'Services &mdash; business and children.', items:[
+{ch:8, q:'Services: business and children.', items:[
   {t:'multi', n:'ind_biz', sub:'Business services', grid:1, o:['Business coaching','Cost reduction','Bookkeeping','Commercial cleaning','Recruiting','Marketing','Medical billing','Logistics','Payroll']},
   {t:'multi', n:'ind_child', sub:'Child services', grid:1, o:['Fitness','Education','Cooking','Music','Language']}
 ]},
@@ -727,9 +726,9 @@ var S = [
 ]},
 
 /* ─────────── 9. FINANCIALS ─────────── */
-{ch:9, q:'What could you <span class="it">put into this?</span>', h:'Rough figures are fine, especially this early &mdash; everything here is confidential and never goes to a franchisor. A guess beats a blank; this is what sets the realistic range.', items:[
+{ch:9, q:'What could you <span class="it">put into this?</span>', h:'Rough figures are fine, especially this early. Everything here is confidential and never goes to a franchisor. A guess beats a blank; this is what sets the realistic range.', items:[
   {t:'text', n:'liquid_capital', l:'Liquid capital available to invest', v:'money', ph:'e.g. $150,000', w:'m',
-   ih:'Money you can access quickly without selling long-term investments or major assets &mdash; checking, savings, money market funds.'},
+   ih:'Money you can access quickly without selling long-term investments or major assets: checking, savings, money market funds.'},
   {t:'text', n:'brokerage', l:'Brokerage / investment accounts', v:'money', ph:'Rough figure', w:'m',
    ih:'Stocks and funds you could tap if needed.'},
   {t:'text', n:'retirement', l:'Retirement funds / 401(k) / IRA', v:'money', ph:'Rough figure', w:'m'}
@@ -739,7 +738,7 @@ var S = [
   {t:'text', n:'investment_range', l:'Investment range you&rsquo;re considering', ph:'e.g. $100k&ndash;$250k', w:'m'},
   {t:'text', n:'net_worth', l:'Approximate net worth', v:'money', ph:'Rough figure', w:'m',
    ih:'Everything you own (home, savings, investments, retirement) minus everything you owe (mortgage, loans, debts).'},
-  {t:'multi', n:'funding', l:'How do you plan to fund it?', grid:1, o:['Cash / savings','SBA loan','Home equity','401(k) / ROBS','Partner or investor','Not sure &mdash; would like guidance']}
+  {t:'multi', n:'funding', l:'How do you plan to fund it?', grid:1, o:['Cash / savings','SBA loan','Home equity','401(k) / ROBS','Partner or investor','Not sure: would like guidance']}
 ]},
 
 /* ─────────── 10. DECISION MAKING ─────────── */
@@ -861,7 +860,7 @@ function render(){
         '<div class="wcopy">' +
           '<span class="chip"><i aria-hidden="true"></i>Confidential Questionnaire</span>' +
           '<h2 class="qt">The questions I&rsquo;d ask on the call, <span class="it">answered first.</span></h2>' +
-          '<p class="qh">This helps me understand your goals, style, and what you&rsquo;re looking for before we talk &mdash; so our call is spent on finding the right fit, not gathering basics. Go with your gut; there are no wrong answers.</p>' +
+          '<p class="qh">This helps me understand your goals, style, and what you&rsquo;re looking for before we talk, so our call is spent on finding the right fit, not gathering basics. Go with your gut; there are no wrong answers.</p>' +
           '<div class="sig">' +
             '<img src="assets/josh-avatar-sm.jpg" width="120" height="120" alt="Josh DuBois" onerror="this.style.display=\'none\'">' +
             '<span><b>Josh DuBois</b><i>Founder, JD Strategic Franchising</i></span>' +
@@ -881,7 +880,7 @@ function render(){
   } else if (s.t === 'review') {
     h = '<span class="chip"><i aria-hidden="true"></i>One last look</span>' +
         '<h2 class="qt">That&rsquo;s everything. <span class="it">Ready to send?</span></h2>' +
-        '<p class="qh">Check anything you want to change &mdash; every line is editable. Nothing here is shared with a franchisor.</p>' +
+        '<p class="qh">Check anything you want to change. Every line is editable. Nothing here is shared with a franchisor.</p>' +
         '<div class="qb"><div class="rev" id="rev">' + reviewHTML() + '</div>' +
         '<div class="senderr" id="senderr"></div></div>' +
         advRow('Send to Josh', 'You&rsquo;ll get a printable copy next');
@@ -900,7 +899,7 @@ function render(){
         }).join('') +
         '</div></div>' +
         (isSolo(s)
-          ? advRow(false, 'Pick one &mdash; or press <kbd>A</kbd>&ndash;<kbd>' + LETTERS[s.items[0].o.length-1] + '</kbd>')
+          ? advRow(false, 'Pick one: or press <kbd>A</kbd>&ndash;<kbd>' + LETTERS[s.items[0].o.length-1] + '</kbd>')
           : advRow());
   }
 
@@ -1316,7 +1315,7 @@ function submit(){
     if (btn) { btn.disabled = false; btn.innerHTML = 'Try again' + ARROW; }
     if (err) {
       err.innerHTML = '<b>That didn&rsquo;t go through.</b> Your answers are still saved on ' +
-        'this device, so nothing is lost &mdash; try again, or email them to ' +
+        'this device, so nothing is lost: try again, or email them to ' +
         '<a href="mailto:josh@jdfranchising.com">josh@jdfranchising.com</a> and I&rsquo;ll pick it up from there.';
       err.classList.add('on');
       err.scrollIntoView({block:'nearest', behavior: RM ? 'auto' : 'smooth'});
