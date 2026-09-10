@@ -1075,3 +1075,13 @@ payload).
 3. Website.docx items not built: a resale tab (teaser listings without brand names), a
    territory check, a blog or resources page, "featured top brands". Each needs content
    from Josh before it can exist.
+
+**Round 17 addendum, same day:** the push was rejected because another session had pushed
+`e9d1801 Questionnaire: post to the intake worker, fall back to the webhook` (a Cloudflare
+worker at `jd-questionnaire.javier-d51.workers.dev/submit`, falling back to the GHL inbound
+webhook). That commit was authored from a copy that predated round 14, so it put the 28 em
+dashes and the "No lists, no drip" hint back on the live questionnaire. Rebased, re-applied
+the copy fixes on top of the wiring (every answer field is free text in the GHL map, so the
+wording change is safe), and synced `builds/jd-strategic-questionnaire/index.html` to the
+live file so the two copies cannot drift apart again. **Rule: the site repo's
+`questionnaire.html` is the only source; the build folder's `index.html` is a mirror.**
