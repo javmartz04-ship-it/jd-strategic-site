@@ -980,3 +980,98 @@ We don't want that... make this 20 times better."*
 
 Verified: five pages, six viewports, 0 overflow, 0 errors, nav ground correct at seven
 positions, no spotlight code left anywhere.
+
+---
+
+# ROUND 17 (2026-09-10): the inner pages become pages, the home gets the reference's missing rooms
+
+Javier: *"it is looking better. I still want to make everything a little bit more premium.
+Especially the other pages, for example podcast. It should have his videos in there...
+every other page looks the exact same. I do like that blue on top... the home page is
+missing something... this is how he wants it. You're just upgrading it, adding more stuff."*
+
+## Sources, all Josh's own
+
+The Dropbox materials folder held more than the questionnaires: `My Story.docx` (his full
+narrative arc), `My Story Short-Form.docx` (hero and About blurbs plus an accuracy note),
+`The Process.docx` (his five steps in his words), `Helpful Information.docx` (canonical
+facts, the offers, voice rules, positioning), `Request for Information.docx` (a form spec),
+`Website.docx` (his site wishlist). The podcast channel (`youtube.com/@JDStrategic`) listed
+184 videos; 43 are full Conquer the Mind episodes, numbered 1 to 43.
+
+## Podcast page: a player, not a list
+
+- One 16:9 stage at the top, poster of episode 36 (Doc Cohen, first franchisee Hall of
+  Famer) with "Start here". Every episode on the page plays in that stage: click any card
+  or archive row, an iframe (`youtube-nocookie`, autoplay, no related videos) replaces the
+  poster, the title, guest and run label update, the page scrolls the stage into view.
+  **Zero links out to YouTube**, per the standing rule.
+- 15 recent episodes as cards with the real episode art, treated: grayscale under a navy
+  colour blend at rest so the electric-blue thumbnails sit in the site's register, full
+  colour on hover. Episode number chip, duration, title in Playfair, guest credential
+  read off the art. Episodes 1 to 27 as a two-column archive, each playable.
+- Guest belt kept. Thumbnails shipped at 960x540 in `assets/eps/`.
+
+## About: his story, in his order
+
+Lede is the Short-Form hero paragraph. The timeline is now the eight beats of My Story:
+the restaurants, the turn, the franchisor side, the lesson that stuck (the unnamed food
+franchise), the seed, corporate finance, the bet (IFE, the six-figure loan), today. A new
+Three Pillars section (financial freedom, lifestyle freedom, a lasting legacy) and his
+closing line. Accuracy notes honoured: the four Massachusetts locations are the family's,
+the food franchise is unnamed, his own franchise is "opening my own franchise in the Miami
+market", never the brand name, no Titus Center board claim, no earnings claims.
+
+## Process: three paths, five steps, the offer
+
+- "Which of these sounds like you?" Three paths from his own call script: locked on one
+  brand, looking at a few, open to ownership. Each says exactly what he does in that case.
+- The five steps replaced with his: Introductory call, Assessment and matching, Discovery
+  calls with the franchisors, Economics and franchisee validation (Item 19, owner calls,
+  attorney), Funding, Discovery Day and your decision.
+- "What you get working with me": $2,000 back (from his commission, brands he introduces,
+  $50K+), the Franchisee Success Coaching Guide (on first referral), funding in parallel,
+  free to you. Plus "about ten people a month, one point of contact."
+
+## Home: two rooms the reference has and we did not
+
+- **Who you are working with** (dark, after the position): a framed 4:5 portrait at
+  contained scale with a name plate, and three rows in his voice: Access (the family arc),
+  Judgment (a franchisor must be expert in both the industry and franchising), A real bar
+  (cleared my vetting criteria, confirmed available in your market). Links to About.
+- **The offer** (paper, before the show): the same four offers as the process page.
+
+## A new page: request.html
+
+The Request for Information spec, built: four numbered groups (contact, financials as
+range selects, about you, target market and interest), SMS consent, "Request Introduction",
+inline thank-you. Validates email and a ten-digit phone; required fields marked. Not
+wired: `RFI_ENDPOINT` is empty in `site.js`, the payload is stored under `jds_rfi_last`
+tagged `direct-intro-request`. Linked from the footer sitemap, the contact page, and both
+offer sections.
+
+## Voice rules from Helpful Information, applied
+
+- "Never use the word honestly." It was in the process step, the closing lede and an FAQ
+  answer. Gone everywhere.
+- "Public copy should say a brand cleared my vetting criteria without listing them." Two
+  home-page lines listed the criteria; both now say "cleared my vetting criteria."
+- The phrase "a franchise owner helping future franchise owners" turns out to be in Josh's
+  own positioning doc as well as in the reference's logo. Round 16's replacement stands as
+  the safer choice; it is his call if he wants his own phrasing of it back.
+
+## Verification
+
+Six pages at six viewports: 0 overflow, 0 console errors, 0 dashes, every link resolves,
+nav ground correct. Playwright drove the stage (card click and archive click both load the
+right embed and retitle the stage; no outbound YouTube anchors) and the request form (empty
+submit marks eleven fields and the consent; valid submit shows the thank-you and stores the
+payload).
+
+## Still open
+
+1. `FIT_ENDPOINT` and `RFI_ENDPOINT`: two GHL inbound webhooks, one line each.
+2. Josh's headshot and logo file.
+3. Website.docx items not built: a resale tab (teaser listings without brand names), a
+   territory check, a blog or resources page, "featured top brands". Each needs content
+   from Josh before it can exist.

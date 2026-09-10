@@ -246,3 +246,62 @@
   });
   window.addEventListener('resize',function(){ var o=document.querySelector('.faq-i.open'); if(o){ var a=o.querySelector('.faq-a'); a.style.height='auto'; a.style.height=a.scrollHeight+'px'; } });
 })();
+
+/* ================= podcast: every episode plays in the one stage, nothing links out ================= */
+(function(){
+  'use strict';
+  var stage=document.getElementById('vstage'); if(!stage) return;
+  var RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var run=document.getElementById('vRun'), title=document.getElementById('vTitle'), guest=document.getElementById('vGuest'), meta=document.getElementById('vMeta');
+  function play(b){
+    var id=b.getAttribute('data-play'); if(!id) return;
+    var n=b.getAttribute('data-n'), t=b.getAttribute('data-t'), g=b.getAttribute('data-g')||'';
+    var f=document.createElement('iframe');
+    f.src='https://www.youtube-nocookie.com/embed/'+encodeURIComponent(id)+'?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+    f.title='Conquer the Mind, episode '+n+': '+t; f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen'; f.setAttribute('allowfullscreen','');
+    f.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+    stage.innerHTML=''; stage.appendChild(f);
+    if(run) run.textContent='Now playing · Episode '+n; if(title) title.textContent=t; if(guest) guest.innerHTML=g;
+    if(meta){ var m=b.querySelector('.dur'); meta.textContent=(m?m.textContent.replace(' min',' minutes'):'')+(m?' · ':'')+'Conquer the Mind'; }
+    var top=stage.getBoundingClientRect().top+window.pageYOffset-100;
+    if(!b.closest('#vstage')) window.scrollTo({top:top,behavior:RM?'auto':'smooth'});
+  }
+  document.addEventListener('click',function(e){ var b=e.target.closest('[data-play]'); if(b){ e.preventDefault(); play(b); } });
+})();
+
+/* ================= request an introduction: validates, stores locally until RFI_ENDPOINT is set ================= */
+(function(){
+  'use strict';
+  var RFI_ENDPOINT='';
+  var form=document.getElementById('rform'); if(!form) return;
+  var RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var done=document.getElementById('rfDone');
+  form.addEventListener('input',function(e){ var w=e.target.closest('.rf-f'); if(w) w.classList.remove('err'); var c=e.target.closest('.consent'); if(c) c.classList.remove('err'); });
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var ok=true, data={};
+    [].slice.call(form.querySelectorAll('input,select,textarea')).forEach(function(el){
+      if(!el.name) return;
+      var w=el.closest('.rf-f'); var v=(el.type==='checkbox')?el.checked:el.value.trim();
+      if(el.type==='checkbox'){ data[el.name]=v; return; }
+      var good=true;
+      if(el.hasAttribute('data-req') && !v) good=false;
+      if(el.name==='email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) good=false;
+      if(el.name==='phone'){ var d=v.replace(/\D/g,''); if(!/^\d{10}$/.test(d)) good=false; else v=d; }
+      if(w) w.classList.toggle('err',!good);
+      if(!good) ok=false; else if(v) data[el.name]=v;
+    });
+    var c=form.querySelector('[name="consent"]'); var cl=c.closest('.consent'); cl.classList.toggle('err',!c.checked); if(!c.checked) ok=false;
+    if(!ok){ var f=form.querySelector('.err'); if(f) f.scrollIntoView({block:'center',behavior:RM?'auto':'smooth'}); return; }
+    data.submitted_at=new Date().toISOString(); data.source='jdfranchising.com/request'; data.tag='direct-intro-request';
+    var payload=JSON.stringify(data);
+    try{ localStorage.setItem('jds_rfi_last',payload); }catch(err){}
+    function finish(){
+      form.hidden=true; done.hidden=false;
+      var h=document.getElementById('rfDoneH'); if(h && data.first) h.textContent='Thanks, '+data.first+'. Your request is in.';
+      done.scrollIntoView({block:'start',behavior:RM?'auto':'smooth'});
+    }
+    if(RFI_ENDPOINT){ var b=form.querySelector('[type="submit"]'); if(b){ b.disabled=true; b.style.opacity='.6'; } fetch(RFI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:payload}).then(finish).catch(finish); }
+    else finish();
+  });
+})();
