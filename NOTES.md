@@ -1171,3 +1171,25 @@ form marks twelve fields on an empty submit. Desktop and phone slices of every p
 3. The frame pipeline is in the session scratchpad (`pick.swift`, `finalists.py`, `cut.py`,
    `build_assets.py`); copy it into `builds/jd-strategic-site/tools/` if it should outlive the session.
 4. `FIT_ENDPOINT` and `RFI_ENDPOINT` still empty; the questionnaire mirror untouched.
+
+---
+
+# ROUND 19 (2026-09-16): the inner page heads stay dark and text-only
+
+Javier, with a screenshot of the podcast page's dark head: *"for the pages let's keep it
+like this instead of the pictures because it looks really good."*
+
+Round 18 (another session) had put photo split heads (`.page-head.ph-split`, a photograph
+bleeding right with a name plate) on About, How it works and Contact. Reverted those three
+to the plain dark text head the podcast and request pages use: run label, title, lede, and
+round 18's Book a Call under the lede. The three head photographs (`assets/josh/head-*.jpg`)
+and their preloads are no longer referenced; the files stay in the repo for now. Everything
+else from round 18 (the About story rail, the process figure, the podcast poster and host
+block, the contact beats) is untouched.
+
+Verified About, How it works, Contact and Podcast at 1440, 1280 and 390: 0 overflow, 0
+console errors, 0 broken assets, no `.ph-split` left.
+
+**Standing rule for this site: inner page heads are the dark text head. No photographs in
+the head.** The reviewer praised "that blue on top" in the 09-09 review and Javier confirmed
+it here against the photo version.
