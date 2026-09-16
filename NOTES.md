@@ -1085,3 +1085,89 @@ the copy fixes on top of the wiring (every answer field is free text in the GHL 
 wording change is safe), and synced `builds/jd-strategic-questionnaire/index.html` to the
 live file so the two copies cannot drift apart again. **Rule: the site repo's
 `questionnaire.html` is the only source; the build folder's `index.html` is a mirror.**
+
+---
+
+# ROUND 18 (2026-09-16): the photographed site
+
+Javier: *"make this more premium, more better... About Josh, I want this way better. There's
+something that don't make sense. You know how like his head is all the way down... you don't
+have to keep reusing the same pictures and everything. Podcast style. Have like more... make it
+feel like the best website in the world... someone looks at it, they feel like they paid $30,000."*
+
+## The diagnosis
+
+Rendered ours and the reference side by side, page by page. The reference feels expensive for
+one reason that no amount of type or spacing was ever going to close: **fifteen distinct real
+photographs of its founders** across five pages. We had one studio headshot used three times,
+a stock woman standing in for Josh in the process section, and on About the headshot was
+`object-fit:cover` in a tall half-column, so his face sat at the bottom of an empty navy box.
+That box is the "head all the way down."
+
+Fifteen rounds of notes say "the next real improvement is a photographer." It was already shot.
+Josh's channel holds produced on-camera clips at 4K (`jEWU5pLuM4k`, `bc-jzZerm-w`,
+`Z_LQtHAwZGs`), 1440p (`A6NNCut2MBI`) and 1080p, plus the episodes. Four real settings with
+his eyes visible or a lifestyle look: the mint-wall room (tan blazer, "Do it with passion" sign),
+a Miami balcony with the skyline (blue blazer), the Biscayne waterfront (grey suit, sunglasses),
+and the episode two-ups. Inside the 4K clip there are also his own photographs: the family at a
+2016 clothing drive at one of their dry-cleaning locations, and Josh on the floor at a franchise
+conference.
+
+## The photo pipeline (scratchpad, reusable)
+
+1. `yt-dlp -f "bv*"` per clip (an outdated yt-dlp 403s mid-download; upgrade first).
+2. Frames at 2 to 5 fps, 960px wide, then **Apple Vision** (`pick.swift`:
+   `VNDetectFaceCaptureQualityRequest` + landmarks) scores every frame: capture quality, inner-lip
+   openness, eye openness, yaw, roll. `finalists.py` adds Laplacian sharpness on the face crop and
+   ranks; 40 finalists per clip on a timestamped sheet, then 1:1 face crops of the top ones.
+   Choosing by eye from 1 fps sheets does not work; closed mouth and open eyes are invisible at
+   160px.
+3. `cut.py` extracts the exact frame at full resolution and crops around the Vision face box to
+   the slot's aspect with the face at a set height fraction (0.19 to 0.2 for waist-up), never
+   upscaling past ~1.1x. Grade: white balance off a **known neutral** (the wall patch for the
+   mint room at 0.92, the white shirt for the balcony and waterfront via a brightest-low-saturation
+   sampler below the face), gamma to a 0.5 mean, saturation 0.9, gentle S-curve, split tone toward
+   navy/cream at 0.06 to 0.08, light unsharp. Gray-world on the balcony frames was wrong twice:
+   the blue blazer and cyan sky skew it.
+4. The wall sign gets painted out (`--design`) where the crop would cut it mid-word: the wall
+   directly below it, flipped, luminance-ramped, 3% feather. Cropped text reads as a bug.
+
+## What changed, per page
+
+- **Home**: hero is the balcony frame (2160x1440, `object-position 50% 30%`); "who" is a matted
+  4:5 of the white-shirt mint frame; the process figure is Josh, not a stock woman; the show
+  block is a poster (Josh on camera, "Conquer the Mind" lockup, 43-episode chip) that opens the
+  player page.
+- **About**: split page head with a photograph bleeding right and a name plate; the insider block
+  is gone. The story is a numbered rail beside a sticky matted studio portrait with the pull
+  quote; two of his own photographs sit inside the rail after beats 03 and 07.
+- **How it works**: split head (waterfront); the three paths narrow like the position columns with
+  the third lit navy instead of three equal cards; the process figure is Josh.
+- **Contact**: split head (mint, closer framing), then a paper section "What happens on the
+  call" in three narrowing beats before the dark call and FAQ. The page is no longer all navy.
+- **Podcast**: the stage poster is a real frame of episode 36, Josh and Doc Cohen both smiling,
+  instead of the thumbnail with the baked-in play button. A host block with a matted portrait and
+  three facts before the closing.
+- **Request**: an intro row, "I read every request myself," with a small matted portrait.
+- Shared: `.mat` (hairline shell + inner core + caption; the editorial double bezel),
+  `.page-head.ph-split`, `.story`, `.show`, `.host`, `.beats`, restyled `.paths`. Every photo is
+  pre-cropped to its slot's aspect so the face position is deterministic at every width.
+
+## Verification
+
+Six pages at 1440x900, 1920x1080, 2560x1440, 1280x700, 1366x768, 390x844: **0 horizontal
+overflow, 0 console errors, 0 broken assets, every link and anchor resolves.** Hero one line per
+row at every width, hero plus stats above the fold at every desktop size. Fit engine advances,
+nav ground correct at ten scroll positions, stage loads the nocookie embed and retitles, request
+form marks twelve fields on an empty submit. Desktop and phone slices of every page looked at.
+
+## Open
+
+1. Josh's sign-off on the two archive photographs (the 2016 clothing drive shows the family's
+   brand name on the cheque; the conference photo has another person in it). Both are from his
+   own published video; swap or drop on his word.
+2. The waterfront head on How it works is the only sunglasses shot; it is a deliberate lifestyle
+   beat. If Josh would rather show his eyes there, the mint closer-framing frame is cut and ready.
+3. The frame pipeline is in the session scratchpad (`pick.swift`, `finalists.py`, `cut.py`,
+   `build_assets.py`); copy it into `builds/jd-strategic-site/tools/` if it should outlive the session.
+4. `FIT_ENDPOINT` and `RFI_ENDPOINT` still empty; the questionnaire mirror untouched.
