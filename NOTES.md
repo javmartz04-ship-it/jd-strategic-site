@@ -1193,3 +1193,78 @@ console errors, 0 broken assets, no `.ph-split` left.
 **Standing rule for this site: inner page heads are the dark text head. No photographs in
 the head.** The reviewer praised "that blue on top" in the 09-09 review and Javier confirmed
 it here against the photo version.
+
+---
+
+# ROUND 20 (2026-09-21): the finishing pass. Every page, and every Book a Call books.
+
+Javier: *"finish the build, perfect the rest of the pages... 'Every episode, from the first.'
+It makes no fucking sense; it's not pretty design-wise. It has to be high converting."*
+
+Rendered all six pages in slices first. Three things were wrong beyond the archive he named.
+
+## 1. "Book a Call" never booked a call
+
+Twenty-nine buttons across the site either dialled the phone or opened the contact page,
+which had no calendar. Josh's real GHL booking calendar was in every one of his YouTube
+descriptions and on his current site: `api.leadconnectorhq.com/widget/booking/P9QsS5fdmp3TZWbOhvYY`
+(20 minutes). It loads in a frame (checked headlessly, load only, nothing booked). Contact
+now has a `#book` section: the live calendar in a framed card with a 2px accent bar, a phone
+fallback under it, then the three "what happens on the call" beats. **Every Book a Call on
+every page now goes to `contact.html#book`.** Reassurance line is "Twenty minutes. Free. No
+obligation." everywhere (the old copy said fifteen; the calendar says twenty).
+
+## 2. The podcast page
+
+- "Every episode, from the first" was a zigzag two-column list that started at 27. Gone,
+  along with the 15-card grid of navy-tinted thumbnails (loud YouTube art under a blue wash
+  still read as clutter).
+- In their place: **"Watch these five before you sign anything."** A numbered buyer's
+  playlist at chapter scale, each with a one-line reason to watch: 26 franchise vs
+  independent, 15 the discovery blueprint, 07 the lingo, 27 thirty-eight units, 12 the
+  investor model. Then a slim navy band into the fit finder. Then **"All 43 episodes."**:
+  one list, newest first, number, title, guest, duration, play; ten shown, a Show All
+  button, and a live search across titles and guests. The row that is playing is marked.
+- Guest names and titles are real: pulled from each video's own description with
+  `yt-dlp -J` (42 of 43 had a named guest; episode 8 is three developers from Authority
+  Brands; episode 3's guest is his father, unnamed, as in his copy).
+- Tried real frames for thumbnails (`yt-dlp --download-sections` plus ffmpeg, since direct
+  stream URLs 403): before episode 36 the recordings are a letterboxed Zoom layout with a
+  JD Strategic slide covering half the frame. Not usable. The list is typographic on purpose.
+
+## 3. Conversion
+
+- Closings were the same sentence on all six pages. Each now closes on its own line:
+  About "We are on the same journey. I just have a twenty-year head start." Process "It
+  starts with a twenty-minute call. It ends with clarity." Podcast "Heard enough to have
+  questions? Ask me directly."
+- The closing contact tiles broke the email address mid-word ("josh@jdfranchising.co / m").
+  Fixed with `white-space:nowrap` and a wider tile row.
+- **Phones get a bottom action bar** (primary CTA plus a call icon) that appears after the
+  first screen and steps aside over the fit form, the calendar, the request form and the
+  footer, so it never covers an input.
+- Request page: the form now sits beside a sticky rail (portrait, then "what happens next"
+  in three steps) instead of under a floating intro row. On phones the order is photo, form,
+  steps.
+- Home: the stale six-row text index under the show poster is gone; the poster and the
+  start-here line carry it.
+
+## Verification
+
+`builds/jd-strategic-tools/verify.mjs` (moved out of the session scratchpad, which had been
+wiped twice): six pages at 1440, 1920, 1280x700, 1366x768 and 390: 0 overflow, 0 errors, 0
+dashes, 0 broken assets, every link and anchor resolves, hero one line per row, hero and
+stats above the fold. `interact.mjs`: library shows 10 then 43, search narrows to 2 for "doc
+cohen" and shows the empty note for nonsense, playlist and library clicks load the right
+nocookie embed and retitle the stage, zero outbound YouTube anchors, phone bar on and off at
+the right scroll positions. Desktop and phone slices looked at.
+
+## Open
+
+1. `FIT_ENDPOINT` and `RFI_ENDPOINT` are still empty. Both forms work and store locally;
+   neither reaches GHL until those two lines are set.
+2. Buttons are set in uppercase by the site's type system (it mirrors the reference). Javier's
+   Title Case preference from another client is honoured in the source labels; if he wants
+   visible Title Case here, it is one CSS property.
+3. The request form keeps Josh's own optional fields (his spec marks them). Say the word and
+   they all become required.

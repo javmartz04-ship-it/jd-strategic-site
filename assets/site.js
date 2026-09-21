@@ -305,3 +305,33 @@
     else finish();
   });
 })();
+
+
+/* ================= the library: search, show all, mark what is playing ================= */
+(function(){
+  'use strict';
+  var list=document.getElementById('ixList'); if(!list) return;
+  var q=document.getElementById('ixQ'), meta=document.getElementById('ixMeta'), none=document.getElementById('ixNone'), moreWrap=document.getElementById('ixMoreWrap'), more=document.getElementById('ixMore');
+  var rows=[].slice.call(list.querySelectorAll('.ix')), base=meta?meta.textContent:'';
+  if(more) more.addEventListener('click',function(){ list.classList.add('all'); moreWrap.hidden=true; });
+  if(q) q.addEventListener('input',function(){
+    var v=q.value.trim().toLowerCase(), shown=0;
+    if(v){ list.classList.add('all'); if(moreWrap) moreWrap.hidden=true; }
+    rows.forEach(function(r){ var hit=!v || r.getAttribute('data-q').indexOf(v)>-1; r.hidden=!hit; if(hit) shown++; });
+    if(none) none.hidden=shown>0;
+    if(meta) meta.textContent=v?(shown+' of '+rows.length+' episodes'):base;
+  });
+  document.addEventListener('click',function(e){ var b=e.target.closest('[data-play]'); if(!b) return; var n=b.getAttribute('data-n');
+    rows.forEach(function(r){ r.classList.toggle('playing', r.querySelector('button').getAttribute('data-n')===n); }); });
+})();
+
+/* ================= phones: the action bar shows after the first screen, and steps aside for forms, the calendar and the footer ================= */
+(function(){
+  'use strict';
+  var bar=document.getElementById('mbar'); if(!bar || !('IntersectionObserver' in window)) return;
+  var blockers=[].slice.call(document.querySelectorAll('#fit,#book,#rform,.foot,.mmenu.open')), blocked=0, past=false;
+  function sync(){ bar.classList.toggle('on', past && blocked===0); }
+  var io=new IntersectionObserver(function(en){ en.forEach(function(x){ x.target.__in=x.isIntersecting; }); blocked=blockers.filter(function(b){ return b.__in; }).length; sync(); },{threshold:0,rootMargin:'0px 0px -12% 0px'});
+  blockers.forEach(function(b){ io.observe(b); });
+  window.addEventListener('scroll',function(){ var p=(window.pageYOffset||0)>560; if(p!==past){ past=p; sync(); } },{passive:true});
+})();
