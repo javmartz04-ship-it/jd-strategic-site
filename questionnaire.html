@@ -47,6 +47,7 @@
   --ease:cubic-bezier(.22,1,.36,1);
   --top-h:66px;
   --gut:clamp(22px,5vw,40px);
+  --foot-h:64px;
 }
 html{-webkit-text-size-adjust:100%}
 body{
@@ -92,10 +93,10 @@ input,textarea{font:inherit}
    STAGE — one screen at a time, vertically centred
    ========================================================================== */
 .stage{
-  position:fixed;top:var(--top-h);left:0;right:0;bottom:0;
+  position:fixed;top:var(--top-h);left:0;right:0;bottom:calc(var(--foot-h) + env(safe-area-inset-bottom));
   overflow-y:auto;overflow-x:hidden;
   display:flex;align-items:center;
-  padding:clamp(28px,5vh,64px) var(--gut) clamp(112px,16vh,150px);
+  padding:clamp(28px,5vh,64px) var(--gut) clamp(40px,7vh,80px);
 }
 .card{width:100%;max-width:720px;margin:0 auto}
 .card.in{animation:cardIn .52s var(--ease) both}
@@ -231,6 +232,7 @@ body.welcome .card{max-width:none;margin:0;width:100%;display:flex}
 .wcopy .qh{font-size:16.5px;max-width:50ch;margin-top:18px}
 /* the welcome carries its own reassurance and has nowhere to go back to */
 body.welcome .ctrl,body.welcome .legal{display:none}
+body.welcome .stage{bottom:0}
 /* photo panel + floating quote plate, lifted from the site's own hero */
 .wfig{position:relative;overflow:hidden;background:var(--ink);min-height:0}
 .wfig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:52% 28%}
@@ -268,15 +270,19 @@ body.welcome .ctrl,body.welcome .legal{display:none}
 .rev .r .k{color:var(--muted)}
 .rev .r .v{color:var(--ink);white-space:pre-wrap}
 .rev .none{padding:18px 0;font-size:14px;color:var(--muted)}
-.edit{background:none;border:0;color:var(--accent-ink);font-size:12px;font-weight:700;letter-spacing:.06em;text-decoration:underline;text-underline-offset:3px;padding:0;margin-left:8px;cursor:pointer}
+.edit{position:relative;background:none;border:0;color:var(--accent-ink);font-size:12px;font-weight:700;letter-spacing:.06em;text-decoration:underline;text-underline-offset:3px;padding:0;margin-left:8px;cursor:pointer}
+.edit::after,.legal button::after{content:"";position:absolute;inset:-13px -10px}
 
-/* ---------- footer controls ---------- */
+/* ---------- footer controls ----------
+   A solid bar, and the stage stops above it. Floating, these sat on top of
+   Back, Continue and Send whenever that row scrolled near the bottom, and
+   Start over over Back is one mis-tap from "clear every answer". */
 .ctrl{
-  position:fixed;right:var(--gut);bottom:clamp(20px,3.4vh,30px);z-index:55;
+  position:fixed;right:var(--gut);bottom:calc((var(--foot-h) - 44px) / 2 + env(safe-area-inset-bottom));z-index:56;
   display:flex;gap:1px;
 }
 .ctrl button{
-  width:44px;height:40px;display:grid;place-items:center;
+  width:44px;height:44px;display:grid;place-items:center;
   background:var(--canvas);border:1px solid var(--hairline);color:var(--ink);
   transition:background .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease),opacity .25s ease;
 }
@@ -284,10 +290,13 @@ body.welcome .ctrl,body.welcome .legal{display:none}
 .ctrl button:disabled{opacity:.34;cursor:not-allowed}
 .ctrl svg{width:15px;height:15px}
 .legal{
-  position:fixed;left:var(--gut);bottom:clamp(20px,3.4vh,30px);z-index:55;
+  position:fixed;left:0;right:0;bottom:0;z-index:55;
+  height:calc(var(--foot-h) + env(safe-area-inset-bottom));
+  padding:0 var(--gut) env(safe-area-inset-bottom);
+  background:var(--cream);border-top:1px solid var(--hairline);
   font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:14px;
 }
-.legal button{font-size:11.5px;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.legal button{position:relative;font-size:11.5px;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 .legal button:hover{color:var(--accent-ink)}
 @media (max-width:700px){.legal span{display:none}}
 
@@ -394,6 +403,24 @@ body.welcome .ctrl,body.welcome .legal{display:none}
 .scount{margin-top:16px;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
 .scount b{color:var(--accent-ink);font-weight:700}
 
+/* ---------- required: a gap is named where it is ---------- */
+.item > .err{margin-top:10px}
+.item.bad > .err{display:block}
+.item.bad .opt:not(.sel){border-color:rgba(201,78,0,.5)}
+.serr{
+  display:none;margin-top:22px;padding:12px 15px;border-left:3px solid var(--accent);
+  background:var(--accent-wash);font-size:14px;font-weight:600;line-height:1.5;color:var(--accent-ink);max-width:56ch;
+}
+.serr.on{display:block}
+.srow.miss .st{color:var(--accent-ink)}
+.srow.miss .sc-sm:not(.sel){border-color:rgba(201,78,0,.5)}
+.slegend{
+  display:flex;justify-content:space-between;gap:16px;margin-bottom:12px;
+  font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);
+}
+.slegend b{font-family:var(--fd);font-size:14px;letter-spacing:0;color:var(--accent-ink);margin-right:7px}
+@media (hover:none){.kb{display:none}}
+
 @media (max-width:760px){
   .items{grid-template-columns:minmax(0,1fr)}
   .item[data-half]{grid-column:1/-1}
@@ -430,6 +457,49 @@ body.welcome .ctrl,body.welcome .legal{display:none}
   .btn{width:100%;justify-content:space-between}
   .stage{padding-bottom:104px;align-items:flex-start}
   .meta div{width:50%;border-right:0;padding-right:0;margin-right:0;padding-bottom:14px}
+}
+/* ---------- phones: a shorter footer bar, and Send kept close ---------- */
+@media (max-width:640px){
+  :root{--foot-h:54px}
+  .stage{padding-bottom:34px}
+  /* the answers box stays a bounded list so Send is not 7,000px down the page,
+     just shorter, so Send sits close under it */
+  .rev{max-height:min(32vh,320px);padding:4px 16px}
+}
+
+/* ---------- phones: the welcome's one job is the Begin button ----------
+   The desktop split stacks to a photo band over the copy. Left alone the band
+   runs 357px and the quote plate lands on Josh's face, which pushes Begin a
+   full screen down. A shorter band, no plate, and the signature moved under
+   the button put Begin above the fold on a 375x812 phone. */
+@media (max-width:640px){
+  .wfig{min-height:min(30vh,250px)}
+  .wfig img{object-position:52% 22%}
+  .wquote{display:none}
+  .wcopy{padding:26px var(--gut) 34px}
+  .wcopy .chip{margin-bottom:18px}
+  .wcopy .qt{font-size:29px}
+  .wcopy .qh{font-size:15.5px;margin-top:14px}
+  .wcopy .go{margin-top:24px}
+  .wcopy .sig{order:1;margin-top:24px;padding-top:20px}
+}
+/* ---------- touch: no sticky hover ----------
+   A phone keeps :hover on whatever was last tapped, so an option you just
+   un-ticked stayed nudged right with a dark border, and buttons stayed lit.
+   On touch screens the selected state is the only feedback. */
+@media (hover:none){
+  button{-webkit-tap-highlight-color:transparent}
+  .opt:hover,.opt.sel:hover{transform:none}
+  .opt:hover:not(.sel){border-color:var(--hairline)}
+  .opt:hover:not(.sel) .k{border-color:var(--hairline);color:var(--muted)}
+  .item.bad .opt:hover:not(.sel){border-color:rgba(201,78,0,.5)}
+  .sc-sm:hover:not(.sel){border-color:var(--hairline);color:var(--faint)}
+  .srow.miss .sc-sm:hover:not(.sel){border-color:rgba(201,78,0,.5)}
+  .btn:hover svg{transform:none}
+  .btn-solid:hover{background:var(--ink)}
+  .btn-ghost:hover{background:transparent;color:var(--ink)}
+  .btn.back:hover{border-color:var(--hairline)}
+  .ctrl button:hover:not(:disabled){background:var(--canvas);border-color:var(--hairline);color:var(--ink)}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
@@ -524,9 +594,9 @@ var S = [
 
 /* ─────────── 1. PERSONAL ─────────── */
 {ch:1, q:'First, <span class="it">how do I reach you?</span>', items:[
-  {t:'text', n:'name',  l:'Full name <em aria-hidden="true">*</em>', req:true, ac:'name', ph:'First and last', half:1},
-  {t:'text', n:'email', l:'Email <em aria-hidden="true">*</em>', ty:'email', req:true, ac:'email', ph:'you@company.com', half:1},
-  {t:'text', n:'phone', l:'Phone <em aria-hidden="true">*</em>', v:'phone', req:true, ac:'tel', ph:'(555) 123-4567'}
+  {t:'text', n:'name',  l:'Full name', req:true, ac:'name', ph:'First and last', half:1},
+  {t:'text', n:'email', l:'Email', ty:'email', req:true, ac:'email', ph:'you@company.com', half:1},
+  {t:'text', n:'phone', l:'Phone', v:'phone', req:true, ac:'tel', ph:'(555) 123-4567'}
 ]},
 
 {ch:1, q:'Where are you based?', h:'Territory availability is checked market by market, so the address matters more than you&rsquo;d think.', items:[
@@ -588,13 +658,13 @@ var S = [
 ]},
 
 {ch:3, q:'What first caught your interest?', items:[
-  {t:'long', n:'brands_interest', l:'Which brand or brands: and what drew you to them'},
+  {t:'long', n:'brands_interest', l:'Which brand or brands: and what drew you to them', ph:'Brand names and why, or &ldquo;none yet&rdquo;', need:'Even &ldquo;none yet&rdquo; is an answer.'},
   {t:'long', n:'industries_interest', l:'Which industry or industries: and what&rsquo;s the draw'}
 ]},
 
 {ch:3, q:'What&rsquo;s already in motion?', h:'So I can check availability in your market, run anything you&rsquo;re looking at through my screening, and stay out of the way of conversations you&rsquo;ve already started.', items:[
-  {t:'long', n:'brands_requested', l:'Brands you&rsquo;ve already requested info on or inquired with'},
-  {t:'long', n:'already_speaking', l:'Any brands or other consultants you&rsquo;re already speaking with'}
+  {t:'long', n:'brands_requested', l:'Brands you&rsquo;ve already requested info on or inquired with', ph:'Brand names, or &ldquo;none yet&rdquo;', need:'Even &ldquo;none yet&rdquo; is an answer.'},
+  {t:'long', n:'already_speaking', l:'Any brands or other consultants you&rsquo;re already speaking with', ph:'Names, or &ldquo;no one yet&rdquo;', need:'Even &ldquo;no one yet&rdquo; is an answer.'}
 ]},
 
 {ch:3, q:'Have you reviewed any FDDs yet?', h:'The Franchise Disclosure Document, the legal document a franchisor has to hand you before you can buy.', items:[
@@ -678,7 +748,7 @@ var S = [
 ]},
 
 /* ─────────── 7. BUSINESS MODEL ─────────── */
-{ch:7, q:'Where and how would you <span class="it">want to run it?</span>', h:'Check anything that appeals. Several or none is fine, we&rsquo;ll refine on the call.', items:[
+{ch:7, q:'Where and how would you <span class="it">want to run it?</span>', h:'Check everything that appeals. Not sure yet? Pick the open option and we&rsquo;ll refine it on the call.', items:[
   {t:'multi', n:'bm_setting', l:'Setting', grid:1, o:['Home-based','Office-based','Retail / brick-and-mortar','Open to everything']},
   {t:'multi', n:'bm_owner', l:'Ownership model', o:['Owner-operator (hands-on, running it day to day)','Executive model (managing the team and resources to grow)','Not sure yet']}
 ]},
@@ -689,12 +759,12 @@ var S = [
 ]},
 
 {ch:7, q:'A few last preferences.', items:[
-  {t:'multi', n:'bm_other', l:'Anything here matter to you?', o:['I&rsquo;d like it to be recession-resistant','I want the ability to scale to multiple units / territories','I need it to be E2 visa-friendly']},
+  {t:'multi', n:'bm_other', l:'Anything here matter to you?', o:['I&rsquo;d like it to be recession-resistant','I want the ability to scale to multiple units / territories','I need it to be E2 visa-friendly','None of these is a must']},
   {t:'multi', n:'bm_employees', l:'Preferred number of employees to start', grid:1, o:['None / just me','Less than 5','5-15','15+','Open to options']}
 ]},
 
 /* ─────────── 8. INDUSTRIES ─────────── */
-{ch:8, q:'Which industries <span class="it">interest you?</span>', h:'Six screens of categories. Check anything that interests you, leave blank anything you&rsquo;d rule out. Sub-categories help me research precisely.', items:[
+{ch:8, q:'Which industries <span class="it">interest you?</span>', h:'Six screens of categories. Check anything that interests you and leave blank anything you&rsquo;d rule out, as long as you pick at least one across the six. Sub-categories help me research precisely.', items:[
   {t:'multi', n:'ind_health', sub:'Healthcare &amp; beauty care', grid:1, o:['Senior care: home health (medical)','Senior care: home health (non-medical)','Senior care placement','Anti-aging','Barber services','Eyelashes / nail salons','Massage / spa / skin care','Tanning / waxing','Mobility equipment','Medical staffing']},
   {t:'multi', n:'ind_auto', sub:'Automotive', grid:1, o:['Auto repair','Tinting','Detailing']}
 ]},
@@ -729,9 +799,9 @@ var S = [
 {ch:9, q:'What could you <span class="it">put into this?</span>', h:'Rough figures are fine, especially this early. Everything here is confidential and never goes to a franchisor. A guess beats a blank; this is what sets the realistic range.', items:[
   {t:'text', n:'liquid_capital', l:'Liquid capital available to invest', v:'money', ph:'e.g. $150,000', w:'m',
    ih:'Money you can access quickly without selling long-term investments or major assets: checking, savings, money market funds.'},
-  {t:'text', n:'brokerage', l:'Brokerage / investment accounts', v:'money', ph:'Rough figure', w:'m',
+  {t:'text', n:'brokerage', l:'Brokerage / investment accounts', v:'money', ph:'Rough figure, or 0', w:'m',
    ih:'Stocks and funds you could tap if needed.'},
-  {t:'text', n:'retirement', l:'Retirement funds / 401(k) / IRA', v:'money', ph:'Rough figure', w:'m'}
+  {t:'text', n:'retirement', l:'Retirement funds / 401(k) / IRA', v:'money', ph:'Rough figure, or 0', w:'m'}
 ]},
 
 {ch:9, q:'And what are you planning?', items:[
@@ -767,6 +837,7 @@ var doneEl  = document.getElementById('done');
 var RM      = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var LETTERS = 'ABCDEFGHIJKLMNOPQRST';
 var ARROW   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+var SERR    = '<p class="serr" role="alert"></p>';
 var BACKSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>';
 
 function vis(){ return S.filter(function(s){ return !s.if || s.if(A); }); }
@@ -804,11 +875,12 @@ function renderItem(it, i, focusFirst){
   var body = '';
   if (it.t === 'text' || it.t === 'long') {
     var tag = it.t === 'long'
-      ? '<textarea class="fin" data-n="' + it.n + '" rows="1"' + (focusFirst ? ' data-focus' : '') +
+      ? '<textarea class="fin" data-n="' + it.n + '" rows="1" enterkeyhint="next"' + (focusFirst ? ' data-focus' : '') +
         ' placeholder="' + (it.ph || 'Type your answer&hellip;') + '">' + esc(A[it.n] || '') + '</textarea>'
       : '<input class="fin" type="' + (it.ty || (it.v === 'phone' ? 'tel' : 'text')) + '" data-n="' + it.n + '"' +
         (it.v ? ' data-v="' + it.v + '"' : '') +
-        (it.v === 'phone' || it.v === 'age' ? ' inputmode="numeric"' : '') +
+        (it.v === 'phone' || it.v === 'age' || it.v === 'money' ? ' inputmode="numeric"' : '') +
+        ' enterkeyhint="next"' +
         (it.ac ? ' autocomplete="' + it.ac + '"' : '') +
         (focusFirst ? ' data-focus' : '') +
         ' placeholder="' + (it.ph || '') + '" value="' + esc(A[it.n] || '') + '">';
@@ -827,6 +899,8 @@ function renderItem(it, i, focusFirst){
       it.o.map(function(o, k){ return optBtn(it, o, k, chosen.indexOf(plain(o)) > -1, true); }).join('') + '</div>';
   }
 
+  if (it.t === 'single' || it.t === 'multi') body += '<span class="err"></span>';
+
   return '<div class="item" data-i="' + i + '"' + (it.half ? ' data-half="1"' : '') + (it.w ? ' data-w="' + it.w + '"' : '') + '>' +
     (it.sub ? '<span class="subh">' + it.sub + '</span>' : '') +
     (it.l ? '<span class="il">' + it.l + '</span>' : '') +
@@ -834,7 +908,8 @@ function renderItem(it, i, focusFirst){
     body + '</div>';
 }
 function renderScale(s){
-  var h = '<div class="shead" aria-hidden="true"><span class="sl">Statement</span>' +
+  var h = '<p class="slegend"><span><b>1</b> Not really me</span><span><b>5</b> Definitely me</span></p>' +
+          '<div class="shead" aria-hidden="true"><span class="sl">Statement</span>' +
           '<span class="sopts"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span></div>' +
           '<div class="srows">';
   s.scale.forEach(function(r, i){
@@ -845,7 +920,7 @@ function renderScale(s){
            return '<button type="button" class="sc-sm' + (v === String(n) ? ' sel' : '') + '" data-row="' + i + '" data-n="' + r.n + '" data-v="' + n + '" role="radio" aria-checked="' + (v === String(n)) + '" aria-label="' + n + ' of 5">' + n + '</button>';
          }).join('') + '</div></div>';
   });
-  h += '</div><p class="scount"><b id="scDone">0</b> of ' + s.scale.length + ' answered &nbsp;&middot;&nbsp; press <kbd>1</kbd>&ndash;<kbd>5</kbd> to answer and jump to the next</p>';
+  h += '</div><p class="scount"><b id="scDone">0</b> of ' + s.scale.length + ' answered<span class="kb"> &nbsp;&middot;&nbsp; press <kbd>1</kbd>&ndash;<kbd>5</kbd> to answer and jump to the next</span></p>';
   return h;
 }
 
@@ -887,7 +962,7 @@ function render(){
 
   } else if (s.scale) {
     actRow = firstUnanswered(s);
-    h = head(s) + '<div class="qb">' + renderScale(s) + '</div>' + advRow('Continue');
+    h = head(s) + '<div class="qb">' + renderScale(s) + '</div>' + SERR + advRow('Continue');
 
   } else {
     var its = items(s), focused = false;
@@ -897,7 +972,7 @@ function render(){
           if (f) focused = true;
           return renderItem(it, S.indexOf(s) * 100 + s.items.indexOf(it), f);
         }).join('') +
-        '</div></div>' +
+        '</div></div>' + SERR +
         (isSolo(s)
           ? advRow(false, 'Pick one: or press <kbd>A</kbd>&ndash;<kbd>' + LETTERS[s.items[0].o.length-1] + '</kbd>')
           : advRow());
@@ -979,6 +1054,7 @@ function pickOne(s, it, b){
   });
   b.classList.add('sel'); b.setAttribute('aria-checked', 'true');
   A[it.n] = b.dataset.v;
+  clearBad(b);
   save();
   syncItems(s);
   if (isSolo(s)) hop();
@@ -989,8 +1065,11 @@ function toggle(it, b){
   A[it.n] = list;
   b.classList.toggle('sel', at === -1);
   b.setAttribute('aria-pressed', String(at === -1));
+  if (at === -1) clearBad(b);
+  if (isInd(it) && anyIndustry()) { var se = card.querySelector('.serr'); if (se) se.classList.remove('on'); }
   save();
 }
+function clearBad(b){ var w = b.closest('.item'); if (w) w.classList.remove('bad'); }
 /* a conditional follow-up appears in place instead of becoming another screen */
 function syncItems(s){
   if (!s.items) return;
@@ -1026,6 +1105,10 @@ function setScale(s, row, val){
     var on = x.dataset.v === String(val);
     x.classList.toggle('sel', on); x.setAttribute('aria-checked', String(on));
   });
+  var rowEl = card.querySelector('.srow[data-row="' + row + '"]');
+  if (rowEl) rowEl.classList.remove('miss');
+  var se = card.querySelector('.serr.on');
+  if (se) { var m = screenMsg(s); se.innerHTML = m || ''; se.classList.toggle('on', !!m); }
   save();
   var nextRow = -1;
   for (var i = 0; i < s.scale.length; i++) if (!A[s.scale[i].n]) { nextRow = i; break; }
@@ -1048,7 +1131,14 @@ function hop(){
 function next(){
   var list = vis(), s = list[idx];
   if (isQ(s) && !valid(s)) return;
-  if (s.t === 'review') { submit(); return; }
+  if (s.t === 'review') {
+    /* answers saved before every question was required, or edited from the
+       review, can leave a gap. Send them to it instead of sending. */
+    for (var j = 0; j < list.length; j++) {
+      if (isQ(list[j]) && !complete(list[j])) { dir = -1; idx = j; render(); save(); valid(list[j]); return; }
+    }
+    submit(); return;
+  }
   if (idx < list.length - 1) { dir = 1; idx++; render(); save(); }
 }
 function prev(){ if (idx > 0) { dir = -1; idx--; render(); save(); } }
@@ -1057,8 +1147,13 @@ prevBtn.addEventListener('click', prev);
 nextBtn.addEventListener('click', function(){ next(); });
 
 /* ---------- validation ----------------------------------------------------
-   Only name, email and phone are required. Everything else is optional but is
-   checked for SHAPE the moment it is filled in.
+   Every question is required before the screen can be left: text, choices and
+   every rating row. Continue, the arrow buttons, the keyboard and the final
+   send all go through next(), so nothing gets past valid().
+
+   One exception. Each industry category stays optional, because the copy asks
+   people to leave blank what they would rule out, and forcing a pick would put
+   false interests in front of Josh. The section as a whole needs at least one.
    ------------------------------------------------------------------------ */
 var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -1076,9 +1171,14 @@ function fmtMoney(v){
 }
 function fieldErr(it, raw){
   var v = String(raw || '').trim();
-  if (!v) return it.req ? (it.ty === 'email' ? 'I need an email to send anything back to.'
-                        : it.v === 'phone' ? 'I need a number to confirm the call.'
-                        : 'This one I do need.') : null;
+  if (!v) {
+    if (it.ty === 'email' && it.req) return 'I need an email to send anything back to.';
+    if (it.v === 'phone') return 'I need a number to confirm the call.';
+    if (it.need) return it.need;
+    if (it.v === 'money') return 'A rough figure is fine, or 0 if none.';
+    if (it.t === 'long') return 'A sentence or two is plenty.';
+    return 'This one I do need.';
+  }
   if (it.v === 'phone') {
     var d = v.replace(/\D/g, '');
     if (d.length !== 10) return 'That’s ' + d.length + ' digit' + (d.length === 1 ? '' : 's') + ' — a US number needs 10.';
@@ -1092,23 +1192,73 @@ function fieldErr(it, raw){
   if (it.ty === 'email' && !EMAIL_RE.test(v)) return 'That email doesn’t look right.';
   return null;
 }
+function isInd(it){ return it.t === 'multi' && /^ind_/.test(it.n); }
+function anyIndustry(){
+  return S.some(function(x){ return (x.items || []).some(function(it){ return isInd(it) && A[it.n] && A[it.n].length; }); });
+}
+function lastIndScreen(s){
+  var ind = vis().filter(function(x){ return (x.items || []).some(isInd); });
+  return ind[ind.length - 1] === s;
+}
+/* what is wrong with one question, from the answers alone */
+function itemMsg(it){
+  var v = A[it.n];
+  if (it.t === 'text' || it.t === 'long') return fieldErr(it, v);
+  if (it.t === 'single') return v ? null : 'Pick one to keep going.';
+  if (it.t === 'multi') return isInd(it) || (v && v.length) ? null : 'Pick at least one.';
+  return null;
+}
+/* what is wrong with the screen as a whole */
+function screenMsg(s){
+  if (s.scale) {
+    var left = s.scale.filter(function(r){ return !A[r.n]; }).length;
+    if (!left) return null;
+    return left === s.scale.length ? 'Rate each statement to keep going.'
+         : left === 1 ? 'One statement left to rate.'
+         : left + ' statements left to rate.';
+  }
+  if (lastIndScreen(s) && !anyIndustry()) return 'Pick at least one industry that interests you, here or on the screens before this one.';
+  return null;
+}
+function complete(s){
+  if (!isQ(s)) return true;
+  if (screenMsg(s)) return false;
+  return items(s).every(function(it){ return !itemMsg(it); });
+}
+/* check the screen on show, mark every gap, and take the visitor to the first */
 function valid(s){
-  if (!s.items) return true;
-  var ok = true, first = null;
+  if (!isQ(s)) return true;
+  var first = null;
   items(s).forEach(function(it){
-    if (it.t !== 'text' && it.t !== 'long') return;
-    var el = card.querySelector('.fin[data-n="' + it.n + '"]');
-    if (!el) return;
-    var msg = fieldErr(it, el.value);
-    var w = el.closest('.fwrap'); if (!w) return;
-    w.classList.toggle('bad', !!msg);
-    if (msg) {
-      var e = w.querySelector('.err'); if (e) e.innerHTML = msg;
-      ok = false; if (!first) first = el;
+    var el, w, msg;
+    if (it.t === 'text' || it.t === 'long') {
+      el = card.querySelector('.fin[data-n="' + it.n + '"]');
+      if (!el) return;
+      msg = fieldErr(it, el.value);
+      w = el.closest('.fwrap');
+    } else {
+      el = card.querySelector('.opt[data-n="' + it.n + '"]');
+      if (!el) return;
+      msg = itemMsg(it);
+      w = el.closest('.item');
     }
+    if (!w) return;
+    w.classList.toggle('bad', !!msg);
+    var e = w.querySelector('.err'); if (e && msg) e.innerHTML = msg;
+    if (msg && !first) first = el;
   });
-  if (first) { first.focus(); first.scrollIntoView({block:'center', behavior: RM ? 'auto' : 'smooth'}); }
-  return ok;
+  var sm = screenMsg(s), se = card.querySelector('.serr');
+  if (se) { se.innerHTML = sm || ''; se.classList.toggle('on', !!sm); }
+  if (sm && s.scale) {
+    card.querySelectorAll('.srow').forEach(function(r){ r.classList.toggle('miss', !A[s.scale[+r.dataset.row].n]); });
+    actRow = firstUnanswered(s); markRow(s);
+    if (!first) first = card.querySelector('.srow[data-row="' + actRow + '"]');
+  } else if (sm && !first) first = se;
+  if (first) {
+    if (first.classList.contains('fin')) first.focus({preventScroll:true});
+    first.scrollIntoView({block:'center', behavior: RM ? 'auto' : 'smooth'});
+  }
+  return !first;
 }
 
 /* ---------- keyboard ---------- */
@@ -1119,7 +1269,13 @@ document.addEventListener('keydown', function(e){
 
   if (e.key === 'Enter') {
     if (e.target.tagName === 'TEXTAREA' && e.shiftKey) return;
-    e.preventDefault(); next(); return;
+    e.preventDefault();
+    if (typing) {
+      var fs = [].slice.call(card.querySelectorAll('.fin')).filter(function(x){ return x.offsetParent !== null; });
+      var at = fs.indexOf(e.target);
+      if (at > -1 && at < fs.length - 1) { fs[at + 1].focus(); return; }
+    }
+    next(); return;
   }
   if (typing) return;
 
@@ -1164,6 +1320,8 @@ function save(){
   var i = d.__i; delete d.__i;
   A = d;
   if (typeof i === 'number') idx = Math.min(Math.max(i, 0), vis().length - 1);
+  var list = vis();
+  for (var j = 0; j < idx; j++) if (isQ(list[j]) && !complete(list[j])) { idx = j; break; }
 })();
 
 document.getElementById('clearBtn').addEventListener('click', function(){
