@@ -102,6 +102,7 @@
     var A={}, idx=0;
     try{ A=JSON.parse(localStorage.getItem(FIT_KEY)||'{}')||{}; }catch(e){ A={}; }
     if(A.__done){ A={}; }
+    try{ var qc=new URLSearchParams(location.search).get('cat'); if(qc){ var allc=STEPS[1].o; if(allc.indexOf(qc)>-1){ A.categories=[qc]; A.__cat=qc; save(); } } }catch(e){}
     function save(){ try{ localStorage.setItem(FIT_KEY,JSON.stringify(A)); }catch(e){} }
     function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
     function answered(s){
@@ -145,7 +146,7 @@
       return h+'</div>';
     }
     function render(){
-      var s=STEPS[idx], h='<h3 class="fitq" id="fitQ">'+esc(s.q)+'</h3>'+(s.h?'<p class="fithint">'+esc(s.h)+'</p>':'');
+      var s=STEPS[idx], h=(A.__cat&&idx===0?'<div class="chips" aria-label="Industry"><span>'+esc(A.__cat)+'</span></div>':'')+'<h3 class="fitq" id="fitQ">'+esc(s.q)+'</h3>'+(s.h?'<p class="fithint">'+esc(s.h)+'</p>':'');
       if(s.t==='single'){
         h+='<div class="fitopts'+(s.cols===3?' cols-3':'')+'" role="radiogroup" aria-labelledby="fitQ">'+s.o.map(function(o){ var l=Array.isArray(o)?o[0]:o, sub=Array.isArray(o)?o[1]:''; return opt(s,l,sub,A[s.id]===l,false); }).join('')+'</div>';
         if(s.foot) h+='<p class="fitfoot">'+esc(s.foot)+'</p>';
@@ -187,7 +188,7 @@
       var nw=box.querySelector('[name="networth"]'); if(nw&&nw.value) A.networth=nw.value;
       var c=box.querySelector('[name="consent"]'); var cl=c.closest('.consent'); cl.classList.toggle('err',!c.checked); if(!c.checked) ok=false; else A.consent=true;
       if(!ok){ var f=box.querySelector('.err'); if(f) f.scrollIntoView({block:'center',behavior:RM?'auto':'smooth'}); return; }
-      A.submitted_at=new Date().toISOString(); A.source='jdfranchising.com/#fit';
+      delete A.__cat; A.submitted_at=new Date().toISOString(); A.source=location.pathname.indexOf('contact')>-1?'jdfranchising.com/contact':'jdfranchising.com/#fit';
       var payload=JSON.stringify(A);
       try{ localStorage.setItem('jds_fit_last',payload); }catch(e){}
       if(FIT_ENDPOINT){
@@ -328,9 +329,79 @@
 (function(){
   'use strict';
   var bar=document.getElementById('mbar'); if(!bar || !('IntersectionObserver' in window)) return;
-  var blockers=[].slice.call(document.querySelectorAll('#fit,#book,#rform,.foot,.mmenu.open')), blocked=0, past=false;
+  var blockers=[].slice.call(document.querySelectorAll('#fit,#book,#rform,#rsForm,.bk,.foot,.mmenu.open')), blocked=0, past=false;
   function sync(){ bar.classList.toggle('on', past && blocked===0); }
   var io=new IntersectionObserver(function(en){ en.forEach(function(x){ x.target.__in=x.isIntersecting; }); blocked=blockers.filter(function(b){ return b.__in; }).length; sync(); },{threshold:0,rootMargin:'0px 0px -12% 0px'});
   blockers.forEach(function(b){ io.observe(b); });
   window.addEventListener('scroll',function(){ var p=(window.pageYOffset||0)>560; if(p!==past){ past=p; sync(); } },{passive:true});
+})();
+
+
+/* ================= resales: listings from a sheet or the inline array; request form logs the listing ================= */
+(function(){
+  'use strict';
+  var grid=document.getElementById('rsGrid'); if(!grid) return;
+  var RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var RESALE_ENDPOINT='';
+  var empty=document.getElementById('rsEmpty'), meta=document.getElementById('rsMeta'), form=document.getElementById('rsForm'), done=document.getElementById('rsDone');
+  var picked=document.getElementById('rsPicked'), pickedT=document.getElementById('rsPickedT'), hid=document.getElementById('rsListing');
+  var ARROW='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function band(n){ n=parseFloat(String(n).replace(/[^0-9.]/g,''))||0; if(!n) return 'On request'; var lo=Math.floor(n/25000)*25000, hi=lo+25000; function f(x){ return x>=1e6?('$'+(x/1e6).toFixed(x%1e6?1:0)+'M'):('$'+Math.round(x/1000)+'K'); } return f(lo)+' to '+f(hi); }
+  function card(l){
+    return '<li><article class="rs-card"><span class="id">'+esc(l.id)+'</span><span class="k">'+esc(l.industry)+'</span><h3>'+esc(l.model||'Existing franchise location')+'</h3><p class="loc">'+esc([l.city,l.state].filter(Boolean).join(', '))+'</p>'+
+      '<div class="rs-nums"><div><span>Revenue</span><b>'+band(l.revenue)+'</b></div><div><span>EBITDA</span><b>'+band(l.ebitda)+'</b></div><div><span>Asking</span><b>'+band(l.price)+'</b></div></div>'+
+      (l.note?'<p class="note">'+esc(l.note)+'</p>':'')+'<a class="btn btn-solid" href="#rsform" data-listing="'+esc(l.id)+'" data-label="'+esc(l.industry+' · '+[l.city,l.state].filter(Boolean).join(', ')+' · '+l.id)+'">Request Info'+ARROW+'</a></article></li>';
+  }
+  function render(list){
+    list=(list||[]).filter(function(l){ return !l.status || String(l.status).toLowerCase()==='open'; });
+    grid.innerHTML=list.map(card).join('');
+    if(empty) empty.hidden=list.length>0;
+    if(meta) meta.textContent=list.length?(list.length+' listing'+(list.length===1?'':'s')+' open. Updated as they change.'):'Updated as listings change.';
+  }
+  function parseCSV(t){
+    var rows=[],row=[],cur='',q=false;
+    for(var i=0;i<t.length;i++){ var c=t[i]; if(q){ if(c==='"'){ if(t[i+1]==='"'){ cur+='"'; i++; } else q=false; } else cur+=c; }
+      else if(c==='"') q=true; else if(c===','){ row.push(cur); cur=''; } else if(c==='\n'||c==='\r'){ if(c==='\r'&&t[i+1]==='\n') i++; row.push(cur); rows.push(row); row=[]; cur=''; } else cur+=c; }
+    if(cur.length||row.length){ row.push(cur); rows.push(row); }
+    var h=rows.shift().map(function(x){ return x.trim().toLowerCase(); });
+    return rows.filter(function(r){ return r.join('').trim(); }).map(function(r){ var o={}; h.forEach(function(k,i){ o[k]=(r[i]||'').trim(); }); return o; });
+  }
+  render(window.RESALES||[]);
+  if(window.RESALES_SHEET_CSV){ fetch(window.RESALES_SHEET_CSV,{cache:'no-store'}).then(function(r){ return r.text(); }).then(function(t){ render(parseCSV(t)); }).catch(function(){}); }
+  document.addEventListener('click',function(e){ var a=e.target.closest('[data-listing]'); if(!a) return; hid.value=a.getAttribute('data-listing'); pickedT.textContent=a.getAttribute('data-label'); picked.hidden=false; });
+  var clr=document.getElementById('rsClear'); if(clr) clr.addEventListener('click',function(){ hid.value=''; picked.hidden=true; });
+  if(!form) return;
+  form.addEventListener('input',function(e){ var w=e.target.closest('.rf-f'); if(w) w.classList.remove('err'); var c=e.target.closest('.consent'); if(c) c.classList.remove('err'); });
+  form.addEventListener('submit',function(e){
+    e.preventDefault(); var ok=true, data={};
+    [].slice.call(form.querySelectorAll('input,select,textarea')).forEach(function(el){
+      if(!el.name) return; var w=el.closest('.rf-f'); var v=(el.type==='checkbox')?el.checked:el.value.trim();
+      if(el.type==='checkbox'){ data[el.name]=v; return; }
+      var good=true; if(el.hasAttribute('data-req') && !v) good=false;
+      if(el.name==='email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) good=false;
+      if(el.name==='phone'){ var d=v.replace(/\D/g,''); if(!/^\d{10}$/.test(d)) good=false; else v=d; }
+      if(w) w.classList.toggle('err',!good); if(!good) ok=false; else if(v) data[el.name]=v;
+    });
+    var c=form.querySelector('[name="consent"]'); var cl=c.closest('.consent'); cl.classList.toggle('err',!c.checked); if(!c.checked) ok=false;
+    if(!ok){ var f=form.querySelector('.err'); if(f) f.scrollIntoView({block:'center',behavior:RM?'auto':'smooth'}); return; }
+    data.submitted_at=new Date().toISOString(); data.source='jdfranchising.com/resales'; data.tag='resale-info-request';
+    var payload=JSON.stringify(data); try{ localStorage.setItem('jds_resale_last',payload); }catch(err){}
+    function finish(){ form.hidden=true; done.hidden=false; var h=document.getElementById('rsDoneH'); if(h&&data.first) h.textContent='Thanks, '+data.first+'. Your request is in.'; done.scrollIntoView({block:'start',behavior:RM?'auto':'smooth'}); }
+    if(RESALE_ENDPOINT){ var b=form.querySelector('[type="submit"]'); if(b){ b.disabled=true; b.style.opacity='.6'; } fetch(RESALE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:payload}).then(finish).catch(finish); } else finish();
+  });
+})();
+
+/* ================= the call widget: Josh's face and the call offer, after the first screen, dismissible for the session ================= */
+(function(){
+  'use strict';
+  if(document.querySelector('.bookpage')) return;
+  try{ if(sessionStorage.getItem('jds_callw')==='x') return; }catch(e){}
+  var w=document.createElement('div'); w.className='callw'; w.setAttribute('aria-label','Start with a call');
+  w.innerHTML='<a class="main" href="book.html"><img src="assets/josh/face.jpg" width="48" height="48" alt=""><span><span class="t">Start with a 20-minute call</span><span class="s">Josh DuBois · free, no pitch</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><button type="button" class="x" aria-label="Dismiss">&times;</button>';
+  document.body.appendChild(w);
+  w.querySelector('.x').addEventListener('click',function(){ w.classList.remove('on'); try{ sessionStorage.setItem('jds_callw','x'); }catch(e){} setTimeout(function(){ w.remove(); },600); });
+  var past=false; function sync(){ w.classList.toggle('on',past); }
+  window.addEventListener('scroll',function(){ var p=(window.pageYOffset||0)>520; if(p!==past){ past=p; sync(); } },{passive:true});
+  if((window.pageYOffset||0)>520){ past=true; sync(); }
 })();

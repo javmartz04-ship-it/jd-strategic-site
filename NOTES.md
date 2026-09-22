@@ -1359,3 +1359,82 @@ embed and retitles and re-blurbs the stage, search narrows to ep. 11 for "senior
 outbound YouTube anchors. Contact: the engine renders step 1 with four options and advances
 on a pick; calendar frame present; three tiles; five FAQs. Desktop slices of all three
 rebuilt pages looked at.
+
+---
+
+# ROUND 22 (2026-09-22): the discovery call, applied
+
+Javier forwarded the notes from the original discovery call between Josh DuBois and Joshua
+Diaz (the one that set the site's scope) with *"if there's anything we need to update based
+off of this, go ahead and do it."* Sorted into built now / needs Josh / phase two.
+
+## Built now
+
+- **Nav** is the call's page list, trimmed to what exists: Industries · Resales · How It
+  Works · About Josh · Resources · Contact, plus Book a Call. "Home" is the logo. "Podcast"
+  became "Resources" (the call retires the Podcast tab and says YouTube feeds Resources; the
+  page keeps its player and library). Footer sitemap carries all ten destinations.
+- **Industries page** (`industries.html`): the twelve categories from the abbreviated
+  questionnaire, each a photographed card (four existing, eight new from Pexels graded into
+  the same family; credits in `assets/ed/CREDITS.txt`) with a one-line reason and "See my top
+  brands here". **Clicking an industry opens the fit finder with that industry pre-selected**
+  (`contact.html?cat=<industry>`; the engine shows the industry as a chip on step one and has
+  it already ticked on step two). That is the call's "clicking an industry opens the
+  abbreviated questionnaire so Josh can send the top brands in it for their market." Modelled
+  on how franchiseflippers and theyounetwork list industries: one page, a dozen tiles, no
+  page per industry.
+- **Resales section** (`resales.html`), modelled on franchiseflippers.com: each listing shows
+  industry, model, market, revenue, EBITDA and asking price, **never the brand**, and the
+  numbers render as $25K bands so nobody can back a brand out of them. "Request Info" on a
+  card logs the listing id into the form automatically and shows an "Asking about" chip; the
+  form asks finances, market and "why a resale". The "simple backend" is a **Google Sheet**:
+  publish it as CSV, paste the link into `RESALES_SHEET_CSV` in the page, and the site
+  re-reads it on every load (status anything but "open" hides a row). Until Josh sends
+  listings the array is empty and the page shows an honest "shared on request" state above
+  the form. Never a sample listing on the live page: revenue and EBITDA are business facts.
+- **A real booking page** (`book.html`) for the custom link the call specifies
+  (jdfranchising.com/book): logo plate, no nav, H1 larger than the home hero, Josh's face and
+  one-liner, the four credentials, the live calendar, the three "on the call" steps, phone
+  fallback, one quiet link to the fit finder (the call asked for the abbreviated questionnaire
+  to be reachable from the calendar). **Every Book a Call on every page now goes to
+  `book.html`.** Contact keeps its calendar at `#book` too.
+- **The floating call widget** the call praised on Franchise Insiders, minus their bug: Josh's
+  face, "Start with a 20-minute call", clickable, appears after the first screen on desktop,
+  dismissible for the session. Phones keep the bottom action bar.
+- **Selling points that were missing**: the exclusive ("I hold the only consultant exclusive
+  on the number-one dry cleaning and laundry brand, and I am opening a location myself"),
+  free research and a better deal structure, and the ten-a-month scarcity, as a navy callout
+  inside the home offer section. The brand stays unnamed per Josh's accuracy note.
+- **Calendar credibility**: Josh's own one-liner above the calendar on Contact and beside it
+  on the booking page, instead of the competitor's tagline he admired.
+- Home "money" section now links to the industries page.
+
+## Needs Josh before it can exist
+
+- **Success stories** ("the moneymaker"). No client stories yet; the placeholder version was
+  deleted in round 4 for costing credibility. The page and nav entry appear when the first
+  real story (headline result, bio, story, video) arrives.
+- **Resale listings** (industry, model, city, state, revenue, EBITDA, price, note).
+- **Featured brands**: phase two, billed separately, five to ten brands, one template with a
+  video of Josh per brand and a market-check form. Not started.
+- The blog is WordPress, separate, later. The nav's Resources slot is ready for the link.
+
+## Not applied, and why
+
+- The abbreviated questionnaire stays at Josh's six steps (his own spec, dated after the
+  call) rather than the call's "three qualifying questions".
+- Orange stays where it is. The call says orange is a small accent and "no pure black"; the
+  site has no pure black and orange is already rationed to the emphasis line, the CTA and
+  numerals. Both later reviewers approved the current balance.
+- Logo geometry (circle vs square, FRANCHISING under Strategic) is Diaz's brand-board work.
+
+## Verification
+
+Nine pages at 1440, 1920, 1280x700 and 390: 0 overflow, 0 errors, 0 dashes, 0 broken assets,
+every link resolves (the harness now ignores query strings; `?cat=` links had tripped it).
+Playwright: twelve industry cards, the `?cat=Senior%20Care` handoff shows the chip and has
+Senior Care ticked on step two; the widget is off at the top, on after 520px, dismisses and
+stays dismissed on the next page, absent on the booking page; the booking page has no nav and
+only three anchors; the resales page shows the empty state with zero listings and, in a
+throwaway copy with three sample rows, renders three cards, hides the sold one, banks the
+numbers, logs the clicked listing into the form and submits to the thank-you.
