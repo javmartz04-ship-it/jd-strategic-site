@@ -1268,3 +1268,94 @@ the right scroll positions. Desktop and phone slices looked at.
    visible Title Case here, it is one CSS property.
 3. The request form keeps Josh's own optional fields (his spec marks them). Say the word and
    they all become required.
+
+---
+
+# ROUND 21 (2026-09-22): the three fixes, and the new Dropbox
+
+Javier: *"you're making everything in the same format for each of the pages. And the podcast
+['Every episode, from the first'] makes no sense, it's not pretty. Put all the videos in there,
+like you can preview it. Contacts, I wouldn't even use that. Fix those first."* Plus the shared
+Dropbox root (the Materials folder we had, two new notes docs, and a logo file).
+
+## What the reference actually does on these two pages (rendered, not assumed)
+
+- **Contact** at thefranchiseinsiders.com/contact is not a contact form. It is the fit quiz
+  (centred logo, "Personalized for you", "Discover your 2–3 best franchise matches", the
+  step-one card), then an "Other inquiries" row of three tiles (Call or Text / Media &
+  Speaking / Brand Partnerships), then the team. Book a Call goes out to Calendly.
+- **Podcast** opens with a split head and two buttons, then "Latest episode" with a large
+  embedded player and a long description, then "Featured episodes": a 3-up grid of
+  full-colour YouTube thumbnails with the play badge, a title and a two-line blurb.
+
+## Podcast, rebuilt to that shape
+
+- Head: "Most franchise podcasts are sales pitches. This one is homework." with both
+  buttons (Find My Franchise Fit, Book a Call) and a stat row (43 episodes, hours, $0).
+- Stage: centred run label and title, the player, then "About this episode" (a one-line
+  blurb, guest, duration) beside a small Book a Call card. The stage retitles and re-blurbs
+  whenever an episode is chosen.
+- **All 43 episodes as video cards, newest first, in a 3-up grid** (2-up on tablets, 1-up on
+  phones): the real episode art at full colour inside a thin white mat, play badge, episode
+  chip, duration, title, guest, and a two-line blurb under each. Live search over title,
+  guest and blurb. The card that is playing is outlined in orange and its chip reads
+  "Now playing". Nothing links out to YouTube.
+- Every guest line and blurb was written from the episode art plus the YouTube description
+  (`jd-strategic-tools/pod/meta/`). Corrections against the previous list: ep. 2 is Jenna
+  Perese (the art) not Spadaccino (the description); ep. 3 is Kevin DuBois, CEO of Clean
+  Franchise Brands, Josh's father; ep. 8 is Mike Hutchins, Chad Harrison and Kimberly Blaski;
+  ep. 15 Ron Bender is at Threshold Brands; ep. 22 Dan Claps at Voda Cleaning & Restoration.
+- The "Watch these five" playlist and the text archive are gone.
+
+## Contact, rebuilt to that shape
+
+- The page IS the fit finder: centred logo, "Personalized for you", H1 "Discover your two or
+  three best franchise matches.", the six-step engine (same code as the home page, one
+  instance per page, shared autosave).
+- "Other inquiries": three tiles, Call or text / Email / Request an introduction.
+- `#book`: the live calendar, centred title, phone fallback. Every Book a Call on the site
+  still lands here.
+- "Before you book": the five FAQs. No closing block; the page is already the offer.
+
+## "Same format on every page"
+
+Each inner page now opens on its own device under the dark head the reviewers like:
+- **About**: title, lede, one button, then the story rail.
+- **How it works**: the three paths ("Which of these sounds like you?") sit INSIDE the dark
+  head as white cards, so the page opens on a choice, not a paragraph.
+- **Podcast**: two buttons and a stat row, then the player.
+- **Contact**: centred logo and the quiz.
+- **Request**: the form beside its rail.
+- The closing block lost the three contact tiles everywhere (that identical trio was the
+  most repeated element on the site). It is now the headline, one line, two doors (Book a
+  Call, Find My Franchise Fit) and the phone number in the reassurance line.
+
+## The Dropbox, reviewed
+
+- `Josh Diaz Improvement Notes.docx` and `...Notes after Complete to Discuss.docx` are Josh
+  DuBois's CRM and automation notes for Joshua Diaz (email deliverability, SMS cadence,
+  pipeline stages, calendar settings, VOIP). Not website work, except section 12:
+  - One-liner **"Franchise owner building my franchise legacy and helping you build yours"**
+    is now the hero eyebrow (shortened to fit one line: "Franchise owner building my legacy,
+    and helping you build yours").
+  - Header option **"Expert Franchise Coach | Top Franchise Opportunities"** is folded into
+    the home title tag and meta description.
+  - "Standardized format for brands on my website" and "template for the different
+    industries" are asks for pages we do not have (brands, industries). Flagged, not built.
+- `Logo Version 1.jpg` (500x250): orange square, blue "JD", orange "Strategic", blue rules.
+  It is the mark on his podcast art and video overlays. The site runs the navy
+  "JD Strategic Franchising" mark Javier supplied on 09-08, which the reviewer doubted
+  ("that's his logo? probably not"). Dated 08-18 and named Version 1, this is the older of
+  the two; **not swapped**. Javier's call.
+- `Website.docx` (updated 09-09) embeds a competitor's ebook lead-magnet (Glover Franchise
+  Consultants, "From Employee to Entrepreneur") as the model for a "Franchise Success
+  Playbook" opt-in. Not built; needs Josh's guide as a file first.
+
+## Verification
+
+Six pages at 1440, 1920, 1280x700 and 390: 0 overflow, 0 errors, 0 dashes, 0 broken assets,
+all links resolve. Podcast: 43 cards, 0 broken thumbnails, a card click loads the right
+embed and retitles and re-blurbs the stage, search narrows to ep. 11 for "senior", zero
+outbound YouTube anchors. Contact: the engine renders step 1 with four options and advances
+on a pick; calendar frame present; three tiles; five FAQs. Desktop slices of all three
+rebuilt pages looked at.

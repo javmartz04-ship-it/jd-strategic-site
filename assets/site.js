@@ -262,7 +262,8 @@
     f.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
     stage.innerHTML=''; stage.appendChild(f);
     if(run) run.textContent='Now playing · Episode '+n; if(title) title.textContent=t; if(guest) guest.innerHTML=g;
-    if(meta){ var m=b.querySelector('.dur'); meta.textContent=(m?m.textContent.replace(' min',' minutes'):'')+(m?' · ':'')+'Conquer the Mind'; }
+    var bl=document.getElementById('vBlurb'); if(bl && b.getAttribute('data-b')) bl.textContent=b.getAttribute('data-b');
+    if(meta){ var mm=b.getAttribute('data-m'); meta.textContent=mm?(mm+' minutes'):''; }
     var top=stage.getBoundingClientRect().top+window.pageYOffset-100;
     if(!b.closest('#vstage')) window.scrollTo({top:top,behavior:RM?'auto':'smooth'});
   }
@@ -307,16 +308,14 @@
 })();
 
 
-/* ================= the library: search, show all, mark what is playing ================= */
+/* ================= the library: search, and mark what is playing ================= */
 (function(){
   'use strict';
   var list=document.getElementById('ixList'); if(!list) return;
-  var q=document.getElementById('ixQ'), meta=document.getElementById('ixMeta'), none=document.getElementById('ixNone'), moreWrap=document.getElementById('ixMoreWrap'), more=document.getElementById('ixMore');
-  var rows=[].slice.call(list.querySelectorAll('.ix')), base=meta?meta.textContent:'';
-  if(more) more.addEventListener('click',function(){ list.classList.add('all'); moreWrap.hidden=true; });
+  var q=document.getElementById('ixQ'), meta=document.getElementById('ixMeta'), none=document.getElementById('ixNone');
+  var rows=[].slice.call(list.querySelectorAll('.vc')), base=meta?meta.textContent:'';
   if(q) q.addEventListener('input',function(){
     var v=q.value.trim().toLowerCase(), shown=0;
-    if(v){ list.classList.add('all'); if(moreWrap) moreWrap.hidden=true; }
     rows.forEach(function(r){ var hit=!v || r.getAttribute('data-q').indexOf(v)>-1; r.hidden=!hit; if(hit) shown++; });
     if(none) none.hidden=shown>0;
     if(meta) meta.textContent=v?(shown+' of '+rows.length+' episodes'):base;
