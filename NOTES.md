@@ -1438,3 +1438,48 @@ stays dismissed on the next page, absent on the booking page; the booking page h
 only three anchors; the resales page shows the empty state with zero listings and, in a
 throwaway copy with three sample rows, renders three cards, hides the sold one, banks the
 numbers, logs the clicked listing into the form and submits to the thank-you.
+
+---
+
+# ROUND 23 (2026-09-24): the presentation pass
+
+Javier, before presenting: *"upgrade the site entirely, making it more premium... all the pages."*
+Asked which base: *"the site i just gave you, the others did not make the cut"* (the 09-22 private-bank
+redesign is rejected; only this repo gets upgraded, in its own register).
+
+## What changed
+
+- **Playfair Display actually loads now.** Every page asked Google Fonts for an `opsz` axis Playfair
+  does not have, so it 400'd and the whole site rendered in Georgia for 22 rounds. URL is now
+  `family=Playfair+Display:ital,wght@0,400..900;1,400..900` on all ten pages. This is the single
+  biggest visible change: headlines went from heavy Georgia to the editorial serif they were designed in.
+- Type retuned for real Playfair: H3/H4 weight 600, italics 600, lining numerals everywhere.
+- Home hero: headline up to 90px, Josh's one-liner as an italic serif line with an orange rule instead
+  of two lines of letterspaced caps, stat icons removed, stat labels in sentence case, orange `+`.
+- Hero and How It Works balcony photos colour-graded (cyan highlights neutralised, midtones warmed).
+  Originals kept in `assets/_orig/josh-hero-r18.jpg`, `r22-proc.jpg`, `r22-proc-2.jpg`.
+- Home credential band no longer repeats the hero stats: FranServe / 4 family-owned locations /
+  43 podcast episodes / ~10 clients a month (all from Josh's own copy). One row from 1100px up.
+- More air between chapters (`--pad` 68-124px), the position statement gets its own room.
+- An emphasis sentence after a full stop is its own line (`.it.br`), so no heading breaks as
+  "...franchise. A / coach helps you buy one."
+- Uppercase rationed: stat labels, credential labels, page-head stats, industry links and footer
+  headings are sentence case / Inter; buttons one notch lighter except hero and closing.
+- Footer: no second closing on pages that already end with the call band; links in two columns;
+  legal quieter. About no longer repeats its H1 in the footer.
+- Call widget waits 1.5 screens and hides over the fit finder, forms, iframes, closing and footer.
+- Nav scroll-progress line removed. Numerals kept only where there is a sequence.
+- Resales: empty state spans the column; the "Asking about" chip no longer shows empty
+  (`[hidden]` was being overridden by `display:flex`).
+
+## Not applied from the critic, and why
+
+- Desaturating the 43 podcast thumbnails / showing only 9: round 21 established Javier wants all the
+  videos visible in full colour.
+- Palette, dark inner heads, photo heads: fixed constraints.
+
+## Needs Javier / GHL
+
+- The booking calendar's electric-blue selected day and time slots come from the GHL calendar
+  widget settings; set its primary colour to navy `#0A1D3A` there. Cannot be styled from the site.
+- Still open: `FIT_ENDPOINT`, `RFI_ENDPOINT`, `RESALE_ENDPOINT` empty in `assets/site.js`.

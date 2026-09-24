@@ -26,7 +26,7 @@
       var box=nav.firstElementChild.getBoundingClientRect();
       nav.classList.toggle('on-dark', groundAt(box.top+box.height/2));
     }
-    if(prog){ var h=document.documentElement.scrollHeight-window.innerHeight; prog.style.transform='scaleX('+(h>0?Math.min(y/h,1):0)+')'; }
+    
     tick=false;
   }
   window.addEventListener('scroll',function(){ if(!tick){tick=true;requestAnimationFrame(onScroll);} },{passive:true});
@@ -401,7 +401,14 @@
   w.innerHTML='<a class="main" href="book.html"><img src="assets/josh/face.jpg" width="48" height="48" alt=""><span><span class="t">Start with a 20-minute call</span><span class="s">Josh DuBois · free, no pitch</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><button type="button" class="x" aria-label="Dismiss">&times;</button>';
   document.body.appendChild(w);
   w.querySelector('.x').addEventListener('click',function(){ w.classList.remove('on'); try{ sessionStorage.setItem('jds_callw','x'); }catch(e){} setTimeout(function(){ w.remove(); },600); });
-  var past=false; function sync(){ w.classList.toggle('on',past); }
-  window.addEventListener('scroll',function(){ var p=(window.pageYOffset||0)>520; if(p!==past){ past=p; sync(); } },{passive:true});
-  if((window.pageYOffset||0)>520){ past=true; sync(); }
+  /* waits a screen and a half, then steps aside over anything it would cover: the fit finder, forms, the calendar, the closing and the footer */
+  var past=false, over=0, seen=new Set();
+  function sync(){ w.classList.toggle('on',past&&over===0); }
+  function gate(){ return (window.innerHeight||800)*1.5; }
+  window.addEventListener('scroll',function(){ var p=(window.pageYOffset||0)>gate(); if(p!==past){ past=p; sync(); } },{passive:true});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) seen.add(e.target); else seen.delete(e.target); }); over=seen.size; sync(); },{rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('#fit,.fit,form,iframe,.cta,#cta,.close-c,footer,.foot,#book,.rsform').forEach(function(el){ io.observe(el); });
+  }
+  if((window.pageYOffset||0)>gate()){ past=true; sync(); }
 })();
