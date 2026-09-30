@@ -1086,3 +1086,130 @@ body:has(.close-c) .foot-g{padding-top:clamp(44px,4.6vw,64px)}
 .rs-empty>*{grid-column:1}.rs-empty>.btn,.rs-empty>a{grid-column:2;grid-row:1 / span 2}
 .rs-empty p+p{margin-bottom:0;max-width:60ch}
 @media (max-width:760px){.rs-empty{grid-template-columns:minmax(0,1fr)}.rs-empty>.btn,.rs-empty>a{grid-column:1;grid-row:auto;margin-top:20px;justify-self:start}}
+
+/* =====================================================================
+   ROUND 24 (2026-09-30): Josh's "Website Edits" doc applied.
+   New copy everywhere, the fit finder re-formatted so it no longer looks
+   like The Franchise Insiders' form, five-card and six-card grids, every
+   industry from the confidential questionnaire, the spots line.
+   ===================================================================== */
+
+/* his one-liner, louder: the first thing read on the site */
+.hero .eyebrow.hero-line{font-size:clamp(18px,1.55vw,24px);color:var(--ink);line-height:1.3}
+.hero .eyebrow.hero-line b{font-style:normal;font-weight:700}
+.hero .eyebrow.hero-line em{color:var(--accent-text);font-weight:600}
+.hero-quote{max-width:370px}
+.hero-quote p{font-size:15px;line-height:1.45}
+
+/* a one-sentence lede under a chapter title */
+.ch-lede{margin-top:18px;font-size:clamp(16px,1.2vw,18px);line-height:1.6;color:var(--body);max-width:62ch}
+.ch-lede.wide{max-width:82ch}
+.dark .ch-lede{color:rgba(255,255,255,.7)}
+
+/* the ten-a-month line */
+.spots{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:13.5px;line-height:1.45;color:var(--body)}
+.spots:empty{display:none}
+.spots i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(255,106,0,.16)}
+.spots b{color:var(--ink);font-weight:700}
+.dark .spots,.fit .spots{color:rgba(255,255,255,.66)}.dark .spots b,.fit .spots b{color:#fff}
+.bk-head .spots{justify-content:inherit}
+
+/* credentials: six items, three by two */
+@media (min-width:1100px){.cred-list.six{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 40px}}
+.cred-list.six li b sup{font-size:.55em;vertical-align:.6em}
+
+/* fit finder: a working session with Josh, not a centred card with a logo on top */
+.fit .fit-head{text-align:left;max-width:1080px;margin-inline:auto}
+.fit .fit-head .lede{margin:0;max-width:62ch}
+.fit .fit-head h2 .it.br,.fit-page .fit-head h1 .it.br{display:block}
+.fitbox.fit2{max-width:1080px;display:grid;grid-template-columns:minmax(0,290px) minmax(0,1fr);padding:0;border-color:rgba(255,255,255,.14)}
+.fitbox.fit2::before{display:none}
+.fitrail{padding:clamp(26px,2.6vw,36px) clamp(22px,2.2vw,30px);background:rgba(255,255,255,.035);border-right:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:26px}
+.fitwho{display:grid;grid-template-columns:64px minmax(0,1fr);gap:14px;align-items:center;margin:0}
+.fitwho img{width:64px;height:64px;object-fit:cover;border-radius:50%;border:2px solid var(--accent)}
+.fitwho b{display:block;font-family:var(--fd);font-size:17px;font-weight:600;color:#fff}
+.fitwho span{display:block;margin-top:4px;font-family:var(--fd);font-style:italic;font-size:13.5px;line-height:1.35;color:rgba(255,255,255,.66)}
+.fitsteps{list-style:none;margin:0;padding:0;counter-reset:fs;border-top:1px solid rgba(255,255,255,.12)}
+.fitsteps li{counter-increment:fs;display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:14px;font-weight:500;color:rgba(255,255,255,.42);transition:color .3s var(--ease-out)}
+.fitsteps li::before{content:counter(fs,decimal-leading-zero);flex:none;width:30px;height:30px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.18);border-radius:50%;font-size:11px;font-weight:700;letter-spacing:.04em;font-variant-numeric:lining-nums;transition:background .3s,border-color .3s,color .3s}
+.fitsteps li.on{color:#fff}
+.fitsteps li.on::before{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.fitsteps li.done{color:rgba(255,255,255,.7)}
+.fitsteps li.done::before{content:"\2713";border-color:rgba(255,106,0,.6);color:var(--accent)}
+.fitrail-note{margin-top:auto;font-size:13px;line-height:1.5;color:rgba(255,255,255,.5)}
+.fitmain{padding:clamp(26px,3vw,44px) clamp(22px,3.2vw,48px) clamp(26px,3vw,40px);min-width:0}
+.fit2 .fittop{padding-bottom:0;margin-bottom:18px;border-bottom:0}
+.fit2 .fitstep{color:var(--accent)}
+.fitdone-note{margin-top:14px!important;font-size:14px!important;color:rgba(255,255,255,.5)!important}
+@media (max-width:900px){
+  .fitbox.fit2{grid-template-columns:minmax(0,1fr)}
+  .fitrail{border-right:0;border-bottom:1px solid rgba(255,255,255,.12);padding:20px 22px;gap:0}
+  .fitsteps,.fitrail-note{display:none}
+}
+
+/* proven business models: three across, two wider below */
+.why.five{grid-template-columns:repeat(6,minmax(0,1fr))}
+.why.five .why-c{grid-column:span 2;padding:clamp(26px,2.6vw,36px) clamp(22px,2.6vw,38px);border-right:1px solid rgba(255,255,255,.14);border-bottom:1px solid rgba(255,255,255,.14)}
+.why.five .why-c:first-child,.why.five .why-c:nth-child(4){padding-left:0}
+.why.five .why-c:nth-child(3),.why.five .why-c:nth-child(5){border-right:0}
+.why.five .why-c.wide{grid-column:span 3;border-bottom:0}
+.why.five .why-c p{max-width:46ch}
+@media (max-width:900px){.why.five{grid-template-columns:minmax(0,1fr)}.why.five .why-c,.why.five .why-c.wide{grid-column:auto;padding:26px 0;border-right:0;border-bottom:1px solid rgba(255,255,255,.14)}.why.five .why-c:last-child{border-bottom:0}}
+
+/* every industry: a scrolling rail at every width (thirteen will not fit an accordion) */
+a.cat{display:block;color:inherit}
+.cat.noimg{background-color:var(--ink);background-image:var(--lit-navy)}
+.cat .glyph,.ind .thumb .glyph{position:absolute;left:clamp(20px,2vw,28px);top:clamp(18px,2vw,26px);z-index:1;font-family:var(--fd);font-style:italic;font-weight:600;font-size:clamp(54px,5.4vw,84px);line-height:1;letter-spacing:-.03em;color:rgba(255,255,255,.1)}
+.ind .thumb.noimg{background-color:var(--ink);background-image:var(--lit-navy)}
+@media (min-width:1060px) and (pointer:fine){
+  .strip-wrap.all .strip{overflow-x:auto;scroll-snap-type:x mandatory;max-width:none;margin:0;padding-inline:var(--edge);scroll-padding-inline:var(--edge)}
+  .strip-wrap.all .cat,.strip-wrap.all .strip:hover .cat,.strip-wrap.all .strip .cat:hover{flex:0 0 clamp(260px,22vw,330px)}
+  .strip-wrap.all .cat{height:clamp(320px,28vw,420px)}
+  .strip-wrap.all .strip:hover .cat:not(:hover) .lab,.strip-wrap.all .strip:hover .cat:not(:hover) .lab span{opacity:1}
+  .strip-wrap.all .strip-nav{display:flex}
+}
+
+/* the offer: six cards, two rows of three */
+.offers.six{grid-template-columns:repeat(3,minmax(0,1fr))}
+.offers.six .offer{padding:30px clamp(18px,2.4vw,34px);border-right:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+.offers.six .offer:nth-child(3n+1){padding-left:0}
+.offers.six .offer:nth-child(3n){border-right:0}
+.offers.six .offer:nth-child(n+4){border-bottom:0}
+@media (max-width:1060px){
+  .offers.six{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .offers.six .offer,.offers.six .offer:nth-child(3n),.offers.six .offer:nth-child(n+4){padding:28px 24px;border-right:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+  .offers.six .offer:nth-child(odd){padding-left:0}
+  .offers.six .offer:nth-child(even){border-right:0}
+  .offers.six .offer:nth-child(n+5){border-bottom:0}
+}
+@media (max-width:640px){
+  .offers.six{grid-template-columns:minmax(0,1fr)}
+  .offers.six .offer,.offers.six .offer:nth-child(n){padding:24px 0;border-right:0;border-bottom:1px solid var(--hairline)}
+  .offers.six .offer:last-child{border-bottom:0}
+}
+
+/* how it works: five paths, three then two, and the closing line */
+.page-head .paths.five{grid-template-columns:repeat(6,minmax(0,1fr))}
+.page-head .paths.five .path{grid-column:span 2}
+.page-head .paths.five .path:nth-child(n+4){grid-column:span 3}
+.paths-foot{margin-top:clamp(22px,2.6vw,34px);max-width:86ch;font-size:16px;line-height:1.65;color:rgba(255,255,255,.72)}
+.paths-foot .it{font-family:var(--fd);font-style:italic;font-weight:600;font-size:1.2em;color:#fff;margin-right:6px}
+@media (max-width:1060px){.page-head .paths.five{grid-template-columns:minmax(0,1fr)}.page-head .paths.five .path,.page-head .paths.five .path:nth-child(n+4){grid-column:auto}}
+
+/* industries head: a second, quieter way in */
+.ph-alt{display:flex;flex-wrap:wrap;align-items:center;gap:16px 26px;margin-top:22px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);max-width:760px}
+.ph-alt p{flex:1 1 300px;font-size:15px;line-height:1.55;color:rgba(255,255,255,.66)}
+.ph-alt .btn-ghost{border-color:rgba(255,255,255,.3);color:#fff}.ph-alt .btn-ghost svg{background:rgba(255,255,255,.12);color:var(--accent)}.ph-alt .btn-ghost:hover{background:#fff;color:var(--ink)}
+
+/* resales: four plain labels, and the three ways in */
+.ph-stats.dots{gap:12px 18px}
+.ph-stats.dots li+li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--accent);margin-right:8px;align-self:center}
+.ways-foot{margin-top:clamp(24px,2.8vw,36px);font-family:var(--fd);font-size:clamp(18px,1.6vw,22px);line-height:1.4;color:var(--ink);max-width:60ch}
+.ways-foot .it{font-style:italic;font-weight:500;color:var(--ink)}
+
+/* compare table: five rows on a phone */
+@media (max-width:640px){.cmp.five>:nth-child(7){border-bottom:1px solid var(--hairline-2)}}
+/* the reframe rows carry longer copy now: even columns, one size */
+.pov{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) minmax(0,1fr)}
+.pov-c p,.pov-c:nth-child(2) p,.pov-c:last-child p{font-size:clamp(17px,1.4vw,21px);line-height:1.36}
+.hero .eyebrow.hero-line::before{align-self:flex-start;margin-top:.72em}

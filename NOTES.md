@@ -1483,3 +1483,52 @@ redesign is rejected; only this repo gets upgraded, in its own register).
 - The booking calendar's electric-blue selected day and time slots come from the GHL calendar
   widget settings; set its primary colour to navy `#0A1D3A` there. Cannot be styled from the site.
 - Still open: `FIT_ENDPOINT`, `RFI_ENDPOINT`, `RESALE_ENDPOINT` empty in `assets/site.js`.
+
+---
+
+# ROUND 24 (2026-09-30): Josh's "Website Edits" doc, applied line by line
+
+Source: Google Doc "Website Edits" (1s7G8IlLRi2UKe1JRkF2J3s2g7gHXI8MiBQ4dsLSwjog), 29 annotated
+screenshots plus copy. The screenshots were pulled from the doc's HTML export
+(`docs.google.com/document/d/<id>/export?format=zip`, works without auth for a shared doc) and matched
+to sections in document order; the text-only read loses which section each edit belongs to.
+Javier: *"make sure you following everything to a tee... 1000% perfect."*
+
+## Applied
+- Home: hero one-liner enlarged (ink, "Franchise owner" bold, second half orange); hero quote now
+  the full sentence (About pull-quote too); credential band six items (multi-unit multi-state family,
+  2nd generation owner, 2,400+ family-scaled brand added); position caption and reframe cards 02/03;
+  who rows Reality / Judgment / In Your Corner; five steps + timeline line (home and How It Works);
+  "Proven business models / In business for yourself, not by yourself" in 3 + 2 wide layout; strip
+  now every industry from the confidential questionnaire (13, scrolls at every width); offer = six
+  cards 3 x 2 with the subheadline; exclusive block rewritten, button "Request An Introduction To
+  Lapels" -> `request.html?brand=Lapels`; show headline/body; closing lede; footer brand line.
+- Fit finder (home + contact): no industry chip on step 1 (the "Senior Care" chip came from the
+  `?cat=` handoff); timeline gets "1 year+ / just trying to better understand options"; re-formatted
+  away from The Franchise Insiders: no centred logo, left-aligned head, new wording, a left rail with
+  Josh's face, his one-liner and a numbered step list. Thank-you screen asks them to book a review call
+  and says intros go through Josh (guide + rebate).
+- About: head, story title + intro, CFC caption, ten-chapter story, pillars copy, 5-row comparison.
+- How It Works: head body, five paths (3 + 2) with the "Win win" line, steps, caption, paragraph,
+  offer (same six cards).
+- Industries: new head, secondary "Take The Full Questionnaire", Technology added, Food last.
+  Technology and Food have no photo (navy tile with a faint word): Josh said no generic food images
+  and he will send real brand images for every industry.
+- Resales: head body, Industry · Revenue · Market · Background, new "Three ways in" section
+  (resale / new location / conversion + italic line), "What a resale can offer you", form headline,
+  closing lede.
+- Contact: new subheadline, email jdstrategic@jdfranchising.com (sitewide), request-intro tile
+  replaced by Book a call (Josh: intro requests need a specific brand), FAQ rewritten + "Why buy a
+  franchise instead of starting my own business?".
+- Request page is now the Lapels introduction; brand field required, prefilled from `?brand=`.
+- Spots line (`[data-spots]`, `SPOTS_LEFT` in site.js): null = states the ten-a-month policy; set it
+  to the real number of openings to show "Only N spots left in <Month>". Deliberately NOT an automatic
+  countdown: a number that changes on its own would be fake scarcity.
+- Full questionnaire thank-you: 1-2 business days research + "Book Your Review Call" (it linked to a
+  dead `#contact` anchor on the old URL).
+
+## Open (Josh / Javier)
+- Josh's questions to answer: Resources tab name, socials on it (Javier's rule: never link out to
+  YouTube), calendar first on Contact?, review-call length (calendar is 20 min, he suggested 10-15),
+  how brand research is shared without people going around him.
+- SPOTS_LEFT value; Lapels + laundromat photos; industry images from brands; FIT/RFI/RESALE endpoints.

@@ -83,21 +83,21 @@
     var BACK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>';
     var OPEN='Open: show me what fits';
     var STEPS=[
-      {id:'describe',t:'single',q:'What best describes you?',h:'I tailor your matches to your specific situation.',
+      {id:'describe',t:'single',q:'Where are you starting from?',h:'Your matches start with you, not with a brand.',
        o:[['Corporate executive','considering a transition out of corporate'],['Business owner','expanding or adding a second income stream'],['Recently exited','redeploying capital from a business sale'],['New entrepreneur','recently left a job or looking to start something']]},
-      {id:'categories',t:'multi',q:'Which categories interest you?',h:'Select all that apply, or choose "show me what fits" and I will lead with the match.',cols:3,
-       o:['Health, Wellness & Beauty','Senior Care','Home Improvement & Services','Cleaning Services','B2B & Business Services','Pet Services','Food & Beverage','Child Services & Education','Fitness & Sports','Automotive','Real Estate & Property','Restoration & Repair',OPEN]},
+      {id:'categories',t:'multi',q:'Which industries are you drawn to?',h:'Pick as many as you like, or choose "show me what fits" and I will lead with the match.',cols:3,
+       o:['Health, Wellness & Beauty','Senior Care','Home Improvement & Services','Cleaning Services','B2B & Business Services','Pet Services','Child Services & Education','Fitness & Sports','Automotive','Real Estate & Property','Restoration & Repair','Technology','Food & Beverage',OPEN]},
       {id:'timeline',t:'single',q:'What is your investment timeline?',h:'No wrong answer. This helps me calibrate the approach.',
-       o:[['Ready now','let’s move'],['1 to 3 months','almost there'],['3 to 6 months','still evaluating'],['6 to 12 months','long-range planning']]},
-      {id:'capital',t:'single',q:'How much liquid capital do you have available to invest?',h:'Liquid capital is money you can access quickly without selling long-term investments or major assets: cash, savings, money market. Not home equity or retirement funds.',cols:3,
+       o:[['Ready now','let’s move'],['1 to 3 months','almost there'],['3 to 6 months','still evaluating'],['6 to 12 months','long-range planning'],['1 year+','just trying to better understand options']]},
+      {id:'capital',t:'single',q:'How much liquid capital could you invest?',h:'Liquid capital is money you can access quickly without selling long-term investments or major assets: cash, savings, money market. Not home equity or retirement funds.',cols:3,
        o:['$50K to $75K','$75K to $100K','$100K to $150K','$150K to $200K','$200K to $250K','$250K to $500K','$500K to $1M','$1M to $2M','$2M+'],foot:'Most opportunities I work with start around $50K liquid.'},
-      {id:'tailor',t:'group',q:'A few last things to tailor your matches.',h:'Optional. The more I know, the sharper your matches.',skip:true,
+      {id:'tailor',t:'group',q:'A few details to sharpen your shortlist.',h:'Optional. The more I know, the sharper your matches.',skip:true,
        groups:[{id:'role',l:'What role do you picture?',o:['Owner-operator, hands-on day to day','Executive, managing a team while you focus on growth','Not sure yet']},
                {id:'scale',l:'Do you want to scale?',o:['A single unit is fine','Grow into multiple units or territories','Not sure yet']},
                {id:'setting',l:'What kind of setting do you picture?',o:['Home-based','Office-based','Brick-and-mortar or retail','No preference']},
                {id:'matters',l:'What matters most to you?',o:['Recession-resistant, stable demand','Recurring revenue','Being able to scale and build something bigger']}],
        texts:[{id:'background',l:'Your current or most recent role, and the skills you want to bring into a business',ph:'A sentence or two'},{id:'notes',l:'Anything else that would help me tailor your options?',ph:'Optional'}]},
-      {id:'contact',t:'contact',q:'Almost done. Where should I reach you?',h:'I review your answers personally and follow up within one business day.'}
+      {id:'contact',t:'contact',q:'Last step. Where should I send your matches?',h:'I review every answer personally, research what is open in your market, and follow up within one to two business days.'}
     ];
     var A={}, idx=0;
     try{ A=JSON.parse(localStorage.getItem(FIT_KEY)||'{}')||{}; }catch(e){ A={}; }
@@ -110,10 +110,11 @@
       if(s.t==='multi') return Array.isArray(A[s.id]) && A[s.id].length>0;
       return true;
     }
-    var stepEl=fit.querySelector('.fitstep'), bar=fit.querySelector('.fitbar');
+    var stepEl=fit.querySelector('.fitstep'), bar=fit.querySelector('.fitbar'), rail=fit.querySelector('.fitsteps');
     function head(){
       if(stepEl) stepEl.textContent='Step '+(idx+1)+' of '+STEPS.length;
       if(bar) [].slice.call(bar.children).forEach(function(i,k){ i.classList.toggle('on',k<=idx); });
+      if(rail) [].slice.call(rail.children).forEach(function(li,k){ li.classList.toggle('on',k===idx); li.classList.toggle('done',k<idx); });
     }
     function opt(s,label,sub,on,multi){
       return '<button type="button" class="fitopt'+(multi?' multi':'')+'" data-v="'+esc(label)+'" '+(multi?'aria-pressed="'+on+'"':'role="radio" aria-checked="'+on+'"')+'><b>'+esc(label)+'</b>'+(sub?'<span>'+esc(sub)+'</span>':'')+'</button>';
@@ -146,7 +147,7 @@
       return h+'</div>';
     }
     function render(){
-      var s=STEPS[idx], h=(A.__cat&&idx===0?'<div class="chips" aria-label="Industry"><span>'+esc(A.__cat)+'</span></div>':'')+'<h3 class="fitq" id="fitQ">'+esc(s.q)+'</h3>'+(s.h?'<p class="fithint">'+esc(s.h)+'</p>':'');
+      var s=STEPS[idx], h='<h3 class="fitq" id="fitQ">'+esc(s.q)+'</h3>'+(s.h?'<p class="fithint">'+esc(s.h)+'</p>':'');
       if(s.t==='single'){
         h+='<div class="fitopts'+(s.cols===3?' cols-3':'')+'" role="radiogroup" aria-labelledby="fitQ">'+s.o.map(function(o){ var l=Array.isArray(o)?o[0]:o, sub=Array.isArray(o)?o[1]:''; return opt(s,l,sub,A[s.id]===l,false); }).join('')+'</div>';
         if(s.foot) h+='<p class="fitfoot">'+esc(s.foot)+'</p>';
@@ -174,8 +175,8 @@
     }
     function done(){
       A.__done=true; save();
-      stage.innerHTML='<div class="fitdone"><div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><h3>Thanks, '+esc(A.first||'')+'. Your answers are in.</h3><p>I’ll review them and reach out within one business day with your top matches. If you would rather talk first, book a call and we will start there.</p><a class="btn btn-ghost" href="contact.html">Book a Call'+ARROW+'</a></div>';
-      if(stepEl) stepEl.textContent='Done'; if(bar) [].slice.call(bar.children).forEach(function(i){ i.classList.add('on'); });
+      stage.innerHTML='<div class="fitdone"><div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><h3>Thanks, '+esc(A.first||'')+'. Your answers are in.</h3><p>Over the next one to two business days I research the brands that fit you and confirm they are open in your market. Then we walk through your top matches together on a short call, so pick a time now and it is on the calendar.</p><p class="fitdone-note">Brand introductions go through me, which is how you get the Franchisee Success Guide and the $2,000 rebate.</p><a class="btn btn-accent" href="book.html">Book Your Review Call'+ARROW+'</a></div>';
+      if(stepEl) stepEl.textContent='Done'; if(bar) [].slice.call(bar.children).forEach(function(i){ i.classList.add('on'); }); if(rail) [].slice.call(rail.children).forEach(function(li){ li.classList.remove('on'); li.classList.add('done'); });
       try{ localStorage.removeItem(FIT_KEY); }catch(e){}
     }
     function submit(){
@@ -278,6 +279,7 @@
   var form=document.getElementById('rform'); if(!form) return;
   var RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var done=document.getElementById('rfDone');
+  try{ var qb=new URLSearchParams(location.search).get('brand'); var bf=document.getElementById('rfBrand'); if(qb && bf) bf.value=qb; }catch(e){}
   form.addEventListener('input',function(e){ var w=e.target.closest('.rf-f'); if(w) w.classList.remove('err'); var c=e.target.closest('.consent'); if(c) c.classList.remove('err'); });
   form.addEventListener('submit',function(e){
     e.preventDefault();
@@ -411,4 +413,19 @@
     document.querySelectorAll('#fit,.fit,form,iframe,.cta,#cta,.close-c,footer,.foot,#book,.rsform').forEach(function(el){ io.observe(el); });
   }
   if((window.pageYOffset||0)>gate()){ past=true; sync(); }
+})();
+
+/* ================= spots this month =================
+   Josh takes on about ten clients a month. Set SPOTS_LEFT to the real number of openings he
+   has left this month (0 to 10) and every [data-spots] line shows it with the current month.
+   Leave it null and the line states the ten-a-month policy with no count. Never automate it:
+   the number has to be true. */
+(function(){
+  var SPOTS_LEFT=null;
+  var els=[].slice.call(document.querySelectorAll('[data-spots]')); if(!els.length) return;
+  var month=new Date().toLocaleDateString('en-US',{month:'long'});
+  var html=(typeof SPOTS_LEFT==='number')
+    ? '<i aria-hidden="true"></i>'+(SPOTS_LEFT>0?('Only <b>'+SPOTS_LEFT+' '+(SPOTS_LEFT===1?'spot':'spots')+'</b> left in '+month+'. I work with about ten people a month.'):('Fully booked for '+month+'. New clients start next month.'))
+    : '<i aria-hidden="true"></i>I work with about ten people a month, so every one of them gets my full attention.';
+  els.forEach(function(el){ el.innerHTML=html; });
 })();
