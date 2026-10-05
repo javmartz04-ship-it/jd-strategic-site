@@ -998,7 +998,7 @@ function render(){
             '<p>Within one to three business days, you get a shortlist of vetted brands built around you.</p>' +
           '</div>' +
           '<div class="sig">' +
-            '<img src="' + BASE + 'assets/josh-headshot-sm.jpg" width="120" height="120" alt="Josh DuBois" onerror="this.style.display=\'none\'">' +
+            '<img src="' + BASE + 'assets/josh-headshot-sm.jpg?v=2" width="120" height="120" alt="Josh DuBois" onerror="this.style.display=\'none\'">' +
             '<span><b>Josh DuBois</b><i>Founder, JD Strategic Franchising</i></span>' +
           '</div>' +
           '<div class="go">' +
@@ -1008,9 +1008,11 @@ function render(){
         '</div>' +
         '<figure class="wfig">' +
           /* one square file for every layout. cover fits it to the frame's
-             longer side, so that side is its real rendered width */
-          '<img src="' + BASE + 'assets/josh-headshot.jpg"' +
-            ' srcset="' + BASE + 'assets/josh-headshot@1x.jpg 640w, ' + BASE + 'assets/josh-headshot.jpg 1200w, ' + BASE + 'assets/josh-headshot@2000.jpg 2000w"' +
+             longer side, so that side is its real rendered width. ?v=2 is the
+             colour-corrected set (jd-strategic-tools/headshot.py): bump it if the files
+             change, or browsers keep showing the old ones */
+          '<img src="' + BASE + 'assets/josh-headshot.jpg?v=2"' +
+            ' srcset="' + BASE + 'assets/josh-headshot@1x.jpg?v=2 640w, ' + BASE + 'assets/josh-headshot.jpg?v=2 1200w, ' + BASE + 'assets/josh-headshot@2000.jpg?v=2 2000w"' +
             ' sizes="(max-width:699px) 100vw, max(50vw, 100vh)"' +
             ' width="1200" height="1197" alt="Josh DuBois, founder of JD Strategic Franchising"' +
             ' fetchpriority="high" decoding="async" onerror="this.style.display=\'none\'">' +
