@@ -482,11 +482,14 @@ body.welcome .stage{bottom:0}
 @media (max-width:640px){
   /* Begin has to clear the fold on a 390x844 phone. The "what happens next"
      block added height, so the band and the gaps around it give it back. */
-  .wfig{min-height:min(25vh,212px)}
+  /* Band is viewport-relative so Begin clears the fold on a short phone
+     (375x812) as well as a tall one, rather than being tuned to one device. */
+  .wfig{min-height:min(21vh,196px)}
   .wfig img{object-position:50% 22%}
   .wquote{display:none}
-  .wnext{margin-top:16px;padding-left:13px}
-  .wnext p{font-size:14.5px}
+  .wnext{margin-top:15px;padding-left:13px}
+  .wnext p{font-size:14.5px;line-height:1.5}
+  .wcopy .qh{font-size:15px;line-height:1.56}
   .wcopy{padding:26px var(--gut) 34px}
   .wcopy .chip{margin-bottom:18px}
   .wcopy .qt{font-size:29px}
