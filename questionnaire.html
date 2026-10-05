@@ -234,26 +234,19 @@ body.welcome .card{max-width:none;margin:0;width:100%;display:flex}
 body.welcome .ctrl,body.welcome .legal{display:none}
 body.welcome .stage{bottom:0}
 /* photo panel + floating quote plate, lifted from the site's own hero */
-/* The headshot is 362px wide at source. It is shown at that exact size, never
-   stretched to fill the panel, and a 2x file is supplied for retina - so the
-   browser is never asked to invent pixels. Stretching this file to a 500px
-   panel is what made it look blurry. */
-.wfig{
-  position:relative;overflow:hidden;background:#3C3D45;min-height:0;
-  display:grid;place-items:center;
-  padding:clamp(30px,4vw,64px) clamp(22px,3vw,48px);
-}
-.wport{position:relative;width:min(362px,100%)}
-.wport img{
-  display:block;width:100%;height:auto;
-  box-shadow:0 38px 84px -34px rgba(0,0,0,.62), 0 2px 10px -4px rgba(0,0,0,.35);
-}
+/* Full-bleed photo panel, the site's own hero device. The source headshot is
+   362px; it is resampled offline to 1200px with Lanczos so the browser does as
+   little scaling as possible. A larger original would make this crisp - this is
+   as far as a 362px file goes. */
+.wfig{position:relative;overflow:hidden;background:#44444D;min-height:0}
+.wfig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
 .wquote{
-  position:relative;z-index:2;margin:-30px -24px 0 24px;
-  background:rgba(255,255,255,.96);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  padding:20px 22px 20px 20px;
-  display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:start;
-  box-shadow:0 30px 62px -30px rgba(6,16,32,.55),0 2px 6px -2px rgba(6,16,32,.16);
+  position:absolute;right:0;bottom:clamp(26px,4.4vw,58px);z-index:2;
+  max-width:min(410px,74%);
+  background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  padding:24px 28px 24px 24px;
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:15px;align-items:start;
+  box-shadow:0 34px 70px -34px rgba(6,16,32,.55),0 2px 6px -2px rgba(6,16,32,.16);
 }
 .wquote .qm{font-family:var(--fd);font-size:44px;font-weight:700;color:var(--accent);line-height:.7;margin-top:6px}
 .wquote p{font-size:15px;line-height:1.5;color:var(--ink)}
@@ -448,9 +441,8 @@ body.welcome .stage{bottom:0}
 /* ---------- responsive ---------- */
 @media (max-width:900px){
   .wcard{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto}
-  .wfig{order:1;min-height:0;padding:clamp(24px,4vw,40px) var(--gut)}
-  .wport{width:min(300px,64%)}
-  .wquote{margin:-26px -14px 0 14px}
+  .wfig{order:1;min-height:min(44vh,360px)}
+  .wquote{right:var(--gut);bottom:20px;max-width:min(410px,calc(100% - var(--gut) * 2))}
   .wcopy{order:2;max-width:none;margin-left:0;padding:clamp(30px,6vw,48px) var(--gut) clamp(38px,7vw,56px)}
   .wcopy::before{left:var(--gut);right:var(--gut);top:0;bottom:auto;width:auto;height:3px}
   body.welcome .stage{align-items:flex-start;overflow-y:auto}
@@ -488,10 +480,8 @@ body.welcome .stage{bottom:0}
    full screen down. A shorter band, no plate, and the signature moved under
    the button put Begin above the fold on a 375x812 phone. */
 @media (max-width:640px){
-  /* photo band stays short so Begin is above the fold; the portrait is shown
-     smaller here, which also means it is downscaled and therefore sharp */
-  .wfig{min-height:0;padding:22px var(--gut) 24px}
-  .wport{width:min(232px,58%)}
+  .wfig{min-height:min(30vh,250px)}
+  .wfig img{object-position:50% 24%}
   .wquote{display:none}
   .wcopy{padding:26px var(--gut) 34px}
   .wcopy .chip{margin-bottom:18px}
@@ -966,15 +956,16 @@ function render(){
           '</div>' +
           '<p class="reassure"><b>Confidential.</b> Saved as you go, so you can finish it later. Never shared with a franchisor.</p>' +
         '</div>' +
-        '<div class="wfig"><div class="wport">' +
+        '<div class="wfig">' +
           '<img src="' + BASE + 'assets/josh-headshot.jpg"' +
-            ' srcset="' + BASE + 'assets/josh-headshot.jpg 1x, ' + BASE + 'assets/josh-headshot@2x.jpg 2x"' +
-            ' width="362" height="361" alt="Josh DuBois, founder of JD Strategic Franchising"' +
-            ' fetchpriority="high" decoding="async" onerror="this.style.display=\'none\'">' +
+            ' srcset="' + BASE + 'assets/josh-headshot@1x.jpg 640w, ' + BASE + 'assets/josh-headshot.jpg 1200w"' +
+            ' sizes="(max-width:900px) 100vw, 50vw"' +
+            ' width="1200" height="1197" alt="Josh DuBois, founder of JD Strategic Franchising"' +
+            ' fetchpriority="high" decoding="async" onerror="this.closest(\'.wfig\').style.background=\'#44444D\';this.style.display=\'none\'">' +
           '<figure class="wquote"><span class="qm" aria-hidden="true">&ldquo;</span>' +
           '<div><p>I&rsquo;ve lived every side of it, the good deals and the bad ones.</p><cite>Josh DuBois, Founder</cite></div>' +
           '</figure>' +
-        '</div></div></div>';
+        '</div></div>';
 
   } else if (s.t === 'review') {
     h = '<span class="chip"><i aria-hidden="true"></i>One last look</span>' +
