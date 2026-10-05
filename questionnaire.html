@@ -608,8 +608,6 @@ var S = [
    three inline Yes/No pairs, all sharing a left edge */
 {ch:1, q:'And a few quick facts.', items:[
   {t:'text', n:'age', l:'Your age', v:'age', ph:'Age', w:'s'},
-  {t:'single', n:'own_home', l:'Do you own your home?', o:['Yes','No'],
-   ih:'Home equity is one of the more common ways people fund a first franchise.'},
   {t:'single', n:'veteran', l:'Are you a veteran?', o:['Yes','No'],
    ih:'A lot of brands discount the franchise fee for veterans.'},
   {t:'single', n:'partnered', l:'Are you married or partnered?', o:['Yes','No'],
@@ -693,7 +691,7 @@ var S = [
 ]},
 
 /* ─────────── 5. STYLE — five groups, 26 statements ─────────── */
-{ch:5, q:'How you approach things', h:'Twenty-six short statements over the next few screens. 1 = not really me, 5 = definitely me. Go with your gut: there are no wrong answers.', scale:[
+{ch:5, q:'How you approach things', h:'This helps me understand how you naturally operate. Twenty-six short statements over the next few screens. 1 = not really me, 5 = definitely me. Go with your gut: there are no wrong answers.', scale:[
   {n:'style_a_1', l:'I make decisions quickly and move on, even without all the information.'},
   {n:'style_a_2', l:'I&rsquo;m at my best meeting new people and building relationships.'},
   {n:'style_a_3', l:'I prefer a steady, predictable routine over constant change.'},
@@ -739,7 +737,7 @@ var S = [
   {t:'multi', n:'roles', l:'Which roles appeal to your strengths?', ih:'Check as many as fit.', grid:1, o:[
     'Sales','Marketing','Networking','Prospecting new customers','Selling a new / emerging idea',
     'Managing employees','Leadership','Financials / accounting','Operations','Customer-focused']},
-  {t:'long', n:'strongest', l:'In your own words: what do people rely on you for?'}
+  {t:'long', n:'strongest', l:'What are you strongest at? What do people rely on you for?'}
 ]},
 
 {ch:6, q:'Experience, and the things you&rsquo;d rather not repeat.', items:[
@@ -806,8 +804,10 @@ var S = [
 
 {ch:9, q:'And what are you planning?', items:[
   {t:'text', n:'investment_range', l:'Investment range you&rsquo;re considering', ph:'e.g. $100k&ndash;$250k', w:'m'},
+  {t:'single', n:'own_home', l:'Do you own your home?', o:['Yes','No'],
+   ih:'Home equity is one of the more common ways people fund a first franchise.'},
   {t:'text', n:'net_worth', l:'Approximate net worth', v:'money', ph:'Rough figure', w:'m',
-   ih:'Everything you own (home, savings, investments, retirement) minus everything you owe (mortgage, loans, debts).'},
+   ih:'Everything you own (home, savings, investments, retirement, other assets) minus everything you owe (mortgage, loans, debts).'},
   {t:'multi', n:'funding', l:'How do you plan to fund it?', grid:1, o:['Cash / savings','SBA loan','Home equity','401(k) / ROBS','Partner or investor','Not sure: would like guidance']}
 ]},
 
