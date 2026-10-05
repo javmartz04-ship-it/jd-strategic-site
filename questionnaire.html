@@ -547,7 +547,7 @@ body.welcome .stage{bottom:0}
     <p>Over the next one to two business days I research the brands that fit you and confirm they are open in your market. Then we walk through your top matches together on a short call, so pick a time below. Brand introductions go through me, which is how you get the Franchisee Success Guide and the $2,000 rebate.</p>
     <div class="acts">
       <button type="button" class="btn btn-light" id="printBtn">Print Or Save A Copy<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4v-6h16v6h-2M8 14h8v7H8z"/></svg></button>
-      <a class="btn btn-out" href="book.html">Book Your Review Call<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-out" href="https://javmartz04-ship-it.github.io/jd-strategic-site/book.html">Book Your Review Call<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </div>
   <div class="psum" id="psum"></div>
@@ -937,7 +937,7 @@ function render(){
           '<h2 class="qt">The questions I&rsquo;d ask on the call, <span class="it">answered first.</span></h2>' +
           '<p class="qh">This helps me understand your goals, style, and what you&rsquo;re looking for before we talk, so our call is spent on finding the right fit, not gathering basics. Go with your gut; there are no wrong answers.</p>' +
           '<div class="sig">' +
-            '<img src="assets/josh-avatar-sm.jpg" width="120" height="120" alt="Josh DuBois" onerror="this.style.display=\'none\'">' +
+            '<img src="' + BASE + 'assets/josh-avatar-sm.jpg" width="120" height="120" alt="Josh DuBois" onerror="this.style.display=\'none\'">' +
             '<span><b>Josh DuBois</b><i>Founder, JD Strategic Franchising</i></span>' +
           '</div>' +
           '<div class="go">' +
@@ -946,7 +946,7 @@ function render(){
           '<p class="reassure"><b>Confidential.</b> Saved as you go, so you can finish it later. Never shared with a franchisor.</p>' +
         '</div>' +
         '<div class="wfig">' +
-          '<img src="assets/josh-portrait.jpg" width="1400" height="1500" alt="Josh DuBois, founder of JD Strategic Franchising" fetchpriority="high" decoding="async">' +
+          '<img src="' + BASE + 'assets/josh-portrait.jpg" width="1400" height="1500" alt="Josh DuBois, founder of JD Strategic Franchising" fetchpriority="high" decoding="async" onerror="this.closest(\'.wfig\').style.background=\'#0A1D3A\';this.style.display=\'none\'">' +
           '<figure class="wquote"><span class="qm" aria-hidden="true">&ldquo;</span>' +
           '<div><p>I&rsquo;ve lived every side of it, the good deals and the bad ones.</p><cite>Josh DuBois, Founder</cite></div>' +
           '</figure>' +
@@ -1384,6 +1384,10 @@ function finish(){
    before - name, email and phone on the contact, everything else on the
    webhook payload. A submission is never lost because of the worker. */
 var WORKER  = 'https://jd-questionnaire.javier-d51.workers.dev/submit';
+/* Absolute, because this page also runs pasted inside a GoHighLevel page,
+   where a relative 'assets/...' resolves to jdstrategic.org/assets/... and
+   404s. Change this one line if the files ever move. */
+var BASE = 'https://javmartz04-ship-it.github.io/jd-strategic-site/';
 var WEBHOOK = 'https://services.leadconnectorhq.com/hooks/kv44OG3YsodryGm2KCvt/webhook-trigger/f23bd6a8-c76f-4dbe-849c-e67e88d2c9a8';
 var sending = false;
 
