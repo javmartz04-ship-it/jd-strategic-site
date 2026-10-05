@@ -213,45 +213,94 @@ textarea.fin{resize:none;overflow:hidden;min-height:0;line-height:1.5}
 @media (hover:none){.hint{display:none}}
 
 /* ==========================================================================
-   WELCOME — the site's own hero device: copy left on cream, photography
-   bleeding to the right edge at full height. Same split, same proportions.
+   WELCOME — copy on the left, one photograph on the right, nothing on top of
+   the photograph.
+
+   The source is a square studio headshot. A square cannot fill a panel of any
+   shape without losing the top of his head or half his face, so the frame is
+   held to shapes it can fill and the layout moves around it instead:
+     wide   700px and up, 6:5 or wider   the right half, edge to edge, pinned
+                                         while the copy scrolls
+     tall   700px and up, narrower       a portrait on the right, level with
+                                         the copy
+     phone  under 700px                  across the top at 4:3
+   His face sits 47% across the file, so object-position holds it in the
+   middle of the frame in all three.
    ========================================================================== */
-body.welcome .stage{padding:0;align-items:stretch;overflow:hidden}
+body.welcome .stage{padding:0;align-items:stretch}
 body.welcome .card{max-width:none;margin:0;width:100%;display:flex}
-.wcard{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);width:100%;align-items:stretch}
+/* the photograph settles inside its own frame, so the card only fades: a
+   sliding card would flash a scrollbar on its way in */
+body.welcome .card.in,body.welcome .card.in.bk{animation-name:wcardIn}
+@keyframes wcardIn{from{opacity:0}to{opacity:1}}
+/* --sh is the stage: the screen under the header (the welcome has no footer) */
+.wcard{--sh:calc(100vh - var(--top-h));--wpad:clamp(28px,min(4.4vw,6.4vh),64px)}
+@supports (height:100dvh){.wcard{--sh:calc(100dvh - var(--top-h))}}
+.wcard{
+  display:grid;width:100%;align-items:stretch;
+  /* the 1.45 cap stops a very wide, very short window cropping into his chin */
+  grid-template-columns:minmax(0,1fr) min(49.5%,calc(var(--sh) * 1.45));
+}
 .wcopy{
   position:relative;display:flex;flex-direction:column;justify-content:center;
-  padding:clamp(34px,4.4vw,64px) clamp(30px,3.6vw,60px);
+  padding:var(--wpad) clamp(30px,3.6vw,60px);
   width:100%;max-width:748px;margin-left:auto;
 }
-.wcopy::before{content:"";position:absolute;left:0;top:clamp(34px,4.4vw,64px);bottom:clamp(34px,4.4vw,64px);width:3px;background:var(--accent)}
-.wcopy .chip,.wcopy .go,.wcopy .sig{align-self:flex-start}
-.wcopy .qt{font-size:clamp(30px,3.6vw,50px)}
+.wcopy::before{content:"";position:absolute;left:0;top:var(--wpad);bottom:var(--wpad);width:3px;background:var(--accent)}
+.wcopy .chip,.wcopy .sig{align-self:flex-start}
+/* The first line measures 12.43em. 3.3vw keeps it on one line beside the
+   photograph at every width that has the room; where it has to break, it
+   breaks evenly instead of leaving "to you," on a line of its own. */
+.wcopy .qt{font-size:clamp(26px,3.3vw,48px);text-wrap:balance}
 /* the emphasis line always gets its own line - it is the whole device */
 .wcopy .qt .it{display:block}
 .wcopy .qh{font-size:16.5px;max-width:50ch;margin-top:18px}
+/* Begin never falls below the fold. It rides the bottom edge of the screen
+   until the page has scrolled far enough to set it down in its own place. */
+.wcopy .go{
+  position:sticky;bottom:0;z-index:2;align-self:stretch;
+  margin-top:calc(clamp(30px,4.5vh,46px) - 14px);
+  padding:14px 0 max(14px,env(safe-area-inset-bottom));
+  background:var(--cream);
+}
+.wcopy .go::before{
+  content:"";position:absolute;left:0;right:0;bottom:100%;height:20px;pointer-events:none;
+  background:linear-gradient(to top,var(--cream),rgba(250,249,247,0));
+}
+.wcopy .reassure{margin-top:6px}
 /* the welcome carries its own reassurance and has nowhere to go back to */
 body.welcome .ctrl,body.welcome .legal{display:none}
 body.welcome .stage{bottom:0}
-/* photo panel + floating quote plate, lifted from the site's own hero */
-/* Full-bleed photo panel, the site's own hero device. The source headshot is
-   362px; it is resampled offline to 1200px with Lanczos so the browser does as
-   little scaling as possible. A larger original would make this crisp - this is
-   as far as a 362px file goes. */
-.wfig{position:relative;overflow:hidden;background:#44444D;min-height:0}
-.wfig picture{position:absolute;inset:0;display:block}
-.wfig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%}
-.wquote{
-  position:absolute;right:0;bottom:clamp(26px,4.4vw,58px);z-index:2;
-  max-width:min(410px,74%);
-  background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  padding:24px 28px 24px 24px;
-  display:grid;grid-template-columns:auto minmax(0,1fr);gap:15px;align-items:start;
-  box-shadow:0 34px 70px -34px rgba(6,16,32,.55),0 2px 6px -2px rgba(6,16,32,.16);
+/* The photograph. The source headshot is 362px, resampled offline with
+   Lanczos so the browser only ever scales down. A larger original would make
+   it crisper - this is as far as a 362px file goes. */
+.wfig{
+  position:sticky;top:0;align-self:start;height:var(--sh);
+  margin:0;overflow:hidden;background:#5D5E69;
 }
-.wquote .qm{font-family:var(--fd);font-size:44px;font-weight:700;color:var(--accent);line-height:.7;margin-top:6px}
-.wquote p{font-size:15px;line-height:1.5;color:var(--ink)}
-.wquote cite{display:block;margin-top:9px;font-style:normal;font-size:12.5px;color:var(--accent-ink);font-weight:600}
+.wfig img{
+  display:block;width:100%;height:100%;object-fit:cover;object-position:47% 14%;
+  animation:wfigIn 1.2s var(--ease) both;
+}
+@keyframes wfigIn{from{transform:scale(1.045)}to{transform:none}}
+@media (min-width:700px) and (max-aspect-ratio:6/5){
+  .wcard{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr)}
+  .wfig{position:relative;align-self:center;height:auto;aspect-ratio:18/25}
+}
+/* A short window (a 13-inch laptop once the browser's own bars are counted):
+   close the gaps so the whole welcome fits before Begin has to pin. Shorter
+   still, the signature goes under the button, as it does on a phone. */
+@media (min-width:700px) and (max-height:860px){
+  .wcard{--wpad:clamp(20px,3.6vh,36px)}
+  .wcopy .chip{margin-bottom:16px}
+  .wcopy .qh{margin-top:14px}
+  .wnext{margin-top:18px}
+  .wcopy .sig{margin-top:20px;padding-top:18px}
+  .wcopy .go{margin-top:6px}
+}
+@media (min-width:700px) and (max-height:700px){
+  .wcopy .sig{order:1}
+}
 
 /* signature — a person is asking, not a form */
 .sig{display:flex;align-items:center;gap:14px;margin-top:30px;padding-top:26px;border-top:1px solid var(--hairline)}
@@ -440,13 +489,14 @@ body.welcome .stage{bottom:0}
 }
 
 /* ---------- responsive ---------- */
-@media (max-width:900px){
-  .wcard{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto}
-  .wfig{order:1;min-height:min(44vh,360px)}
-  .wquote{right:var(--gut);bottom:20px;max-width:min(410px,calc(100% - var(--gut) * 2))}
-  .wcopy{order:2;max-width:none;margin-left:0;padding:clamp(30px,6vw,48px) var(--gut) clamp(38px,7vw,56px)}
+@media (max-width:699.98px){
+  /* one fixed shape, so every phone gets the same crop of him. The height cap
+     only bites on a small tablet, where 4:3 would take over half the screen */
+  .wcard{grid-template-columns:minmax(0,1fr)}
+  .wfig{order:-1;position:relative;align-self:auto;height:auto;aspect-ratio:4/3;max-height:44vh}
+  .wcopy{max-width:none;margin-left:0;padding:clamp(30px,6vw,48px) var(--gut) clamp(38px,7vw,56px)}
   .wcopy::before{left:var(--gut);right:var(--gut);top:0;bottom:auto;width:auto;height:3px}
-  body.welcome .stage{align-items:flex-start;overflow-y:auto}
+  body.welcome .stage{align-items:flex-start}
   body.welcome .card{display:block}
 }
 @media (max-width:640px){
@@ -476,26 +526,18 @@ body.welcome .stage{bottom:0}
 }
 
 /* ---------- phones: the welcome's one job is the Begin button ----------
-   The desktop split stacks to a photo band over the copy. Left alone the band
-   runs 357px and the quote plate lands on Josh's face, which pushes Begin a
-   full screen down. A shorter band, no plate, and the signature moved under
-   the button put Begin above the fold on a 375x812 phone. */
+   Begin is pinned to the bottom of the screen (.wcopy .go), so it is in reach
+   on every phone whatever the height, and the photograph above no longer has
+   to be squeezed into a strip to make room for it. One full-width button, the
+   signature under it. */
 @media (max-width:640px){
-  /* Begin has to clear the fold on a 390x844 phone. The "what happens next"
-     block added height, so the band and the gaps around it give it back. */
-  /* Band is viewport-relative so Begin clears the fold on a short phone
-     (375x812) as well as a tall one, rather than being tuned to one device. */
-  .wfig{min-height:min(21vh,196px)}
-  .wfig img{object-position:50% 22%}
-  .wquote{display:none}
   .wnext{margin-top:15px;padding-left:13px}
   .wnext p{font-size:14.5px;line-height:1.5}
-  .wcopy .qh{font-size:15px;line-height:1.56}
   .wcopy{padding:26px var(--gut) 34px}
   .wcopy .chip{margin-bottom:18px}
   .wcopy .qt{font-size:29px}
-  .wcopy .qh{font-size:15.5px;margin-top:14px}
-  .wcopy .go{margin-top:24px}
+  .wcopy .qh{font-size:15.5px;line-height:1.56;margin-top:14px}
+  .wcopy .go{margin-top:10px;grid-template-columns:minmax(0,1fr)}
   .wcopy .sig{order:1;margin-top:24px;padding-top:20px}
 }
 /* ---------- touch: no sticky hover ----------
@@ -964,24 +1006,15 @@ function render(){
           '</div>' +
           '<p class="reassure"><b>Confidential.</b> Saved as you go, so you can finish it later. Never shared with a franchisor.</p>' +
         '</div>' +
-        '<div class="wfig">' +
-          '<picture>' +
-            /* tall frame (backdrop extended upward) for the full-height split
-               panel, so his head is never cropped on a narrow desktop */
-            '<source media="(min-width:901px)"' +
-              ' srcset="' + BASE + 'assets/josh-headshot-tall@1100.jpg 1100w, ' + BASE + 'assets/josh-headshot-tall.jpg 2000w"' +
-              ' sizes="50vw">' +
-            /* square frame for the wide, short band on phones and tablets */
-            '<img src="' + BASE + 'assets/josh-headshot.jpg"' +
-              ' srcset="' + BASE + 'assets/josh-headshot@1x.jpg 640w, ' + BASE + 'assets/josh-headshot.jpg 1200w, ' + BASE + 'assets/josh-headshot@2000.jpg 2000w"' +
-              ' sizes="100vw"' +
-              ' width="1200" height="1197" alt="Josh DuBois, founder of JD Strategic Franchising"' +
-              ' fetchpriority="high" decoding="async" onerror="this.closest(\'.wfig\').style.background=\'#44444D\';this.style.display=\'none\'">' +
-          '</picture>' +
-          '<figure class="wquote"><span class="qm" aria-hidden="true">&ldquo;</span>' +
-          '<div><p>I&rsquo;ve lived every side of it, the good deals and the bad ones.</p><cite>Josh DuBois, Founder</cite></div>' +
-          '</figure>' +
-        '</div></div>';
+        '<figure class="wfig">' +
+          /* one square file for every layout. cover fits it to the frame's
+             longer side, so that side is its real rendered width */
+          '<img src="' + BASE + 'assets/josh-headshot.jpg"' +
+            ' srcset="' + BASE + 'assets/josh-headshot@1x.jpg 640w, ' + BASE + 'assets/josh-headshot.jpg 1200w, ' + BASE + 'assets/josh-headshot@2000.jpg 2000w"' +
+            ' sizes="(max-width:699px) 100vw, max(50vw, 100vh)"' +
+            ' width="1200" height="1197" alt="Josh DuBois, founder of JD Strategic Franchising"' +
+            ' fetchpriority="high" decoding="async" onerror="this.style.display=\'none\'">' +
+        '</figure></div>';
 
   } else if (s.t === 'review') {
     h = '<span class="chip"><i aria-hidden="true"></i>One last look</span>' +
