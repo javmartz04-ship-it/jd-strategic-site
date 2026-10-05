@@ -480,9 +480,13 @@ body.welcome .stage{bottom:0}
    full screen down. A shorter band, no plate, and the signature moved under
    the button put Begin above the fold on a 375x812 phone. */
 @media (max-width:640px){
-  .wfig{min-height:min(30vh,250px)}
-  .wfig img{object-position:50% 24%}
+  /* Begin has to clear the fold on a 390x844 phone. The "what happens next"
+     block added height, so the band and the gaps around it give it back. */
+  .wfig{min-height:min(25vh,212px)}
+  .wfig img{object-position:50% 22%}
   .wquote{display:none}
+  .wnext{margin-top:16px;padding-left:13px}
+  .wnext p{font-size:14.5px}
   .wcopy{padding:26px var(--gut) 34px}
   .wcopy .chip{margin-bottom:18px}
   .wcopy .qt{font-size:29px}
