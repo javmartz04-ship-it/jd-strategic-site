@@ -1550,7 +1550,8 @@ That number drove every round below.
 | `6b1bf8a`, `a6fd3d7` | Full-bleed panel back, headshot resampled offline to 1200 then 2000px | accepted |
 | `bef4c45`, `b73108a` | Phone: photo squeezed to a `21vh` strip so Begin cleared the fold | accepted |
 | `137da5d` | `<picture>`: backdrop extended upward into a 2000 x 2894 "tall" crop for desktop | *"the way it is is all garbage. This should just be a picture on the right hand side. It should be aligned every way they look at it, mobile, computer, iPad."* |
-| `46a2ca3` | This round | pending |
+| `46a2ca3` | One photograph, three arrangements (below) | *"Looks good."* |
+| `32deacf` | Same layout, colour-corrected files | pending. Brief: *"he just looks very pale, almost like you had a filter on it... colorless compared to the picture I sent you."* Layout: *"it adjusts really well."* |
 
 ## What was actually wrong
 
@@ -1597,10 +1598,29 @@ square can fill; the layout moves around it.
 inside range, photo loaded. Begin by tap, click and Enter; back to the welcome; reduced motion;
 photo blocked (flat `#5D5E69` panel). Every outbound request aborted in the harness, none attempted.
 
+## The pale photo (same day, `32deacf`)
+
+The uploaded PNG is tagged **Rec. 2020 primaries, sRGB curve** (`sips -g profile`). Every site
+copy had been made with `Image.convert('RGB')` and saved untagged, so the wide-gamut numbers were
+read as sRGB: forehead 219,192,174 on the site against 235,189,172 in the picture as he sees it.
+Greys, the shirt and the blazer are identical either way, which is why it read as "a filter" and
+not as a wrong picture, and why a pixel diff against the upload said the files matched (0.45).
+
+- `jd-strategic-tools/headshot.py` rebuilds the four files from `assets/_orig/josh-headshot-src.png`:
+  colour converted to sRGB in float (checked against LittleCMS, max 1 level), Lanczos on float
+  channels, unsharp fitted to the Laplacian variance of the files approved that morning, sRGB
+  profile embedded, 4:4:4. Sizes 51 / 113 / 211 KB, slightly under the old set.
+- Proof is a browser, not a script: Chrome drew the tagged PNG, the old JPEG and the new JPEG side
+  by side and the new one matches the PNG to one level on skin, lips, backdrop and shirt.
+- URLs carry `?v=2`. The same paths are overwritten too, so a copy of the page already pasted into
+  GoHighLevel picks up the corrected files without a re-paste once the 10-minute cache lapses.
+- The layout was not touched.
+
 ## Still true
 
 - **The photo is soft because it is 362px.** On a retina laptop the panel needs about 1,700. A
   sharper resample was A/B'd at real display size and made no visible difference, so the shipped
   file stayed. The fix is the photographer's original, nothing else.
-- `assets/josh-headshot-tall*.jpg` are no longer referenced. Left on disk.
+- `assets/josh-headshot-tall*.jpg` are no longer referenced, and still carry the pale colour. Do
+  not reuse them; rebuild from the source if a tall crop is ever wanted.
 - The mirror `builds/jd-strategic-questionnaire/index.html` is synced to this commit.
