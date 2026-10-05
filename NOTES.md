@@ -1532,3 +1532,75 @@ Javier: *"make sure you following everything to a tee... 1000% perfect."*
   YouTube), calendar first on Contact?, review-call length (calendar is 20 min, he suggested 10-15),
   how brand research is shared without people going around him.
 - SPOTS_LEFT value; Lapels + laundromat photos; industry images from brands; FIT/RFI/RESALE endpoints.
+
+---
+
+# ROUND 25 (2026-10-05): the questionnaire welcome, and one photograph that sits still
+
+Scope: `questionnaire.html` only, the welcome screen. New welcome copy and Josh's new studio
+headshot (black blazer, grey backdrop) went in the same day. **The headshot is a 362 x 361 file.**
+That number drove every round below.
+
+## Versions and reactions
+
+| Commit | What it was | Javier |
+|---|---|---|
+| `81bc041` | Headshot cover-cropped into the full-height right panel, quote plate over it | Liked the look; soft |
+| `ca1a7cd` | Photo shown at its real size as a small card on a dark grey field | *"you think that looks nice? the other one looked 20 times better."* |
+| `6b1bf8a`, `a6fd3d7` | Full-bleed panel back, headshot resampled offline to 1200 then 2000px | accepted |
+| `bef4c45`, `b73108a` | Phone: photo squeezed to a `21vh` strip so Begin cleared the fold | accepted |
+| `137da5d` | `<picture>`: backdrop extended upward into a 2000 x 2894 "tall" crop for desktop | *"the way it is is all garbage. This should just be a picture on the right hand side. It should be aligned every way they look at it, mobile, computer, iPad."* |
+| `46a2ca3` | This round | pending |
+
+## What was actually wrong
+
+The photo was `object-fit: cover` inside a panel whose shape was whatever the window happened to
+be (0.39 on an iPad Pro upright, 2.7 on a phone strip). Measured across 15 screens, Josh was in a
+different place on every one: bottom of a tall grey void at 1024 x 1366, forehead cut on every
+tablet, giant at 1920, quote plate across his chest or clipped off the bottom. The tall
+extended-backdrop crop made it worse, not better: more backdrop is more void.
+
+Two things nobody had asked about, found by measuring:
+- `body.welcome .stage` was `overflow: hidden`. On a 1280 x 720 or 1366 x 768 laptop the copy is
+  taller than the screen, so **Begin was clipped below the fold and could not be scrolled to.**
+- The headline's first line measures 12.43em and was sized at 3.6vw, which is the exact width of
+  its column. It wrapped to three lines with "to you," orphaned at most laptop widths.
+
+## What it is now
+
+One square file, three arrangements chosen by the window's shape. The frame is held to shapes a
+square can fill; the layout moves around it.
+
+| Window | Photograph | Frame shape |
+|---|---|---|
+| 700px+, 6:5 or wider | Right half, edge to edge, full height, pinned while the copy scrolls | 0.64 to 1.45 |
+| 700px+, taller than 6:5 (iPad upright) | Portrait on the right, level with the copy | 0.72 |
+| under 700px | Across the top | 4:3 (capped at 44vh) |
+
+- Nothing sits on the photograph. The quote plate is gone ("I've lived every side of it" is no
+  longer on this screen; say if it should come back in the copy column).
+- `object-position: 47% 14%`: his face is 47% across the file, so it stays centred in every frame,
+  and a wide frame trims his chest, never his hair.
+- **Begin is `position: sticky; bottom: 0`** with a cream ground and a 20px fade above it. In
+  reach at every height on every device; sits in its own place once there is room. This is what
+  let the phone photo go from a strip to a real picture.
+- Short windows (under 860px tall) close their gaps; under 700px tall the signature goes under
+  the button, as it does on a phone.
+- Headline `clamp(26px, 3.3vw, 48px)` + `text-wrap: balance`: two lines wherever there is room,
+  an even break where there is not.
+- The card fades in; the photograph settles from 1.045 inside its own frame.
+
+## Verified
+
+38 window sizes from 320 x 568 to 3440 x 1400, including the mode boundaries (699/700 wide,
+959/961 x 800, 1200/1201 x 1000): Begin on screen in all 38, no horizontal overflow, frame shape
+inside range, photo loaded. Begin by tap, click and Enter; back to the welcome; reduced motion;
+photo blocked (flat `#5D5E69` panel). Every outbound request aborted in the harness, none attempted.
+
+## Still true
+
+- **The photo is soft because it is 362px.** On a retina laptop the panel needs about 1,700. A
+  sharper resample was A/B'd at real display size and made no visible difference, so the shipped
+  file stayed. The fix is the photographer's original, nothing else.
+- `assets/josh-headshot-tall*.jpg` are no longer referenced. Left on disk.
+- The mirror `builds/jd-strategic-questionnaire/index.html` is synced to this commit.
