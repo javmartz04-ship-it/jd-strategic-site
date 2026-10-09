@@ -9,7 +9,7 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:opsz,wght@14..32,400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:opsz,wght@14..32,400..700&family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
 <style>
 /* ==========================================================================
    JD STRATEGIC — CONFIDENTIAL QUESTIONNAIRE
@@ -76,13 +76,12 @@ input,textarea{font:inherit}
   background:var(--ink);display:flex;align-items:center;
   padding-inline:clamp(18px,3.2vw,34px);gap:clamp(16px,3vw,38px);
 }
-.top .brand{display:inline-flex;align-items:center;gap:10px;flex:none;text-decoration:none}
-.top .mark{width:30px;height:30px;border:1px solid rgba(255,255,255,.42);display:grid;place-items:center;color:#fff;font-family:var(--fd);font-size:12px;font-weight:700;letter-spacing:.04em}
-.top .wm{display:flex;flex-direction:column;line-height:1}
-.top .wm b{font-family:var(--fd);font-size:14.5px;font-weight:700;color:#fff}
-.top .wm span{font-size:8px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:5px}
+.top .brand{display:inline-flex;align-items:center;flex:none;color:#fff;--logo-box:#fff;--logo-on-box:var(--ink)}
+.top .logo{display:block;height:34px;width:auto;aspect-ratio:620/176;overflow:visible}
 .top .ct{margin-left:auto;display:flex;align-items:center;gap:clamp(12px,2vw,22px);flex:none}
 .counter{font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.62);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (max-width:640px){.top .logo{height:28px}.counter{font-size:10px;letter-spacing:.1em}}
+@media (max-width:400px){.top .logo{height:25px}.counter{font-size:9px;letter-spacing:.06em}}
 .saved{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);opacity:0;transition:opacity .45s ease;white-space:nowrap}
 .saved.on{opacity:1}
 .saved svg{width:12px;height:12px}
@@ -564,12 +563,24 @@ body.welcome .stage{bottom:0}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="jd-mark" viewBox="0 0 620 176">
+    <rect x="0" y="0" width="160" height="160" fill="var(--logo-box,#0A1D3A)"/>
+    <rect x="10" y="10" width="140" height="140" fill="none" stroke="var(--logo-on-box,#fff)" stroke-width="4"/>
+    <text x="80" y="111" text-anchor="middle" font-family="Montserrat,Inter,system-ui,sans-serif" font-weight="800" font-size="88" letter-spacing="-3" fill="var(--logo-on-box,#fff)">JD</text>
+    <rect x="166" y="64" width="10" height="112" fill="#FF6A00"/>
+    <rect x="78" y="166" width="98" height="10" fill="#FF6A00"/>
+    <rect x="200" y="6" width="360" height="5" fill="currentColor"/>
+    <rect x="574" y="6" width="46" height="5" fill="#FF6A00"/>
+    <text x="200" y="98" font-family="Montserrat,Inter,system-ui,sans-serif" font-weight="800" font-size="66" textLength="420" lengthAdjust="spacing" fill="currentColor">STRATEGIC</text>
+    <text x="201" y="148" font-family="Montserrat,Inter,system-ui,sans-serif" font-weight="400" font-size="30" textLength="418" lengthAdjust="spacing" fill="currentColor">FRANCHISING</text>
+    <rect x="200" y="165" width="360" height="5" fill="currentColor"/>
+    <rect x="574" y="165" width="46" height="5" fill="#FF6A00"/>
+  </symbol>
+</svg>
 
 <header class="top">
-  <a class="brand" href="https://javmartz04-ship-it.github.io/jd-strategic-site/" aria-label="JD Strategic Franchising, home">
-    <span class="mark" aria-hidden="true">JD</span>
-    <span class="wm"><b>JD Strategic</b><span>Franchising</span></span>
-  </a>
+  <span class="brand"><svg class="logo" role="img" aria-label="JD Strategic Franchising"><use href="#jd-mark"/></svg></span>
   <span class="ct">
     <span class="saved" id="saved"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 6 6L20 6"/></svg>Saved</span>
     <span class="counter" id="counter">Confidential Questionnaire</span>
