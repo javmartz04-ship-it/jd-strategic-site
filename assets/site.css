@@ -1305,7 +1305,7 @@ a.cat{display:block;color:inherit}
 /* footer signature */
 .fsig{font-family:var(--fd);font-style:italic;color:rgba(255,255,255,.62)}
 @media (max-width:760px){.fcopy{flex-wrap:wrap;gap:6px 18px}}
-.wb-in{grid-template-columns:minmax(0,370px) minmax(0,1fr)}
+@media (min-width:1061px){.wb-in{grid-template-columns:minmax(0,370px) minmax(0,1fr)}}
 .inx-i[aria-selected="true"]{transform:none}
 .inx-i .n,.inx-i .t{transition:transform .6s var(--ease-cine),color .5s var(--ease-cine)}
 .inx-i[aria-selected="true"] .n,.inx-i[aria-selected="true"] .t{transform:translateX(10px)}
