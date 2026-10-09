@@ -1624,3 +1624,35 @@ not as a wrong picture, and why a pixel diff against the upload said the files m
 - `assets/josh-headshot-tall*.jpg` are no longer referenced, and still carry the pale colour. Do
   not reuse them; rebuild from the source if a tall crop is ever wanted.
 - The mirror `builds/jd-strategic-questionnaire/index.html` is synced to this commit.
+
+## Questionnaire logo pushed (2026-10-09)
+Javier pasted the full questionnaire with "keep design, make these updates". The paste matched the local
+working copy byte for byte in substance (its curly quotes and dashes were mangled by the copy, e.g. `‚Äî`;
+the file was used, not the paste). The only change not yet live: the real JD Strategic Franchising logo
+(`#jd-mark` symbol, Montserrat 800/400, white box + orange corner) replacing the "JD" text mark in the top
+bar, from another session that never committed it. Rendered at 1440 and 390 with no errors, pushed as
+`92ab07d`, mirrored to `builds/jd-strategic-questionnaire/index.html`, copied to the clipboard for the
+GoHighLevel re-paste (HTML changes need a re-paste; only image swaps update on their own).
+
+---
+
+# ROUND 26 (2026-10-09): Javier's pass on round 24
+
+Javier: the one-liner should be emphasized throughout, "what you're working with" should be "who",
+and it didn't fit; the industry section had no pictures for technology or food (burgers) and an arrow
+rail; "make sure everything fits... super high class."
+
+- Credential strip rebuilt as **Who you're working with** (`.wb`): face + name + "Franchise owner ·
+  Certified Franchise Consultant" on the left, six credentials as a 3 x 2 ledger (number on top, label
+  under), 2 x 3 on phones. About's bottom strip uses the same component (`.wb-4`).
+- Hero stats no longer repeat the band: $0 / $2,000 / 3 to 5 vetted brands.
+- One-liner: two clean lines in the hero, the H2 of the home "who" chapter (eyebrow "Why a franchise
+  owner"), fit rail, contact + booking pages, every footer (`.fsig`), call widget says "franchise owner".
+- Industry rail replaced by an **explorer** (`#inx`): 13 tabs left, double-framed photograph right that
+  crossfades, caption + "See My Top Brands" to `contact.html?cat=`. Hover/focus/tap selects, arrow keys
+  move, auto-cycles (5.2s, progress hairline) only while on screen and until touched, off with reduced
+  motion; phones get a pill row above a 4:5 photo.
+- Real photos: `cat-tech.jpg` (Pexels 38190066, repair bench) and `cat-food2.jpg` (Pexels 8162589,
+  burger) on the explorer and the Industries page; no more navy placeholder tiles.
+- Polish: guide/rebate rule is a framed "The one rule" note; who photo is sticky; home fit head no longer
+  repeats the spots line; "twenty-year" no longer breaks at the hyphen.

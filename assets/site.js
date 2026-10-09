@@ -400,7 +400,7 @@
   if(document.querySelector('.bookpage')) return;
   try{ if(sessionStorage.getItem('jds_callw')==='x') return; }catch(e){}
   var w=document.createElement('div'); w.className='callw'; w.setAttribute('aria-label','Start with a call');
-  w.innerHTML='<a class="main" href="book.html"><img src="assets/josh/face.jpg" width="48" height="48" alt=""><span><span class="t">Start with a 20-minute call</span><span class="s">Josh DuBois · free, no pitch</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><button type="button" class="x" aria-label="Dismiss">&times;</button>';
+  w.innerHTML='<a class="main" href="book.html"><img src="assets/josh/face.jpg" width="48" height="48" alt=""><span><span class="t">Start with a 20-minute call</span><span class="s">Josh DuBois · franchise owner</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><button type="button" class="x" aria-label="Dismiss">&times;</button>';
   document.body.appendChild(w);
   w.querySelector('.x').addEventListener('click',function(){ w.classList.remove('on'); try{ sessionStorage.setItem('jds_callw','x'); }catch(e){} setTimeout(function(){ w.remove(); },600); });
   /* waits a screen and a half, then steps aside over anything it would cover: the fit finder, forms, the calendar, the closing and the footer */
@@ -428,4 +428,40 @@
     ? '<i aria-hidden="true"></i>'+(SPOTS_LEFT>0?('Only <b>'+SPOTS_LEFT+' '+(SPOTS_LEFT===1?'spot':'spots')+'</b> left in '+month+'. I work with about ten people a month.'):('Fully booked for '+month+'. New clients start next month.'))
     : '<i aria-hidden="true"></i>I work with about ten people a month, so every one of them gets my full attention.';
   els.forEach(function(el){ el.innerHTML=html; });
+})();
+
+/* ================= industry explorer (home): pick an industry, the photograph and the brief change =================
+   Hover or focus selects on a desktop pointer, tap selects on touch. It cycles on its own until the
+   visitor touches it, only while it is on screen, and never with reduced motion. */
+(function(){
+  var box=document.getElementById('inx'); if(!box) return;
+  var RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var tabs=[].slice.call(box.querySelectorAll('.inx-i')), imgs=[].slice.call(box.querySelectorAll('.inx-f'));
+  var cap=document.getElementById('inxCap'), nEl=document.getElementById('inxN'), hEl=document.getElementById('inxH'), bEl=document.getElementById('inxB'), aEl=document.getElementById('inxA'), stage=document.getElementById('inxStage');
+  var cur=0, timer=null, live=false, touched=false, DWELL=5200;
+  function show(i,fromUser){
+    if(i===cur && fromUser!=='init') return;
+    cur=i;
+    tabs.forEach(function(t,k){ t.setAttribute('aria-selected',String(k===i)); t.tabIndex=(k===i)?0:-1; });
+    imgs.forEach(function(im,k){ if(k===i && im.loading==='lazy') im.loading='eager'; im.classList.toggle('on',k===i); });
+    var t=tabs[i]; stage.setAttribute('aria-labelledby',t.id);
+    cap.classList.add('swap');
+    setTimeout(function(){
+      nEl.textContent=('0'+(i+1)).slice(-2); hEl.innerHTML=t.getAttribute('data-name'); bEl.textContent=t.getAttribute('data-b');
+      aEl.href='contact.html?cat='+t.getAttribute('data-q'); cap.classList.remove('swap');
+    },RM?0:220);
+    if(!fine && fromUser){ var l=t.parentNode; l.scrollTo({left:t.offsetLeft-l.offsetLeft-16,behavior:RM?'auto':'smooth'}); }
+  }
+  function stop(){ touched=true; box.classList.remove('auto'); clearTimeout(timer); }
+  function tick(){ clearTimeout(timer); if(touched||!live||RM) return; box.classList.remove('auto'); void box.offsetWidth; box.classList.add('auto'); timer=setTimeout(function(){ show((cur+1)%tabs.length); tick(); },DWELL); }
+  tabs.forEach(function(t,k){
+    t.addEventListener('click',function(){ stop(); show(k,true); });
+    if(fine){ t.addEventListener('mouseenter',function(){ stop(); show(k,true); }); }
+    t.addEventListener('focus',function(){ stop(); show(k,true); });
+    t.addEventListener('keydown',function(e){ var d=(e.key==='ArrowDown'||e.key==='ArrowRight')?1:(e.key==='ArrowUp'||e.key==='ArrowLeft')?-1:0; if(!d) return; e.preventDefault(); var n=(k+d+tabs.length)%tabs.length; tabs[n].focus(); });
+  });
+  box.querySelector('.inx-stage').addEventListener('mouseenter',function(){ if(fine) stop(); });
+  if('IntersectionObserver' in window){ new IntersectionObserver(function(en){ live=en[0].isIntersecting; if(live) tick(); else clearTimeout(timer); },{threshold:.35}).observe(box); }
+  show(0,'init');
 })();
