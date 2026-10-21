@@ -853,7 +853,7 @@ body.ready .ph-fig img{opacity:1;transform:none}
 .watch-row{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start;max-width:1080px;margin:clamp(26px,3vw,40px) auto 0;padding-top:clamp(22px,2.6vw,32px);border-top:1px solid var(--hairline)}
 .watch-b{font-family:var(--fd);font-size:clamp(18px,1.6vw,23px);font-weight:500;line-height:1.36;color:var(--ink);letter-spacing:-.01em;max-width:34ch}
 .watch-meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px;font-size:13.5px;color:var(--muted)}
-.watch-meta span+span::before{content:"";display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--accent);margin:0 12px 3px 0}
+.watch-meta span+span::before{content:"";display:inline-block;width:1px;height:11px;background:currentColor;opacity:.3;margin:0 12px -1px 0}
 .watch-side{padding:clamp(20px,2.2vw,28px);background:#fff;border:1px solid var(--hairline);box-shadow:0 30px 60px -44px rgba(10,29,58,.4)}
 .watch-side p{font-size:14.5px;line-height:1.6;color:var(--body);margin-bottom:16px}
 
@@ -1109,7 +1109,7 @@ body:has(.close-c) .foot-g{padding-top:clamp(44px,4.6vw,64px)}
 /* the ten-a-month line */
 .spots{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:13.5px;line-height:1.45;color:var(--body)}
 .spots:empty{display:none}
-.spots i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(255,106,0,.16)}
+.spots i{display:none}
 .spots b{color:var(--ink);font-weight:700}
 .dark .spots,.fit .spots{color:rgba(255,255,255,.66)}.dark .spots b,.fit .spots b{color:#fff}
 .bk-head .spots{justify-content:inherit}
@@ -1203,7 +1203,7 @@ a.cat{display:block;color:inherit}
 
 /* resales: four plain labels, and the three ways in */
 .ph-stats.dots{gap:12px 18px}
-.ph-stats.dots li+li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--accent);margin-right:8px;align-self:center}
+.ph-stats.dots li+li::before{content:"";width:1px;height:12px;background:currentColor;opacity:.28;margin-right:10px;align-self:center}
 .ways-foot{margin-top:clamp(24px,2.8vw,36px);font-family:var(--fd);font-size:clamp(18px,1.6vw,22px);line-height:1.4;color:var(--ink);max-width:60ch}
 .ways-foot .it{font-style:italic;font-weight:500;color:var(--ink)}
 
@@ -1325,52 +1325,94 @@ a.cat{display:block;color:inherit}
 @media (max-width:640px){.offers-foot.note{grid-template-columns:minmax(0,1fr)}}
 .hero-act .spots{margin-top:2px}
 
-/* fit form: white premium card on the dark section, so it reads as the one thing to do */
-.fitbox,.fitbox.fit2{background:#fff;color:var(--ink);border:0;border-radius:6px;overflow:hidden;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 2px 6px rgba(0,0,0,.18),0 50px 110px -40px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,.08)}
-.fitbox.fit2::before{display:block;left:0;right:0;top:0;height:3px;background:var(--accent);z-index:1}
-.fitbox .fitrail{background:linear-gradient(180deg,#F7F5F0,#F1EEE7);border-right:1px solid #E6E1D7}
-.fitbox .fitwho b{color:var(--ink)}
+/* fit form: a white sheet on the dark section, built in the questionnaire's language
+   (square corners, lettered options with a tick, underline fields, serif questions) so the
+   short form and the full questionnaire read as one instrument. */
+.fitbox,.fitbox.fit2{background:#fff;color:var(--ink);border:0;border-radius:0;box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 34px 80px -30px rgba(0,0,0,.62),0 90px 160px -70px rgba(0,0,0,.55)}
+.fitbox.fit2::before{display:block;left:0;right:0;top:0;height:3px;background:var(--accent);z-index:2}
+.fitbox .fitrail{background:radial-gradient(128% 82% at 50% -16%,#FFFFFF,#FCFBF8 36%,#F5F3EE 74%,#EFEDE7);border-right:1px solid #E7E3DA;gap:28px}
+.fitbox .fitwho{grid-template-columns:58px minmax(0,1fr)}
+.fitbox .fitwho img{width:58px;height:58px;border:0;box-shadow:0 0 0 3px #fff,0 0 0 4px var(--accent),0 12px 26px -12px rgba(10,29,58,.5)}
+.fitbox .fitwho b{color:var(--ink);font-size:18px}
 .fitbox .fitwho span{color:var(--body)}
-.fitbox .fitwho img{box-shadow:0 0 0 4px #fff,0 10px 24px -10px rgba(10,29,58,.45)}
-.fitbox .fitsteps{border-top-color:#E3DED3}
-.fitbox .fitsteps li{color:#9AA4B1;border-bottom-color:#E8E3DA}
-.fitbox .fitsteps li::before{border-color:#D5D0C6;background:#fff}
+.fitbox .fitsteps{counter-reset:fs;border-top:1px solid #E3DED3}
+.fitbox .fitsteps li{gap:14px;padding:13px 0;border-bottom:1px solid #E8E4DB;color:#8792A0;font-size:14px;letter-spacing:-.003em}
+.fitbox .fitsteps li::before{width:26px;height:26px;border:1px solid #D9D4CA;border-radius:0;background:transparent;font-size:10.5px;color:#8792A0;font-variant-numeric:tabular-nums}
 .fitbox .fitsteps li.on{color:var(--ink);font-weight:600}
-.fitbox .fitsteps li.on::before{background:var(--ink);border-color:var(--ink);color:#fff;box-shadow:0 0 0 3px rgba(255,106,0,.28)}
+.fitbox .fitsteps li.on::before{background:var(--ink);border-color:var(--ink);color:#fff;box-shadow:none}
 .fitbox .fitsteps li.done{color:var(--body)}
-.fitbox .fitsteps li.done::before{background:#fff;border-color:var(--accent);color:var(--accent)}
-.fitbox .fitrail-note{color:var(--muted);padding-top:16px;border-top:1px solid #E3DED3}
-.fitbox .fitmain{background:#fff}
-.fitbox .fittop{border-bottom-color:#ECEEF1}
-.fitbox .fit2 .fitstep,.fitbox .fitstep{color:var(--accent-deep)}
-.fitbox .fitbar i{background:#E3E7EC}
-.fitbox .fitq{font-family:var(--fd);font-weight:600;color:var(--ink);font-size:clamp(24px,2.5vw,33px);letter-spacing:-.02em}
-.fitbox .fithint{color:var(--body)}
-.fitbox .fitopt{color:var(--ink);background:#fff;border:1px solid #DCE1E7;border-radius:4px;box-shadow:0 1px 2px rgba(10,29,58,.04)}
-.fitbox .fitopt span{color:var(--muted)}
-@media (hover:hover) and (pointer:fine){.fitbox .fitopt:hover{border-color:var(--ink);background:#FAFAF8;box-shadow:0 10px 24px -14px rgba(10,29,58,.35)}}
-.fitbox .fitopt[aria-checked="true"]{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:0 14px 30px -16px rgba(10,29,58,.6),inset 3px 0 0 var(--accent)}
-.fitbox .fitopt[aria-checked="true"] span{color:rgba(255,255,255,.7)}
-.fitbox .fitopt.multi::before{border-color:#B9C1CC;background:#fff}
-.fitbox .fitopt.multi[aria-pressed="true"]{border-color:var(--ink);background:#F6F7F9}
-.fitbox .fitopt.multi[aria-pressed="true"]::before{background:var(--accent);border-color:var(--accent);box-shadow:inset 0 0 0 3px #fff}
+.fitbox .fitsteps li.done::before{content:"\2713";background:var(--accent);border-color:var(--accent);color:var(--ink);font-size:12px}
+.fitbox .fitrail-note{color:var(--muted);padding-top:18px;border-top:1px solid #E3DED3;font-size:13px}
+.fitbox .fitmain{background:#fff;padding:clamp(30px,3.4vw,52px) clamp(24px,3.6vw,56px) clamp(30px,3.2vw,44px)}
+.fitbox .fittop{border:0;padding:0;margin-bottom:20px}
+.fitbox .fitstep{display:inline-flex;align-items:center;gap:12px;font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--muted)}
+.fitbox .fitstep::before{content:"";width:22px;height:1px;background:var(--accent)}
+.fitbox .fitq{font-family:var(--fd);font-weight:700;color:var(--ink);font-size:clamp(27px,2.7vw,38px);line-height:1.1;letter-spacing:-.018em;margin-bottom:12px;text-wrap:balance}
+.fitbox .fithint{color:var(--muted);font-size:15.5px;line-height:1.6;margin-bottom:28px;text-wrap:pretty}
+.fitbox .fitopts{gap:9px;counter-reset:fk}
+.fitbox .fitopt{counter-increment:fk;position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:15px;align-items:center;padding:16px 46px 16px 16px;background:#fff;color:var(--ink);border:1px solid var(--hairline);border-radius:0;box-shadow:none;transition:border-color .34s var(--ease-out),transform .34s var(--ease-out),background .34s var(--ease-out),color .34s var(--ease-out)}
+.fitbox .fitopt::before{content:counter(fk,upper-alpha);position:static;grid-row:1 / span 2;align-self:center;width:27px;height:27px;display:grid;place-items:center;border:1px solid var(--hairline);border-radius:0;background:transparent;box-shadow:none;font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--muted);transition:border-color .34s,background .34s,color .34s}
+.fitbox .fitopt::after{content:"";position:absolute;right:20px;top:50%;width:6px;height:12px;border:solid var(--accent);border-width:0 2px 2px 0;transform:translateY(-62%) rotate(45deg) scale(.5);opacity:0;transition:opacity .3s var(--ease-out),transform .3s var(--ease-out)}
+.fitbox .fitopt>b,.fitbox .fitopt>span{grid-column:2}
+.fitbox .fitopt b{font-size:15.5px;font-weight:600}
+.fitbox .fitopt span{margin-top:3px;color:var(--muted)}
+@media (hover:hover) and (pointer:fine){.fitbox .fitopt:hover{transform:translateX(3px);border-color:var(--ink);background:#fff;box-shadow:none}.fitbox .fitopt:hover::before{border-color:var(--ink);color:var(--ink)}}
+.fitbox .fitopt[aria-checked="true"],.fitbox .fitopt.multi[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:none}
+.fitbox .fitopt[aria-checked="true"] span,.fitbox .fitopt.multi[aria-pressed="true"] span{color:rgba(255,255,255,.68)}
+.fitbox .fitopt[aria-checked="true"]::before,.fitbox .fitopt.multi[aria-pressed="true"]::before{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.fitbox .fitopt[aria-checked="true"]::after,.fitbox .fitopt.multi[aria-pressed="true"]::after{opacity:1;transform:translateY(-62%) rotate(45deg) scale(1)}
+.fitbox .fitopt.multi{padding-left:16px}
+.fitbox .fitopt.multi::before{content:"";left:auto;top:auto}
+.fitbox .fitopt.multi[aria-pressed="true"]::before{content:"\2713";font-size:12px}
 .fitbox .fitfoot{color:var(--muted)}
-.fitbox .fitgroup{border-top-color:#ECEEF1}
-.fitbox .fitgroup .gl,.fitbox .fitfield .fl{color:var(--ink)}
-.fitbox .fitfield input,.fitbox .fitfield textarea,.fitbox .fitfield select{color:var(--ink);background:#FAFAF8;border:1px solid #DCE1E7;border-radius:4px}
-.fitbox .fitfield input::placeholder,.fitbox .fitfield textarea::placeholder{color:#A3ACB8}
-.fitbox .fitfield input:focus,.fitbox .fitfield textarea:focus,.fitbox .fitfield select:focus{border-color:var(--ink);background:#fff;box-shadow:0 0 0 3px rgba(255,106,0,.18)}
-.fitbox .fitfield.err input,.fitbox .fitfield.err select{border-color:#E85B00}
+.fitbox .fitgroup{border-top-color:var(--hairline-2);padding:20px 0}
+.fitbox .fitgroup .gl,.fitbox .fitfield .fl{font-size:11px;letter-spacing:.18em;color:var(--muted)}
+.fitbox .fitrow{gap:8px}
+.fitbox .fitrow .fitopt{display:inline-flex;padding:11px 17px;transform:none}
+.fitbox .fitrow .fitopt::before,.fitbox .fitrow .fitopt::after{display:none}
+@media (hover:hover) and (pointer:fine){.fitbox .fitrow .fitopt:hover{transform:translateY(-2px)}}
+.fitbox .fitfields{gap:26px 30px}
+.fitbox .fitfield .fl{margin-bottom:6px}
+.fitbox .fitfield .fl em{color:var(--accent-text)}
+.fitbox .fitfield input,.fitbox .fitfield textarea,.fitbox .fitfield select{color:var(--ink);background-color:transparent;border:0;border-bottom:1.5px solid var(--hairline);border-radius:0;padding:4px 2px 10px;font-size:18px;line-height:1.45;box-shadow:none;transition:border-color .28s var(--ease-out),box-shadow .28s var(--ease-out)}
+.fitbox .fitfield select{padding-right:30px;background-position:right 4px center}
+.fitbox .fitfield textarea{min-height:64px}
+.fitbox .fitfield input::placeholder,.fitbox .fitfield textarea::placeholder{color:var(--faint)}
+@media (hover:hover){.fitbox .fitfield input:hover,.fitbox .fitfield textarea:hover,.fitbox .fitfield select:hover{border-bottom-color:#C6D0DB}}
+.fitbox .fitfield input:focus,.fitbox .fitfield textarea:focus,.fitbox .fitfield select:focus{background-color:transparent;border-bottom-color:var(--ink);box-shadow:0 1.5px 0 0 var(--ink)}
+.fitbox .fitfield.err input,.fitbox .fitfield.err select{border-bottom-color:#C94E00;box-shadow:0 1.5px 0 0 #C94E00}
 .fitbox .fiterr,.fitbox .consent.err{color:#C94E00}
-.fitbox .chips span{color:var(--ink);background:#F4F2EC;border-color:#E3DED3}
-.fitbox .consent{color:var(--body)}
-.fitbox .fitnav .btn-ghost{border-color:#CFD5DD;color:var(--ink)}
-.fitbox .fitnav .btn-ghost svg{background:#F1F3F6;color:var(--accent-deep)}
+.fitbox .chips{gap:6px;margin-bottom:28px}
+.fitbox .chips span{color:var(--ink);background:#F5F3EE;border:1px solid #E7E3DA;border-radius:0;font-size:10.5px;letter-spacing:.12em}
+.fitbox .consent{color:var(--muted);margin-top:24px}
+.fitbox .fitnav{margin-top:32px}
+.fitbox .fitnav .btn-ghost{border-color:var(--ink);color:var(--ink);background:transparent}
+.fitbox .fitnav .btn-ghost svg{background:transparent;color:var(--accent-text)}
 .fitbox .fitnav .btn-ghost:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
-.fitbox .fitskip{color:var(--muted);border-bottom-color:#CFD5DD}
-.fitbox .fitskip:hover{color:var(--ink)}
-.fitbox .fitnav .reassure{color:var(--muted)}
+.fitbox .fitnav .btn-ghost:hover svg{color:var(--accent)}
+.fitbox .fitskip{color:var(--muted);border-bottom-color:var(--hairline)}
+.fitbox .fitskip:hover{color:var(--ink);border-bottom-color:var(--ink)}
+.fitbox .fitnav .reassure{color:var(--muted);font-size:13px}
+.fitbox .fitdone .mark{border-radius:0;border-color:var(--accent);color:var(--accent-text)}
 .fitbox .fitdone h3{color:var(--ink);font-family:var(--fd)}
 .fitbox .fitdone p{color:var(--body)}
 .fitbox .fitdone-note{color:var(--muted)!important}
-@media (max-width:900px){.fitbox .fitrail{border-right:0;border-bottom:1px solid #E6E1D7}}
+@media (max-width:900px){.fitbox .fitrail{border-right:0;border-bottom:1px solid #E7E3DA}}
+@media (max-width:640px){.fitbox .fitfields{gap:22px}}
+.fitbox .fitrow.stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.fitbox .fitrow.stack .fitopt{display:flex;align-items:center;text-align:left;padding:13px 16px}
+.fitbox .fitrow.stack .fitopt b{font-size:14.5px;line-height:1.4}
+.fitbox .fitother{margin-top:22px}
+@media (max-width:640px){.fitbox .fitrow.stack{grid-template-columns:minmax(0,1fr)}}
+
+/* offer ledger: the figures go ink, so orange is rationed back to the emphasis line, the CTA and
+   one short tick per cell (six orange headlines in a row read as a price sheet, not an offer) */
+.offer b{color:var(--ink);position:relative;padding-top:18px}
+.offer b::before{content:"";position:absolute;left:0;top:0;width:22px;height:2px;background:var(--accent)}
+.fitbox .fitopt.multi{padding-right:16px}
+.fitbox .fitopt.multi::after{display:none}
+.fitbox .fitopt.multi::before,.fitbox .fitopt.multi[aria-pressed="true"]::before{box-shadow:none}
+.fitbox .fitopt.multi[aria-pressed="true"]::before{color:var(--ink);font-weight:800}
+.fitbox .fitfield textarea{resize:none}
+.fitbox .fitnav .btn-ghost{padding:12px 22px 12px 16px;gap:14px}
+@media (max-width:640px){.fitbox .fitnav .btn-ghost{justify-content:center}}

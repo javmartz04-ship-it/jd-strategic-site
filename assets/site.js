@@ -84,18 +84,19 @@
     var OPEN='Open: show me what fits';
     var STEPS=[
       {id:'describe',t:'single',q:'Where are you starting from?',h:'Your matches start with you, not with a brand.',
-       o:[['Corporate executive','considering a transition out of corporate'],['Business owner','expanding or adding a second income stream'],['Recently exited','redeploying capital from a business sale'],['New entrepreneur','recently left a job or looking to start something']]},
-      {id:'categories',t:'multi',q:'Which industries are you drawn to?',h:'Pick as many as you like, or choose "show me what fits" and I will lead with the match.',cols:3,
-       o:['Health, Wellness & Beauty','Senior Care','Home Improvement & Services','Cleaning Services','B2B & Business Services','Pet Services','Child Services & Education','Fitness & Sports','Automotive','Real Estate & Property','Restoration & Repair','Technology','Food & Beverage',OPEN]},
+       o:[['Corporate executive','considering a transition out of corporate'],['Business owner','expanding or adding a second income stream'],['Recently exited','redeploying capital from a business sale'],['New entrepreneur','recently left a job or looking to start something'],['Other','something else, tell me in a few words']],other:'describe_other'},
+      {id:'categories',t:'multi',q:'Which industries are you drawn to?',h:'Select all that apply.',cols:3,
+       o:['Health, Wellness & Beauty','Senior Care','Home Improvement & Services','Cleaning Services','Laundry & Dry Cleaning','B2B & Business Services','Pet Services','Child Services & Education','Fitness & Sports','Automotive','Real Estate & Property','Restoration & Repair','Technology','Food & Beverage']},
       {id:'timeline',t:'single',q:'What is your investment timeline?',h:'No wrong answer. This helps me calibrate the approach.',
        o:[['Ready now','let’s move'],['1 to 3 months','almost there'],['3 to 6 months','still evaluating'],['6 to 12 months','long-range planning'],['1 year+','just trying to better understand options']]},
       {id:'capital',t:'single',q:'How much liquid capital could you invest?',h:'Liquid capital is money you can access quickly without selling long-term investments or major assets: cash, savings, money market. Not home equity or retirement funds.',cols:3,
        o:['$50K to $75K','$75K to $100K','$100K to $150K','$150K to $200K','$200K to $250K','$250K to $500K','$500K to $1M','$1M to $2M','$2M+'],foot:'Most opportunities I work with start around $50K liquid.'},
       {id:'tailor',t:'group',q:'A few details to sharpen your shortlist.',h:'Optional. The more I know, the sharper your matches.',skip:true,
-       groups:[{id:'role',l:'What role do you picture?',o:['Owner-operator, hands-on day to day','Executive, managing a team while you focus on growth','Not sure yet']},
-               {id:'scale',l:'Do you want to scale?',o:['A single unit is fine','Grow into multiple units or territories','Not sure yet']},
-               {id:'setting',l:'What kind of setting do you picture?',o:['Home-based','Office-based','Brick-and-mortar or retail','No preference']},
-               {id:'matters',l:'What matters most to you?',o:['Recession-resistant, stable demand','Recurring revenue','Being able to scale and build something bigger']}],
+       groups:[{id:'reason',l:'What’s the biggest reason you’re exploring ownership?',stack:true,o:['Being my own boss and making my own decisions','Taking control of my future and job security','Increasing my income potential','Building long-term wealth and equity I own','More flexibility and control over my schedule','More time with family and a better quality of life','Leaving the corporate world or making a career change','Following a proven system instead of starting from scratch','Adding to or diversifying businesses I already own','Building something to pass on to my family or leaving a legacy']},
+               {id:'role',l:'What role do you picture?',o:['Owner-operator, hands-on day to day','Executive, managing a team while you focus on growth','Not sure yet']},
+               {id:'growth',l:'What are your growth plans?',o:['Single unit is the goal','Start with one unit and scale into multiple','Start with multiple units']},
+               {id:'setting',l:'What kind of setting do you picture?',o:['Home-based (roughly $80K to $250K)','Office-based (roughly $90K to $250K)','Brick-and-mortar or retail (roughly $450K to $1.5M+)','No preference']},
+               {id:'matters',l:'What matters most to you?',o:['Recession-resistant, stable demand','Recurring revenue','I’m okay with (or want) a “boring” business','A proven brand with 20+ owners to learn from']}],
        texts:[{id:'background',l:'Your current or most recent role, and the skills you want to bring into a business',ph:'A sentence or two'},{id:'notes',l:'Anything else that would help me tailor your options?',ph:'Optional'}]},
       {id:'contact',t:'contact',q:'Last step. Where should I send your matches?',h:'I review every answer personally, research what is open in your market, and follow up within one to two business days.'}
     ];
@@ -106,7 +107,7 @@
     function save(){ try{ localStorage.setItem(FIT_KEY,JSON.stringify(A)); }catch(e){} }
     function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
     function answered(s){
-      if(s.t==='single') return !!A[s.id];
+      if(s.t==='single') return !!A[s.id] && !(s.other && A[s.id]==='Other' && !/\S/.test(A[s.other]||''));
       if(s.t==='multi') return Array.isArray(A[s.id]) && A[s.id].length>0;
       return true;
     }
@@ -121,7 +122,7 @@
     }
     function chips(){
       var out=[];
-      if(A.describe) out.push(A.describe);
+      if(A.describe) out.push(A.describe==='Other'&&A.describe_other?A.describe_other:A.describe);
       if(Array.isArray(A.categories)&&A.categories.length){ var c=A.categories.slice(0,2).join(' · '); if(A.categories.length>2) c+=' +'+(A.categories.length-2); out.push(c); }
       if(A.timeline) out.push(A.timeline);
       if(A.capital) out.push(A.capital);
@@ -139,10 +140,10 @@
     function nav(s){
       var h='<div class="fitnav">';
       if(idx>0) h+='<button type="button" class="btn btn-ghost" data-act="back">'+BACK+'Back</button>';
-      if(s.t==='multi'||s.t==='group') h+='<button type="button" class="btn btn-accent" data-act="next">Continue'+ARROW+'</button>';
+      if(s.t==='multi'||s.t==='group'||(s.other && A[s.id]==='Other')) h+='<button type="button" class="btn btn-accent" data-act="next">Continue'+ARROW+'</button>';
       if(s.t==='contact') h+='<button type="button" class="btn btn-accent" data-act="submit">Get My Matches'+ARROW+'</button>';
       if(s.skip) h+='<button type="button" class="fitskip" data-act="skip">Skip to contact</button>';
-      if(s.t==='single') h+='<p class="reassure">Pick one to continue. About two minutes, and it saves as you go.</p>';
+      if(s.t==='single' && !(s.other && A[s.id]==='Other')) h+='<p class="reassure">Pick one to continue. About two minutes, and it saves as you go.</p>';
       if(s.t==='contact') h+='<p class="reassure">Confidential. Josh only, never a franchisor.</p>';
       return h+'</div>';
     }
@@ -150,12 +151,13 @@
       var s=STEPS[idx], h='<h3 class="fitq" id="fitQ">'+esc(s.q)+'</h3>'+(s.h?'<p class="fithint">'+esc(s.h)+'</p>':'');
       if(s.t==='single'){
         h+='<div class="fitopts'+(s.cols===3?' cols-3':'')+'" role="radiogroup" aria-labelledby="fitQ">'+s.o.map(function(o){ var l=Array.isArray(o)?o[0]:o, sub=Array.isArray(o)?o[1]:''; return opt(s,l,sub,A[s.id]===l,false); }).join('')+'</div>';
+        if(s.other && A[s.id]==='Other') h+='<div class="fitfields fitother">'+field(s.other,'Tell me a little more',true,{wide:true,ph:'A few words',err:'Add a few words, or pick another option.'})+'</div>';
         if(s.foot) h+='<p class="fitfoot">'+esc(s.foot)+'</p>';
       } else if(s.t==='multi'){
         var cur=A[s.id]||[];
         h+='<div class="fitopts'+(s.cols===3?' cols-3':'')+'" aria-labelledby="fitQ">'+s.o.map(function(o){ return opt(s,o,'',cur.indexOf(o)>-1,true); }).join('')+'</div>';
       } else if(s.t==='group'){
-        h+='<div class="fitgroups">'+s.groups.map(function(g){ return '<div class="fitgroup"><span class="gl">'+esc(g.l)+'</span><div class="fitrow" role="radiogroup" aria-label="'+esc(g.l)+'" data-g="'+g.id+'">'+g.o.map(function(o){ return opt(s,o,'',A[g.id]===o,false).replace('class="fitopt"','class="fitopt" data-g="'+g.id+'"'); }).join('')+'</div></div>'; }).join('')+
+        h+='<div class="fitgroups">'+s.groups.map(function(g){ return '<div class="fitgroup"><span class="gl">'+esc(g.l)+'</span><div class="fitrow'+(g.stack?' stack':'')+'" role="radiogroup" aria-label="'+esc(g.l)+'" data-g="'+g.id+'">'+g.o.map(function(o){ return opt(s,o,'',A[g.id]===o,false).replace('class="fitopt"','class="fitopt" data-g="'+g.id+'"'); }).join('')+'</div></div>'; }).join('')+
            '<div class="fitgroup"><div class="fitfields">'+s.texts.map(function(t){ return field(t.id,t.l,false,{area:true,wide:true,ph:t.ph}); }).join('')+'</div></div></div>';
       } else if(s.t==='contact'){
         h+=chips()+'<div class="fitfields">'+
@@ -202,13 +204,15 @@
       var s=STEPS[idx], act=b.getAttribute('data-act');
       if(act==='back'){ go(idx-1); return; }
       if(act==='skip'){ go(idx+1); return; }
-      if(act==='next'){ if(!answered(s)){ var first=stage.querySelector('.fitopts'); if(first){ first.style.outline='1px solid #FFB27A'; setTimeout(function(){ first.style.outline=''; },900); } return; } go(idx+1); return; }
+      if(act==='next'){ if(s.t==='single' && !answered(s)){ var ow=stage.querySelector('.fitother .fitfield'); if(ow){ ow.classList.add('err'); var oin=ow.querySelector('input,textarea'); if(oin) oin.focus(); } return; } if(!answered(s)){ var first=stage.querySelector('.fitopts'); if(first){ first.style.outline='1px solid #FFB27A'; setTimeout(function(){ first.style.outline=''; },900); } return; } go(idx+1); return; }
       if(act==='submit'){ submit(); return; }
       if(!b.classList.contains('fitopt')) return;
       var v=b.getAttribute('data-v');
       if(s.t==='single'){
         [].slice.call(stage.querySelectorAll('.fitopt')).forEach(function(x){ x.setAttribute('aria-checked','false'); });
         b.setAttribute('aria-checked','true'); A[s.id]=v; save();
+        if(s.other && v==='Other'){ render(); var oi=stage.querySelector('[name="'+s.other+'"]'); if(oi) oi.focus(); return; }
+        if(s.other) delete A[s.other];
         setTimeout(function(){ go(idx+1); },RM?0:360);
       } else if(s.t==='multi'){
         var list=A[s.id]||[];
@@ -223,7 +227,7 @@
       }
     });
     stage.addEventListener('input',function(e){ var el=e.target; if(el.name && (el.tagName==='INPUT'||el.tagName==='TEXTAREA'||el.tagName==='SELECT')){ if(el.type==='checkbox'){ A.consent=el.checked; } else { A[el.name]=el.value; } save(); var w=el.closest('.fitfield'); if(w) w.classList.remove('err'); var c=el.closest('.consent'); if(c) c.classList.remove('err'); } });
-    stage.addEventListener('keydown',function(e){ if(e.key==='Enter' && e.target.tagName==='INPUT' && STEPS[idx].t==='contact'){ e.preventDefault(); submit(); } });
+    stage.addEventListener('keydown',function(e){ if(e.key==='Enter' && e.target.tagName==='INPUT' && STEPS[idx].t==='contact'){ e.preventDefault(); submit(); } else if(e.key==='Enter' && e.target.tagName==='INPUT' && STEPS[idx].other){ e.preventDefault(); var nb=stage.querySelector('[data-act="next"]'); if(nb) nb.click(); } });
     /* resume where they left off */
     for(var i=0;i<STEPS.length;i++){ if(STEPS[i].t==='single'||STEPS[i].t==='multi'){ if(!answered(STEPS[i])){ idx=i; break; } } idx=i; }
     if(idx>=STEPS.length) idx=STEPS.length-1;
@@ -425,8 +429,8 @@
   var els=[].slice.call(document.querySelectorAll('[data-spots]')); if(!els.length) return;
   var month=new Date().toLocaleDateString('en-US',{month:'long'});
   var html=(typeof SPOTS_LEFT==='number')
-    ? '<i aria-hidden="true"></i>'+(SPOTS_LEFT>0?('Only <b>'+SPOTS_LEFT+' '+(SPOTS_LEFT===1?'spot':'spots')+'</b> left in '+month+'. I work with about ten people a month.'):('Fully booked for '+month+'. New clients start next month.'))
-    : '<i aria-hidden="true"></i>I work with about ten people a month, so every one of them gets my full attention.';
+    ? (SPOTS_LEFT>0?('Only <b>'+SPOTS_LEFT+' '+(SPOTS_LEFT===1?'spot':'spots')+'</b> left in '+month+'. I work with about ten people a month.'):('Fully booked for '+month+'. New clients start next month.'))
+    : 'I work with about ten people a month, so every one of them gets my full attention.';
   els.forEach(function(el){ el.innerHTML=html; });
 })();
 

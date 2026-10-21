@@ -1656,3 +1656,28 @@ rail; "make sure everything fits... super high class."
   burger) on the explorer and the Industries page; no more navy placeholder tiles.
 - Polish: guide/rebate rule is a framed "The one rule" note; who photo is sticky; home fit head no longer
   repeats the spots line; "twenty-year" no longer breaks at the hyphen.
+
+---
+
+# ROUND 27 (2026-10-21): new logo, white form, Josh's abbreviated-questionnaire edits
+
+Javier: new logo everywhere; the fit form "should be white so it stands out"; then "take off these ai
+dots everywhere… make everything more premium… the form looks too much like AI, make it look premium
+like all of our other pages."
+
+- Logo: `#jd-mark` rebuilt to the new artwork (viewBox 1576x392; framed box with the orange corner
+  outside the frame, rules top and bottom with orange end-caps). `aspect-ratio` updated everywhere.
+  Favicon + touch icon regenerated from the PNG. OG image has no logo, untouched.
+- Dots removed: the `[data-spots]` orange pulse dot, podcast `watch-meta` dot separators, resales
+  `ph-stats.dots` separators (now 1px hairlines).
+- Fit form (home + contact): first pass was a rounded white SaaS card (6px/4px radius) and Javier
+  read it as AI. Rebuilt in the questionnaire's language: square corners, 3px orange top rule,
+  lettered options (A, B, C via CSS counter) with an accent tick, ink fill on select, underline
+  fields at 18px, Playfair questions, run-header step label (muted caps + accent tick, not 10px orange).
+- Offer ledger figures went ink with a short orange tick: six orange headlines read as a price sheet.
+- Form copy from Josh's "Abbreviated Questionnaire Edits": Other + text box (step 1, key
+  `describe_other`), Laundry & Dry Cleaning added and "Open: show me what fits" removed (step 2),
+  step 5 adds `reason` (10 options, stacked 2-col), `growth` replaces `scale`, setting carries price
+  ranges, matters-most drops scale and adds "boring" + "20+ owners". Technology kept (site addition,
+  the edits don't remove it). FIT_ENDPOINT is still empty, so nothing reaches the CRM yet; every key
+  rides in the JSON payload when it is wired.
