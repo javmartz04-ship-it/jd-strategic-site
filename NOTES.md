@@ -1696,3 +1696,17 @@ Javier sent a new studio headshot of Josh (dark suit, white shirt, gray backdrop
   backdrop under the person blur-filled first so hair/ear edges get wall tones (no light rim), 1424x1600 field
   with headroom; phone crop `object-position:50% 8%`. The first attempt's flat gray studio wall was the
   "color needs to be better" complaint.
+
+## Round 28 (2026-10-29): stock out, Josh in
+Javier sent five real photos (two studio portraits by a photographer, three on the floor of the Lapels
+franchise with its owners) and said "take out the static images, we want to use more pictures of him,
+don't change the hero". Hero untouched.
+- Stock (`assets/ed/cat-*.jpg`, `editorial.jpg`) no longer referenced: the home industry explorer stage is
+  now one photo of Josh on the Lapels floor (`josh/floor.jpg`, `object-position:58% 50%` keeps the other
+  man's face off the edge); the "position" bleed band is Josh over build-out plans (`josh/plans.jpg`,
+  `object-position:50% 30%`); industries.html tiles use the existing `.thumb.noimg` navy plate + number.
+- Video stills replaced: `who.jpg` (gray jacket portrait), `story.jpg` and `request.jpg` (check jacket
+  portrait), `proc.jpg` (laptop with owner), `proc-2.jpg` (plans, portrait crop). Originals in
+  `assets/_orig/r28/`, full-res sources in `assets/_src/josh-*.jpg`. Podcast stills (`host`, `show*`) and
+  the About archive photos stay. `assets/ed/` files are still on disk, just unused.
+- Other people appear in the Lapels photos; the Lapels brand is already named on the site (request.html).
