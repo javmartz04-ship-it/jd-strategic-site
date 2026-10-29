@@ -1690,3 +1690,9 @@ Javier sent a new studio headshot of Josh (dark suit, white shirt, gray backdrop
   `assets/_orig/hero-pre-2026-10-29.jpg`. Hero and face URLs carry `?v=20261029` to beat caches.
 - Soft at 1:1 on retina. Real-ESRGAN was blocked (external model weights). Fix = Josh's original full-res file.
 - Hero REVERTED same day to the balcony photo ("the color needs to be better, make it exactly how it was"). The new headshot stays only in the round face avatar.
+- Round 27b: hero REDONE with the new headshot after "I told you to update it with the headshot... make sure it
+  looks perfect". Recipe: Lanczos 4x → Apple Vision person matte (`matte.swift`, qualityLevel .accurate) →
+  real backdrop regraded by luma onto a navy-slate ramp (#111E35→#627593, vignette), person warmed +7% contrast,
+  backdrop under the person blur-filled first so hair/ear edges get wall tones (no light rim), 1424x1600 field
+  with headroom; phone crop `object-position:50% 8%`. The first attempt's flat gray studio wall was the
+  "color needs to be better" complaint.
