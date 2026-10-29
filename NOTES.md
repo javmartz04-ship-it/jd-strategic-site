@@ -1710,3 +1710,19 @@ don't change the hero". Hero untouched.
   `assets/_orig/r28/`, full-res sources in `assets/_src/josh-*.jpg`. Podcast stills (`host`, `show*`) and
   the About archive photos stay. `assets/ed/` files are still on disk, just unused.
 - Other people appear in the Lapels photos; the Lapels brand is already named on the site (request.html).
+
+## Round 29 (2026-10-29): industries matched to Josh's Dropbox
+Josh's shared Dropbox root (link in chat; it is his whole root, Industries is a subfolder) holds one folder per
+industry with his top-brand photos. Javier: "update all the industries with these pictures, match them
+perfectly". The site now carries HIS twelve categories, in his names, on industries.html and the home
+explorer: Beauty/Fitness/Health & Wellness (merged), Senior Care & Home Health, Home Service & Trades,
+Cleaning, Dry Cleaning & Laundromats (new, Lapels), Consulting (replaces B2B), Pet, Youth Services,
+Automotive, Real Estate Services, Restoration, Food & Beverage. Technology is gone (no folder).
+- `?cat=` links still point at the fit engine's existing option labels (mapped per category) so the
+  contact pre-select keeps working; the fit option list in site.js is untouched.
+- Images: `assets/ind/<slug>.jpg` at 1500x1000, sources kept in `assets/_src/industries/`. Only Lapels,
+  Meineke and the Food truck are native-res; the other nine are 300-700px web downloads upscaled with
+  Lanczos. They hold up on the 3-up tiles and go soft on the home explorer stage. Ask Josh for larger
+  brand photos. Consulting is a crop of an ad (couple only, arc cropped out).
+- Brand names/logos are visible (Great Clips, Ace Handyman, Woofie's, Meineke, Montessori Kids Universe,
+  Lapels, voda, RPM). Josh supplied them; that reverses the earlier "no brand names" caution for this section.
