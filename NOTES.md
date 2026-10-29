@@ -1726,3 +1726,17 @@ Automotive, Real Estate Services, Restoration, Food & Beverage. Technology is go
   brand photos. Consulting is a crop of an ad (couple only, arc cropped out).
 - Brand names/logos are visible (Great Clips, Ace Handyman, Woofie's, Meineke, Montessori Kids Universe,
   Lapels, voda, RPM). Josh supplied them; that reverses the earlier "no brand names" caution for this section.
+
+## Round 30 (2026-10-29): the full Lapels shoot
+Josh shared the whole Lapels photo shoot (101 frames, ~9500x6300, `LAPELS_2026-BEM-*.jpg`; shared link in
+memory). Javier: "add more, in places that actually make sense". Placed where the photo matches the copy:
+- podcast.html host block: #13, Josh alone at the laptop (`host.jpg`, now 4:5 at 1200x1500).
+- request.html (Lapels introduction): #77, Josh with the Lapels owner at the POS under the Lapels wall
+  (`request.jpg`, figure switched from `r34` to `r45`).
+- about.html story rail: new `story-photo` after step 09 "A franchisee myself": #69, Josh and the owner on
+  the floor between the machines (`story-4.jpg`). Caption kept to what the photo shows.
+- Full-res upgrades of the three web exports from round 28: `plans.jpg` from #1 (band `object-position`
+  moved to 50% 16% because the full frame has more headroom), `proc.jpg` from #10, `proc-2.jpg` from #1.
+Originals used are in `assets/_src/lapels/`; previous slot files in `assets/_orig/r30/`. Hero untouched.
+Unused but good: #21 (Josh + older advisor at laptops), #57 (three men on the floor), #63/#66/#71/#78
+(Josh with the older owner at counter/vending/machines), #85.
