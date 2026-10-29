@@ -1689,3 +1689,4 @@ Javier sent a new studio headshot of Josh (dark suit, white shirt, gray backdrop
   on a 1440x1580 field whose headroom is the studio wall stretched + blurred. Old balcony hero:
   `assets/_orig/hero-pre-2026-10-29.jpg`. Hero and face URLs carry `?v=20261029` to beat caches.
 - Soft at 1:1 on retina. Real-ESRGAN was blocked (external model weights). Fix = Josh's original full-res file.
+- Hero REVERTED same day to the balcony photo ("the color needs to be better, make it exactly how it was"). The new headshot stays only in the round face avatar.
