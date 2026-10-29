@@ -404,7 +404,7 @@
   if(document.querySelector('.bookpage')) return;
   try{ if(sessionStorage.getItem('jds_callw')==='x') return; }catch(e){}
   var w=document.createElement('div'); w.className='callw'; w.setAttribute('aria-label','Start with a call');
-  w.innerHTML='<a class="main" href="book.html"><img src="assets/josh/face.jpg" width="48" height="48" alt=""><span><span class="t">Start with a 20-minute call</span><span class="s">Josh DuBois · franchise owner</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><button type="button" class="x" aria-label="Dismiss">&times;</button>';
+  w.innerHTML='<a class="main" href="book.html"><img src="assets/josh/face.jpg?v=20261029" width="48" height="48" alt=""><span><span class="t">Start with a 20-minute call</span><span class="s">Josh DuBois · franchise owner</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><button type="button" class="x" aria-label="Dismiss">&times;</button>';
   document.body.appendChild(w);
   w.querySelector('.x').addEventListener('click',function(){ w.classList.remove('on'); try{ sessionStorage.setItem('jds_callw','x'); }catch(e){} setTimeout(function(){ w.remove(); },600); });
   /* waits a screen and a half, then steps aside over anything it would cover: the fit finder, forms, the calendar, the closing and the footer */
