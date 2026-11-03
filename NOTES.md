@@ -1740,3 +1740,29 @@ memory). Javier: "add more, in places that actually make sense". Placed where th
 Originals used are in `assets/_src/lapels/`; previous slot files in `assets/_orig/r30/`. Hero untouched.
 Unused but good: #21 (Josh + older advisor at laptops), #57 (three men on the floor), #63/#66/#71/#78
 (Josh with the older owner at counter/vending/machines), #85.
+
+## Round 31 (2026-11-03): Javier's Loom review (loom.com/share/c0ca457d1b9a42b7b56e3b4c45e51e6a)
+
+Transcribed locally (whisper large-v3-turbo) + frames every 3s. Asks, and what happened:
+- **Hero headshot "does not look like that… more color"; then "we're not going to use this one moving forward."**
+  The round-27 navy-suit headshot is retired everywhere. New source: Josh's "Clean Brands" studio shoot
+  (11 frames, 4672x7008), Dropbox https://www.dropbox.com/scl/fo/sfhyjb8tudx48o8mbz5ra/AK-CwgvR3IadyByeQFOG-dA?rlkey=88xk1jabe2bvktx0wivmnzsol&dl=1
+  (note the capital I in R3Iady). Full set kept in scratch only; picks below.
+- **Hero "can't just be a solo headshot, has to be something in the background… him in an office."** DSC01609 (grey
+  background, his pick: "it needs to be this one") cut out with Vision `VNGenerateForegroundInstanceMaskRequest`
+  (mask eroded 7px + 2px feather, kills the dark fringe), over Pexels office 7534168 blurred 28px, soft offset shadow.
+  `assets/josh/hero.jpg` 2136x2400 + `hero@1068.jpg` srcset. og.jpg regenerated.
+- **Who band: "regular headshot… light background so it shows up good."** `face-light.jpg` (DSC01609 grey) on index + about.
+- **"We shouldn't use the same headshot everywhere."** Fit-finder rail = `face-fit.jpg` (DSC01527), book rail circle =
+  `face-book.jpg` (DSC01538, the one he opened right before "this can be the circle one"), call widget = `face-call.jpg` (DSC01541).
+- **Industries: consulting "looks really stock", youth "too blurry", real estate badge collage.** Replaced with sharp Pexels
+  photos (7693757 consulting meeting, 8923258 preschool class, 29081877 apartments). He said beauty, senior care and
+  cleaning are good: untouched.
+- **Survey (jdstrategic.org/survey): no headshot, a lifestyle photo.** `survey-portrait.jpg` is now Lapels #13 (laptop).
+  The GHL page loads it from GitHub Pages (`BASE`), so it went live with the push, no re-paste. Verified live.
+- **NOT done here (needs Javier):** GHL calendar settings: rename "JDStrategic" to "Call with Josh DuBois", add the short
+  description, widget avatar = JD logo (so the page shows one headshot, not two), booking window 21 days. GHL was not
+  signed in to the built-in browser. **Vercel move**: CLI not logged in on this Mac and the claimable no-auth deploy was
+  blocked by the permission classifier; a clean deploy folder is the git-tracked files minus `assets/_src`, `_orig`, `.md`.
+  Keep GitHub Pages alive after the move: the GHL survey page hard-codes it as `BASE`.
+- AI image tools were dead: Gemini key is free tier (image quota 0), Higgsfield account has 0 credits.
