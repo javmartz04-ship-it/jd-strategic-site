@@ -1788,3 +1788,11 @@ extended the wall to 3200 wide, luma-mapped the wall to the navy ramp (ink-deep 
 light behind his shoulders, and painted the JD mark INTO the wall (multiplied by the same light, 4px out of focus, orange
 bracket lit by the same falloff). His warm rim light from the original shoot survives on his cheek. Subject: shadows lifted
 (gamma 0.78), vibrance +10%. Script: scratch `real.py` (numpy only; no cv2/scipy on this Mac). Swept 12 viewports.
+
+### Round 31d (same day): "not too much padding on top… make sure everything else looks good"
+- Hero desktop image cropped to 3200x2070 (330px of wall off the top), `object-position:50% 20%`; phone crop starts 130px lower.
+  Head now sits close under the top edge at all 12 swept sizes.
+- Full audit, all 10 pages at 1440 and 390 (`jd-strategic-tools/fullpages.mjs`: broken images, failed requests, sideways
+  scroll; all clean). Fixed on phones: the 01/02/03 "pov" steps were three skinny columns and the footer link columns were
+  cramped (rounds 23/24 put unscoped grid overrides after the media queries); the podcast card's "43 episodes" chip sat on the
+  title and the caption covered Josh's face (card is 4:5 on phones now, chip hidden).
