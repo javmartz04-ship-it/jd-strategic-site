@@ -1766,3 +1766,16 @@ Transcribed locally (whisper large-v3-turbo) + frames every 3s. Asks, and what h
   blocked by the permission classifier; a clean deploy folder is the git-tracked files minus `assets/_src`, `_orig`, `.md`.
   Keep GitHub Pages alive after the move: the GHL survey page hard-codes it as `BASE`.
 - AI image tools were dead: Gemini key is free tier (image quota 0), Higgsfield account has 0 credits.
+
+### Round 31b (same day): hero centred + studio backdrop
+Javier: "he's to the right… make sure he's aligned no matter where they're viewing it", then mid-turn: "the background is
+not it… studio finish, nice gradient background, maybe abstract with the logo in the background."
+- Hero is now a 3200x2400 canvas with Josh at exact centre (cover only trims symmetric sides on portrait boxes), plus a
+  tighter 1.45:1 `hero-m.jpg` served by `<picture>` at ≤900px so phones/tablets get a bigger, centred Josh with headroom.
+  `object-position:50% 38%` desktop / `50% 30%` mobile.
+- Backdrop: navy studio gradient (`--ink` family, lit behind his head, vignette, floor falloff) with the JD box mark at 1720px
+  tall behind him: white bracket at 13%, ghost "JD" outline, the orange bracket solid. Rendered from the logo's own SVG
+  geometry (Montserrat 800) by `jd-strategic-tools/studio.mjs`; composite recipe in scratch `studio_comp.py` (mask erode 7 +
+  feather 2.2, offset shadow, rim glow at 7% only, more reads as a sticker).
+- Quote card capped at `min(300px, 50% - 72px)` on desktop so it never crosses his centre line.
+- Swept 12 viewports (2560 to 360) with `jd-strategic-tools/herosweep.mjs` and a centre line drawn on each.
