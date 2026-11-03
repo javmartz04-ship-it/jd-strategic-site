@@ -195,3 +195,32 @@ sent as `text/plain` and GHL threw it away.)
 - Blank answers are **omitted** from the payload, not sent empty — so key count varies per submission (86 in the live test, 97 if every optional field is filled).
 - The webhook URL is visible in page source, as it must be for a browser POST.
   Filter the workflow on `source` (always the exact string above) or on a present `email`.
+
+---
+
+## Added 2026-10-21 (Josh's "Questionnaire Edits")
+
+New keys, all free text on the GHL side. They already reach GHL inside `summary` (and so the PDF and
+CQ Full Transcript); map them in the "Create contact" step only if you want each as its own field.
+
+| key | question |
+|---|---|
+| `open_location` | Where do you want to open your business? (city, area, or zip code) |
+| `commute_plan` | If that's different from your home zip code, how would you plan to commute to or manage the business? |
+| `describe_other` | "Other" text for Which best describes you right now? |
+| `drawn` | What's drawing you to franchise ownership? (multi, comma-joined) |
+| `drawn_other` | "Other" text for the checklist above |
+| `matters_most` | Which ONE of these matters most to you? |
+| `three_years` | Fast forward three years. If this goes well, what does life look like for you? |
+| `style_b_6`, `style_c_6`, `style_e_5` | three new 1-5 style statements |
+| `growth` | Growth plans (single) |
+| `financial_goals` | Describe your financial goals. What do you want this business to do for you and your family? |
+| `ind_beauty` | Beauty care / wellness (split out of `ind_health`, which is now Home health care / senior care) |
+| `credit_score` | Credit score range (single) |
+| `anything_else` | Is there anything I didn't ask that you feel is important for me to know? |
+| `most_important` | Of everything covered here, what would you say is most important to you? |
+
+Reworded, same key (GHL mapping unchanged): `why_franchise` = "What got you looking into franchise
+ownership now?", `attracts` = "What excites you most about ownership?". Removed: the "scale to multiple
+units" option (replaced by the "boring" business option), Window cleaning and Home inspection under Home
+Improvement.

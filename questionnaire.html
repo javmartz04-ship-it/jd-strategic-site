@@ -73,19 +73,19 @@ input,textarea{font:inherit}
    ========================================================================== */
 .top{
   position:fixed;top:0;left:0;right:0;z-index:60;height:var(--top-h);
-  background:var(--ink);display:flex;align-items:center;
+  background:#fff;display:flex;align-items:center;border-bottom:1px solid var(--hairline);
   padding-inline:clamp(18px,3.2vw,34px);gap:clamp(16px,3vw,38px);
 }
-.top .brand{display:inline-flex;align-items:center;flex:none;color:#fff;--logo-box:#fff;--logo-on-box:var(--ink)}
+.top .brand{display:inline-flex;align-items:center;flex:none;color:var(--ink);--logo-box:var(--ink);--logo-on-box:#fff}
 .top .logo{display:block;height:34px;width:auto;aspect-ratio:1576/392;overflow:visible}
 .top .ct{margin-left:auto;display:flex;align-items:center;gap:clamp(12px,2vw,22px);flex:none}
-.counter{font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.62);font-variant-numeric:tabular-nums;white-space:nowrap}
+.counter{font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
 @media (max-width:640px){.top .logo{height:28px}.counter{font-size:10px;letter-spacing:.1em}}
-@media (max-width:400px){.top .logo{height:25px}.counter{font-size:9px;letter-spacing:.06em}}
+@media (max-width:400px){.top .logo{height:22px}.counter{font-size:9px;letter-spacing:.06em}}
 .saved{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);opacity:0;transition:opacity .45s ease;white-space:nowrap}
 .saved.on{opacity:1}
 .saved svg{width:12px;height:12px}
-.bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.12)}
+.bar{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:transparent}
 .bar i{display:block;height:100%;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .65s var(--ease)}
 
 /* ==========================================================================
@@ -245,7 +245,6 @@ body.welcome .card.in,body.welcome .card.in.bk{animation-name:wcardIn}
   padding:var(--wpad) clamp(30px,3.6vw,60px);
   width:100%;max-width:748px;margin-left:auto;
 }
-.wcopy::before{content:"";position:absolute;left:0;top:var(--wpad);bottom:var(--wpad);width:3px;background:var(--accent)}
 .wcopy .chip,.wcopy .sig{align-self:flex-start}
 /* The first line measures 12.43em. 3.3vw keeps it on one line beside the
    photograph at every width that has the room; where it has to break, it
@@ -405,6 +404,7 @@ body.welcome .stage{bottom:0}
 .il{display:block;font-size:11.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);margin-bottom:6px;line-height:1.45}
 .il em{font-style:normal;color:var(--accent-ink)}
 .ih{display:block;font-size:13.5px;line-height:1.55;color:var(--muted);margin:-1px 0 9px;max-width:58ch;text-wrap:pretty}
+.ih.inote{margin:12px 0 0}
 .item .fin{font-size:clamp(17px,1.5vw,19px);padding:1px 2px 7px;line-height:1.35}
 .item textarea.fin{min-height:0;height:30px;line-height:1.45}
 .item .opts{gap:7px}
@@ -494,7 +494,6 @@ body.welcome .stage{bottom:0}
   .wcard{grid-template-columns:minmax(0,1fr)}
   .wfig{order:-1;position:relative;align-self:auto;height:auto;aspect-ratio:4/3;max-height:44vh}
   .wcopy{max-width:none;margin-left:0;padding:clamp(30px,6vw,48px) var(--gut) clamp(38px,7vw,56px)}
-  .wcopy::before{left:var(--gut);right:var(--gut);top:0;bottom:auto;width:auto;height:3px}
   body.welcome .stage{align-items:flex-start}
   body.welcome .card{display:block}
 }
@@ -559,6 +558,40 @@ body.welcome .stage{bottom:0}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+
+/* ---------- welcome, premium pass ----------
+   three plain facts on hairlines instead of boxes; the name lives on the
+   photograph as a caption instead of a second, smaller photo of the same man */
+.wcopy .qh{color:var(--body);font-size:17px;line-height:1.62;max-width:46ch;margin-top:22px}
+.wspec{list-style:none;margin:34px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));max-width:560px;border-top:1px solid var(--hairline)}
+.wspec li{padding:16px 18px 0 0}
+.wspec li+li{padding-left:18px;border-left:1px solid var(--hairline)}
+.wspec b{display:block;font-family:var(--fd);font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.005em}
+.wspec span{display:block;margin-top:5px;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.wcopy .go{margin-top:30px}
+@media (min-width:700px){.wcopy .go{background:transparent}.wcopy .go::before{display:none}}
+.wcopy .reassure{margin-top:4px;font-size:12.5px}
+.wfig{position:relative}
+.wfig img{object-position:50% 18%}
+.wcap{position:absolute;left:0;right:0;bottom:0;padding:70px clamp(22px,2.6vw,36px) clamp(20px,2.6vw,30px);
+  background:linear-gradient(to top,rgba(6,16,32,.72),rgba(6,16,32,0));color:#fff;pointer-events:none}
+.wcap b{display:block;font-family:var(--fd);font-size:20px;font-weight:700;letter-spacing:-.01em}
+.wcap span{display:block;margin-top:6px;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+@media (min-width:700px) and (max-height:860px){
+  .wspec{margin-top:24px}.wspec li{padding-top:13px}.wcopy .go{margin-top:20px}.wcopy .qh{margin-top:16px}
+}
+@media (max-width:699.98px){
+  .wfig img{object-position:50% 22%}
+  .wcap{padding:48px var(--gut) 16px}.wcap b{font-size:17px}
+}
+@media (max-width:640px){
+  .wcopy .qh{font-size:15.5px;line-height:1.58;margin-top:14px}
+  .wspec{grid-template-columns:minmax(0,1fr);margin-top:22px;border-top:0}
+  .wspec li,.wspec li+li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:11px 0;border-left:0;border-top:1px solid var(--hairline)}
+  .wspec span{margin-top:0;text-align:right}
+  .wspec b{font-size:15px}
+  .wcopy .go{margin-top:14px}
 }
 </style>
 </head>
@@ -641,7 +674,7 @@ body.welcome .stage{bottom:0}
      reassurance reads as routine paperwork.
    - Conditional follow-ups stay on the SAME screen and appear in place
      ("which FDDs?", "tell me about it") instead of becoming another screen.
-   - The 26 style statements stay one-per-row but sit in their five natural
+   - The 29 style statements stay one-per-row but sit in their five natural
      groups, five screens. Number keys answer and jump to the next row, so a
      group is still five keystrokes.
 
@@ -651,7 +684,7 @@ body.welcome .stage{bottom:0}
    ========================================================================== */
 var CH = ['Personal Information','Employment','Your Goals','Business Ownership',
           'A Little About Your Style','Your Strengths','Business Model Preferences',
-          'Industries Of Interest','Financials','Decision Making'];
+          'Industries Of Interest','Financials','Decision Making','Anything Else','What Matters Most'];
 
 var partnered = function(a){ return a.partnered === 'Yes'; };
 
@@ -668,7 +701,9 @@ var S = [
 
 {ch:1, q:'Where are you based?', h:'Territory availability is checked market by market, so the address matters more than you&rsquo;d think.', items:[
   {t:'text', n:'address', l:'Address', ac:'street-address', ph:'Street address'},
-  {t:'text', n:'city_state_zip', l:'City / State / Zip', ph:'Miami, FL 33131', w:'m'}
+  {t:'text', n:'city_state_zip', l:'City / State / Zip', ph:'Miami, FL 33131', w:'m'},
+  {t:'text', n:'open_location', l:'Where do you want to open your business? (city, area, or zip code)', ph:'City, area, or zip code', w:'m'},
+  {t:'long', n:'commute_plan', l:'If that&rsquo;s different from your home zip code, how would you plan to commute to or manage the business?'}
 ]},
 
 /* four short facts, each on its own full-width row: one narrow field and
@@ -714,11 +749,39 @@ var S = [
     'Corporate executive: considering a transition out of corporate',
     'Business owner: expanding or adding a second income stream',
     'Recently exited: redeploying capital from a business sale',
-    'New entrepreneur: recently left a job or looking to start something']}
+    'New entrepreneur: recently left a job or looking to start something',
+    'Other']},
+  {t:'text', n:'describe_other', l:'Other, in your own words', ph:'Describe where you are right now',
+   if:function(a){ return a.describe === 'Other'; }}
 ]},
 
-{ch:3, q:'Why are you exploring <span class="it">franchise ownership?</span>', items:[
-  {t:'long', n:'why_franchise', l:'Why now'},
+{ch:3, q:'What got you looking into <span class="it">franchise ownership now?</span>', items:[
+  {t:'long', n:'why_franchise', l:'What got you looking into franchise ownership now?'}
+]},
+
+{ch:3, q:'What&rsquo;s drawing you to <span class="it">franchise ownership?</span>', h:'Check all that apply.', items:[
+  {t:'multi', n:'drawn', l:'What&rsquo;s drawing you to franchise ownership?', o:[
+    'Being my own boss and making my own decisions',
+    'Taking control of my future and job security',
+    'Increasing my income potential',
+    'Building long-term wealth and equity I own',
+    'More flexibility and control over my schedule',
+    'More time with family and a better quality of life',
+    'Leaving the corporate world or making a career change',
+    'Following a proven system instead of starting from scratch',
+    'Adding to or diversifying businesses I already own',
+    'Building something to pass on to my family or leaving a legacy',
+    'Other']},
+  {t:'text', n:'drawn_other', l:'Other, in your own words', ph:'What else is drawing you to it',
+   if:function(a){ return (a.drawn || []).indexOf('Other') > -1; }}
+]},
+
+{ch:3, q:'Which one <span class="it">matters most?</span>', items:[
+  {t:'text', n:'matters_most', l:'Which ONE of these matters most to you?', ph:'The one that matters most'},
+  {t:'long', n:'three_years', l:'Fast forward three years. If this goes well, what does life look like for you?'}
+]},
+
+{ch:3, q:'What would ownership <span class="it">give you?</span>', items:[
   {t:'long', n:'hoping', l:'What you&rsquo;re hoping ownership gives you that your current situation doesn&rsquo;t'}
 ]},
 
@@ -752,13 +815,13 @@ var S = [
    if:function(a){ return a.owned === 'Yes'; }}
 ]},
 
-{ch:4, q:'What pulls you toward it: <span class="it">and what worries you?</span>', h:'Both halves are useful. The concerns are usually the more honest signal.', items:[
-  {t:'long', n:'attracts', l:'What attracts you to business ownership'},
+{ch:4, q:'What excites you: <span class="it">and what worries you?</span>', h:'Both halves are useful. The concerns are usually the more honest signal.', items:[
+  {t:'long', n:'attracts', l:'What excites you most about ownership?'},
   {t:'long', n:'concerns', l:'Your major concerns with it'}
 ]},
 
-/* ─────────── 5. STYLE — five groups, 26 statements ─────────── */
-{ch:5, q:'How you approach things', h:'This helps me understand how you naturally operate. Twenty-six short statements over the next few screens. 1 = not really me, 5 = definitely me. Go with your gut: there are no wrong answers.', scale:[
+/* ─────────── 5. STYLE — five groups, 29 statements ─────────── */
+{ch:5, q:'How you approach things', h:'This helps me understand how you naturally operate. Twenty-nine short statements over the next few screens. 1 = not really me, 5 = definitely me. Go with your gut: there are no wrong answers.', scale:[
   {n:'style_a_1', l:'I make decisions quickly and move on, even without all the information.'},
   {n:'style_a_2', l:'I&rsquo;m at my best meeting new people and building relationships.'},
   {n:'style_a_3', l:'I prefer a steady, predictable routine over constant change.'},
@@ -773,6 +836,7 @@ var S = [
   {n:'style_b_1', l:'Financial security and stability matter more to me than a big upside.'},
   {n:'style_b_2', l:'I want the freedom to control my own time and be my own boss.'},
   {n:'style_b_3', l:'I&rsquo;m driven by achievement: hitting goals and growing.'},
+  {n:'style_b_6', l:'I&rsquo;m willing to put in long hours early on to build something that lasts.'},
   {n:'style_b_4', l:'I want work that feels meaningful and helps people.'},
   {n:'style_b_5', l:'Building something I can pass on to my family is a big motivator.'}
 ]},
@@ -780,6 +844,7 @@ var S = [
 {ch:5, q:'How you like to work', scale:[
   {n:'style_c_1', l:'I like a fast pace with lots happening at once.'},
   {n:'style_c_2', l:'I do my best work with clear structure and a proven process.'},
+  {n:'style_c_6', l:'I&rsquo;d follow a proven system, even if I&rsquo;d do some things differently.'},
   {n:'style_c_3', l:'I&rsquo;m organized: I plan ahead and keep things on track.'},
   {n:'style_c_4', l:'I&rsquo;m comfortable wearing many hats and switching between tasks.'},
   {n:'style_c_5', l:'I&rsquo;m comfortable with the financial side: budgets, numbers, cash flow.'}
@@ -796,6 +861,7 @@ var S = [
   {n:'style_e_1', l:'I do my best when I&rsquo;m collaborating and sharing with others.'},
   {n:'style_e_2', l:'I&rsquo;m competitive: I want to outperform and win.'},
   {n:'style_e_3', l:'I&rsquo;d value a close network of other owners I can lean on.'},
+  {n:'style_e_5', l:'I&rsquo;m open to feedback, even when it&rsquo;s hard to hear.'},
   {n:'style_e_4', l:'I&rsquo;d rather run my own show than compare notes with everyone.'}
 ]},
 
@@ -814,8 +880,10 @@ var S = [
 
 /* ─────────── 7. BUSINESS MODEL ─────────── */
 {ch:7, q:'Where and how would you <span class="it">want to run it?</span>', h:'Check everything that appeals. Not sure yet? Pick the open option and we&rsquo;ll refine it on the call.', items:[
-  {t:'multi', n:'bm_setting', l:'Setting', grid:1, o:['Home-based','Office-based','Retail / brick-and-mortar','Open to everything']},
-  {t:'multi', n:'bm_owner', l:'Ownership model', o:['Owner-operator (hands-on, running it day to day)','Executive model (managing the team and resources to grow)','Not sure yet']}
+  {t:'multi', n:'bm_setting', l:'Setting', grid:1, o:['Home-based (roughly $80K&ndash;$250K)','Office-based (roughly $90K&ndash;$250K)','Retail / brick-and-mortar (roughly $450K&ndash;$1.5M+)','Open to everything'],
+   note:'Typically, you&rsquo;ll need a down payment of about 10&ndash;25% of the total investment to qualify for a business loan.'},
+  {t:'multi', n:'bm_owner', l:'Ownership model', o:['Owner-operator (hands-on, running it day to day)','Executive model (managing the team and resources to grow)','Not sure yet'],
+   note:'Like anything worth building, ownership takes real effort, especially at the start.'}
 ]},
 
 {ch:7, q:'Who would you serve, and how should it make money?', items:[
@@ -824,28 +892,34 @@ var S = [
 ]},
 
 {ch:7, q:'A few last preferences.', items:[
-  {t:'multi', n:'bm_other', l:'Anything here matter to you?', o:['I&rsquo;d like it to be recession-resistant','I want the ability to scale to multiple units / territories','I need it to be E2 visa-friendly','None of these is a must']},
+  {t:'multi', n:'bm_other', l:'Anything here matter to you?', o:['I&rsquo;d like it to be recession-resistant','I&rsquo;m okay with (or want) a &lsquo;boring&rsquo; business','I need it to be E2 visa-friendly','None of these is a must']},
   {t:'multi', n:'bm_employees', l:'Preferred number of employees to start', grid:1, o:['None / just me','Less than 5','5-15','15+','Open to options']}
+]},
+
+{ch:7, q:'How big do you <span class="it">want to grow it?</span>', items:[
+  {t:'single', n:'growth', l:'Growth plans', o:['Single unit is the goal','Start with one unit and scale into multiple','Start with multiple units']},
+  {t:'long', n:'financial_goals', l:'Describe your financial goals. What do you want this business to do for you and your family?'}
 ]},
 
 /* ─────────── 8. INDUSTRIES ─────────── */
 {ch:8, q:'Which industries <span class="it">interest you?</span>', h:'Six screens of categories. Check anything that interests you and leave blank anything you&rsquo;d rule out, as long as you pick at least one across the six. Sub-categories help me research precisely.', items:[
-  {t:'multi', n:'ind_health', sub:'Healthcare &amp; beauty care', grid:1, o:['Senior care: home health (medical)','Senior care: home health (non-medical)','Senior care placement','Anti-aging','Barber services','Eyelashes / nail salons','Massage / spa / skin care','Tanning / waxing','Mobility equipment','Medical staffing']},
+  {t:'multi', n:'ind_health', sub:'Home health care / senior care', grid:1, o:['Senior care: home health (medical)','Senior care: home health (non-medical)','Senior care placement','Mobility equipment','Medical staffing']},
+  {t:'multi', n:'ind_beauty', sub:'Beauty care / wellness', grid:1, o:['Anti-aging','Barber services','Eyelashes / nail salons','Massage / spa / skin care','Tanning / waxing']},
   {t:'multi', n:'ind_auto', sub:'Automotive', grid:1, o:['Auto repair','Tinting','Detailing']}
 ]},
 
 {ch:8, q:'Services: business and children.', items:[
   {t:'multi', n:'ind_biz', sub:'Business services', grid:1, o:['Business coaching','Cost reduction','Bookkeeping','Commercial cleaning','Recruiting','Marketing','Medical billing','Logistics','Payroll']},
-  {t:'multi', n:'ind_child', sub:'Child services', grid:1, o:['Fitness','Education','Cooking','Music','Language']}
+  {t:'multi', n:'ind_child', sub:'Child services', grid:1, o:['Fitness','Education','Cooking','Music','Language','Childcare / daycare']}
 ]},
 
 {ch:8, q:'Cleaning and food.', items:[
   {t:'multi', n:'ind_clean', sub:'Cleaning services', grid:1, o:['Residential','Commercial','Junk removal','Dry cleaning / laundry','Window cleaning','Vent / duct cleaning']},
-  {t:'multi', n:'ind_food', sub:'Food', grid:1, o:['Acai / frozen yogurt','Breakfast','QSR','Food truck']}
+  {t:'multi', n:'ind_food', sub:'Food', grid:1, o:['Acai / frozen yogurt','Breakfast','Coffee','QSR','Food truck']}
 ]},
 
 {ch:8, q:'Home improvement &amp; maintenance.', h:'The biggest category in franchising, and the one most first-time owners end up in.', items:[
-  {t:'multi', n:'ind_home', grid:1, o:['Artificial turf','Bath / kitchen remodeling','Closet organization','Electrical','Fencing','Flooring','Garage','Home inspection','HVAC','Mosquito control','Painting','Plumbing','Pool cleaning','Power washing','Roofing','Storage services','Window cleaning','Landscaping']}
+  {t:'multi', n:'ind_home', grid:1, o:['Artificial turf','Bath / kitchen remodeling','Closet organization','Electrical','Fencing','Flooring','Garage','HVAC','Mosquito control','Painting','Plumbing','Pool cleaning','Power washing','Roofing','Storage services','Landscaping']}
 ]},
 
 {ch:8, q:'Pets and property.', items:[
@@ -875,12 +949,23 @@ var S = [
    ih:'Home equity is one of the more common ways people fund a first franchise.'},
   {t:'text', n:'net_worth', l:'Approximate net worth', v:'money', ph:'Rough figure', w:'m',
    ih:'Everything you own (home, savings, investments, retirement, other assets) minus everything you owe (mortgage, loans, debts).'},
+  {t:'single', n:'credit_score', l:'Credit score range', grid:1, o:['Under 650','650 to 699','700 to 749','750+','Not sure']},
   {t:'multi', n:'funding', l:'How do you plan to fund it?', grid:1, o:['Cash / savings','SBA loan','Home equity','401(k) / ROBS','Partner or investor','Not sure: would like guidance']}
 ]},
 
 /* ─────────── 10. DECISION MAKING ─────────── */
-{ch:10, q:'Last one. <span class="it">Who else is in this with you?</span>', items:[
+{ch:10, q:'Who else is <span class="it">in this with you?</span>', items:[
   {t:'long', n:'decision_makers', l:'Is anyone else part of this decision? Will anyone help run the business?'}
+]},
+
+/* ─────────── 11. ANYTHING ELSE ─────────── */
+{ch:11, q:'Anything <span class="it">I didn&rsquo;t ask?</span>', items:[
+  {t:'long', n:'anything_else', l:'Is there anything I didn&rsquo;t ask that you feel is important for me to know?'}
+]},
+
+/* ─────────── 12. WHAT MATTERS MOST ─────────── */
+{ch:12, q:'Last one. <span class="it">What matters most?</span>', items:[
+  {t:'long', n:'most_important', l:'Of everything covered here, what would you say is most important to you?'}
 ]},
 
 {t:'review'}
@@ -972,7 +1057,7 @@ function renderItem(it, i, focusFirst){
     (it.sub ? '<span class="subh">' + it.sub + '</span>' : '') +
     (it.l ? '<span class="il">' + it.l + '</span>' : '') +
     (it.ih ? '<span class="ih">' + it.ih + '</span>' : '') +
-    body + '</div>';
+    body + (it.note ? '<span class="ih inote">' + it.note + '</span>' : '') + '</div>';
 }
 function renderScale(s){
   var h = '<p class="slegend"><span><b>1</b> Not really me</span><span><b>5</b> Definitely me</span></p>' +
@@ -1000,32 +1085,25 @@ function render(){
   if (s.t === 'welcome') {
     h = '<div class="wcard">' +
         '<div class="wcopy">' +
-          '<span class="chip"><i aria-hidden="true"></i>Confidential Questionnaire</span>' +
           '<h2 class="qt">Tell me what matters to you, <span class="it">so I can find what fits.</span></h2>' +
-          '<p class="qh">Every brand I share has already been carefully vetted. Your answers help me filter those down to the few that fit your goals, lifestyle, skill set, and financial picture, so your time goes toward the opportunities worth pursuing and you&rsquo;re set up for success from the start. Go with your gut. There are no wrong answers.</p>' +
-          '<div class="wnext">' +
-            '<span class="wnext-l">What happens next</span>' +
-            '<p>Within one to three business days, you get a shortlist of vetted brands built around you.</p>' +
-          '</div>' +
-          '<div class="sig">' +
-            '<img src="' + BASE + 'assets/josh-headshot-sm.jpg?v=2" width="120" height="120" alt="Josh DuBois" onerror="this.style.display=\'none\'">' +
-            '<span><b>Josh DuBois</b><i>Founder, JD Strategic Franchising</i></span>' +
-          '</div>' +
+          '<p class="qh">Every brand I share has already been vetted. Your answers narrow them to the few that fit your goals, lifestyle, skill set, and financial picture, so your time goes only to the ones worth pursuing. Go with your gut. There are no wrong answers.</p>' +
+          '<ul class="wspec">' +
+            '<li><b>Twelve short sections</b><span>One question at a time</span></li>' +
+            '<li><b>Saved as you go</b><span>Finish whenever you like</span></li>' +
+            '<li><b>Your shortlist</b><span>In 1&ndash;3 business days</span></li>' +
+          '</ul>' +
           '<div class="go">' +
-            '<button type="button" class="btn btn-solid" id="ok">Begin' + ARROW + '</button>' +
+            '<button type="button" class="btn btn-solid" id="ok">Begin The Questionnaire' + ARROW + '</button>' +
           '</div>' +
-          '<p class="reassure"><b>Confidential.</b> Saved as you go, so you can finish it later. Never shared with a franchisor.</p>' +
+          '<p class="reassure"><b>Confidential.</b> Read by Josh only, never shared with a franchisor.</p>' +
         '</div>' +
         '<figure class="wfig">' +
-          /* one square file for every layout. cover fits it to the frame's
-             longer side, so that side is its real rendered width. ?v=2 is the
-             colour-corrected set (jd-strategic-tools/headshot.py): bump it if the files
-             change, or browsers keep showing the old ones */
-          '<img src="' + BASE + 'assets/josh-headshot.jpg?v=2"' +
-            ' srcset="' + BASE + 'assets/josh-headshot@1x.jpg?v=2 640w, ' + BASE + 'assets/josh-headshot.jpg?v=2 1200w, ' + BASE + 'assets/josh-headshot@2000.jpg?v=2 2000w"' +
-            ' sizes="(max-width:699px) 100vw, max(50vw, 100vh)"' +
-            ' width="1200" height="1197" alt="Josh DuBois, founder of JD Strategic Franchising"' +
+          '<img src="' + BASE + 'assets/josh/survey-portrait.jpg?v=20261103"' +
+            ' srcset="' + BASE + 'assets/josh/survey-portrait@800.jpg?v=20261103 800w, ' + BASE + 'assets/josh/survey-portrait.jpg?v=20261103 1276w"' +
+            ' sizes="(max-width:699px) 100vw, 50vw"' +
+            ' width="1276" height="1596" alt="Josh DuBois, founder of JD Strategic Franchising"' +
             ' fetchpriority="high" decoding="async" onerror="this.style.display=\'none\'">' +
+          '<figcaption class="wcap"><b>Josh DuBois</b><span>Founder, JD Strategic Franchising</span></figcaption>' +
         '</figure></div>';
 
   } else if (s.t === 'review') {
@@ -1067,7 +1145,7 @@ function chrome(s, qs){
   var qi = isQ(s) ? qs.indexOf(s) + 1 : 0;
   counter.textContent = s.t === 'welcome' ? 'Confidential Questionnaire'
                       : s.t === 'review'  ? 'Review'
-                      : 'Step ' + s.ch + ' of 10';
+                      : 'Step ' + s.ch + ' of ' + CH.length;
   var pct = s.t === 'review' ? 1 : (qi ? qi / qs.length : 0);
   bar.style.transform = 'scaleX(' + pct + ')';
   prevBtn.disabled = idx === 0;
@@ -1144,6 +1222,7 @@ function toggle(it, b){
   if (at === -1) clearBad(b);
   if (isInd(it) && anyIndustry()) { var se = card.querySelector('.serr'); if (se) se.classList.remove('on'); }
   save();
+  syncItems(vis()[idx]);
 }
 function clearBad(b){ var w = b.closest('.item'); if (w) w.classList.remove('bad'); }
 /* a conditional follow-up appears in place instead of becoming another screen */
