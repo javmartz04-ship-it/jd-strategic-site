@@ -1779,3 +1779,12 @@ not it… studio finish, nice gradient background, maybe abstract with the logo 
   feather 2.2, offset shadow, rim glow at 7% only, more reads as a sticker).
 - Quote card capped at `min(300px, 50% - 72px)` on desktop so it never crosses his centre line.
 - Swept 12 viewports (2560 to 360) with `jd-strategic-tools/herosweep.mjs` and a centre line drawn on each.
+
+### Round 31c (same day): "make it feel like he's in the studio, more real life"
+Javier: right direction, but it felt like a background placed behind him. Cause: "DSC01609 - Grey background.jpg" is itself
+a cut-out edit (hard hair edge), and the backdrop was a flat CSS graphic. Rebuilt from the REAL studio frame DSC01609.JPG
+(dark seamless, warm background light): kept its real backdrop and hair edges, filled behind him by normalized convolution,
+extended the wall to 3200 wide, luma-mapped the wall to the navy ramp (ink-deep -> ink -> lit slate), added a background
+light behind his shoulders, and painted the JD mark INTO the wall (multiplied by the same light, 4px out of focus, orange
+bracket lit by the same falloff). His warm rim light from the original shoot survives on his cheek. Subject: shadows lifted
+(gamma 0.78), vibrance +10%. Script: scratch `real.py` (numpy only; no cv2/scipy on this Mac). Swept 12 viewports.
