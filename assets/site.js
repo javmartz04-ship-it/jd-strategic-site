@@ -175,11 +175,11 @@
       stage.classList.add('out');
       setTimeout(function(){ idx=n; render(); stage.classList.remove('out'); var top=fit.querySelector('.fitbox').getBoundingClientRect().top; if(top<70) window.scrollBy({top:top-100,behavior:'smooth'}); },220);
     }
+    /* a finished fit finder goes straight to its calendar page (fit-call.html), which prefills
+       the booking widget from jds_fit_last; the inline thank-you is gone */
     function done(){
-      A.__done=true; save();
-      stage.innerHTML='<div class="fitdone"><div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><h3>Thanks, '+esc(A.first||'')+'. Your answers are in.</h3><p>Over the next one to two business days I research the brands that fit you and confirm they are open in your market. Then we walk through your top matches together on a short call, so pick a time now and it is on the calendar.</p><p class="fitdone-note">Brand introductions go through me, which is how you get the Franchisee Success Guide and the $2,000 rebate.</p><a class="btn btn-accent" href="book.html">Book Your Review Call'+ARROW+'</a></div>';
-      if(stepEl) stepEl.textContent='Done'; if(bar) [].slice.call(bar.children).forEach(function(i){ i.classList.add('on'); }); if(rail) [].slice.call(rail.children).forEach(function(li){ li.classList.remove('on'); li.classList.add('done'); });
       try{ localStorage.removeItem(FIT_KEY); }catch(e){}
+      location.href='fit-call.html';
     }
     function submit(){
       var ok=true, box=stage;
@@ -196,7 +196,7 @@
       try{ localStorage.setItem('jds_fit_last',payload); }catch(e){}
       if(FIT_ENDPOINT){
         var b=box.querySelector('[data-act="submit"]'); if(b){ b.disabled=true; b.style.opacity='.6'; }
-        fetch(FIT_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:payload}).then(function(){ done(); }).catch(function(){ done(); });
+        fetch(FIT_ENDPOINT,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:payload}).then(function(){ done(); }).catch(function(){ done(); });
       } else { done(); }
     }
     stage.addEventListener('click',function(e){
