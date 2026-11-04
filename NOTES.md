@@ -1796,3 +1796,13 @@ bracket lit by the same falloff). His warm rim light from the original shoot sur
   scroll; all clean). Fixed on phones: the 01/02/03 "pov" steps were three skinny columns and the footer link columns were
   cramped (rounds 23/24 put unscoped grid overrides after the media queries); the podcast card's "43 episodes" chip sat on the
   title and the caption covered Josh's face (card is 4:5 on phones now, chip hidden).
+
+## Round 32 (2026-11-04): form follow-through checklist
+Javier's list: long form save-as-you-go test; short form calendar page + redirect; short form PDF (waiting on JD's content);
+both forms: capture, send JD responses, Welcome Series, follow-up call task for JD, push to booking.
+- Long form (jdstrategic.org/survey) save-as-you-go TESTED LIVE: filled 3 screens, left, came back, reopened on screen 4 with
+  every answer kept (localStorage `jds_questionnaire_v3`, same browser/device only). Promise stays.
+- Short form = the six-step fit finder (home #fit + contact). New `fit-call.html` (noindex): "Step 2 of 2", name in the H1,
+  live calendar prefilled from `jds_fit_last`. Submit now redirects there; the inline thank-you is gone.
+- Survey thank-you: Book Your Review Call is now the primary button (needs re-pasting into the GHL survey page).
+- GHL side (webhook for FIT_ENDPOINT, Welcome Series, JD task, notification) blocked: GHL not signed in in the browser pane.
