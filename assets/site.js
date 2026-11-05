@@ -75,7 +75,7 @@
   /* fit finder: Josh's abbreviated questionnaire ("Find My Franchise Fit"), one step per screen, on the page.
      FIT_ENDPOINT stays empty until the GHL inbound webhook is chosen: with it empty the form validates,
      saves the submission locally and shows the thank-you, and nothing leaves the browser. */
-  var FIT_ENDPOINT='';
+  var FIT_ENDPOINT='https://services.leadconnectorhq.com/hooks/kv44OG3YsodryGm2KCvt/webhook-trigger/718602c1-3831-4680-aeee-d9693325bda4';
   var FIT_KEY='jds_fit_v1';
   var fit=document.getElementById('fit'), stage=document.getElementById('fitStage');
   if(fit && stage){
@@ -196,7 +196,9 @@
       try{ localStorage.setItem('jds_fit_last',payload); }catch(e){}
       if(FIT_ENDPOINT){
         var b=box.querySelector('[data-act="submit"]'); if(b){ b.disabled=true; b.style.opacity='.6'; }
-        fetch(FIT_ENDPOINT,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:payload}).then(function(){ done(); }).catch(function(){ done(); });
+        var W={}; Object.keys(A).forEach(function(k){ if(k.indexOf('__')===0) return; var v=A[k]; W[k]=Array.isArray(v)?v.join(', '):v; });
+        W.first_name=A.first||''; W.last_name=A.last||''; W.full_name=((A.first||'')+' '+(A.last||'')).trim();
+        fetch(FIT_ENDPOINT,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify(W)}).then(function(){ done(); }).catch(function(){ done(); });
       } else { done(); }
     }
     stage.addEventListener('click',function(e){
