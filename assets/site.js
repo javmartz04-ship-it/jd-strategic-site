@@ -179,7 +179,7 @@
        the booking widget from jds_fit_last; the inline thank-you is gone */
     function done(){
       try{ localStorage.removeItem(FIT_KEY); }catch(e){}
-      location.href='fit-call.html';
+      location.href='/fit-call';
     }
     function submit(){
       var ok=true, box=stage;
@@ -406,7 +406,7 @@
   if(document.querySelector('.bookpage')) return;
   try{ if(sessionStorage.getItem('jds_callw')==='x') return; }catch(e){}
   var w=document.createElement('div'); w.className='callw'; w.setAttribute('aria-label','Start with a call');
-  w.innerHTML='<a class="main" href="book.html"><img src="assets/josh/face-call.jpg?v=20261103" width="48" height="48" alt=""><span><span class="t">Start with a 20-minute call</span><span class="s">Josh DuBois · franchise owner</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><button type="button" class="x" aria-label="Dismiss">&times;</button>';
+  w.innerHTML='<a class="main" href="/book"><img src="assets/josh/face-call.jpg?v=20261103" width="48" height="48" alt=""><span><span class="t">Start with a 20-minute call</span><span class="s">Josh DuBois · franchise owner</span></span><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><button type="button" class="x" aria-label="Dismiss">&times;</button>';
   document.body.appendChild(w);
   w.querySelector('.x').addEventListener('click',function(){ w.classList.remove('on'); try{ sessionStorage.setItem('jds_callw','x'); }catch(e){} setTimeout(function(){ w.remove(); },600); });
   /* waits a screen and a half, then steps aside over anything it would cover: the fit finder, forms, the calendar, the closing and the footer */
@@ -455,7 +455,7 @@
     cap.classList.add('swap');
     setTimeout(function(){
       nEl.textContent=('0'+(i+1)).slice(-2); hEl.innerHTML=t.getAttribute('data-name'); bEl.textContent=t.getAttribute('data-b');
-      aEl.href='contact.html?cat='+t.getAttribute('data-q'); cap.classList.remove('swap');
+      aEl.href='/contact?cat='+t.getAttribute('data-q'); cap.classList.remove('swap');
     },RM?0:220);
     if(!fine && fromUser){ var l=t.parentNode; l.scrollTo({left:t.offsetLeft-l.offsetLeft-16,behavior:RM?'auto':'smooth'}); }
   }
@@ -470,4 +470,18 @@
   box.querySelector('.inx-stage').addEventListener('mouseenter',function(){ if(fine) stop(); });
   if('IntersectionObserver' in window){ new IntersectionObserver(function(en){ live=en[0].isIntersecting; if(live) tick(); else clearTimeout(timer); },{threshold:.35}).observe(box); }
   show(0,'init');
+})();
+
+/* how-it-works film: poster + play button, native controls once playing */
+(function(){
+  document.querySelectorAll('[data-vid]').forEach(function(box){
+    var v=box.querySelector('video'), b=box.querySelector('.vid-play');
+    if(!v||!b) return;
+    b.addEventListener('click',function(){
+      document.querySelectorAll('[data-vid] video').forEach(function(o){ if(o!==v) o.pause(); });
+      v.controls=true; box.classList.add('on');
+      var p=v.play(); if(p&&p.catch) p.catch(function(){});
+      v.focus({preventScroll:true});
+    });
+  });
 })();

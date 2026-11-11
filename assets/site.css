@@ -1429,3 +1429,40 @@ a.cat{display:block;color:inherit}
   .foot-g{grid-template-columns:minmax(0,1fr)}
   .show-poster{aspect-ratio:4/5}.show-poster img{object-position:50% 20%}.show-chip{display:none}
 }
+
+/* how-it-works film: one poster, one play button, real controls once it starts */
+.vid{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;background:var(--ink-deep)}
+.vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--ink-deep)}
+.vid-play{position:absolute;inset:0;z-index:2;display:grid;place-items:center;width:100%;border:0;padding:0;margin:0;cursor:pointer;background:linear-gradient(to bottom,rgba(4,11,24,.55),rgba(4,11,24,.04) 40%);color:#fff;font:inherit;transition:opacity .45s var(--ease-cine)}
+.vid-play img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;transition:transform 1.4s var(--ease-cine)}
+.vid-btn{display:grid;place-items:center;width:clamp(64px,6.4vw,88px);height:clamp(64px,6.4vw,88px);border-radius:50%;background:var(--accent);color:var(--ink);box-shadow:0 22px 50px -18px rgba(255,106,0,.7),0 0 0 10px rgba(255,255,255,.14);transition:transform .45s var(--ease-cine),box-shadow .45s var(--ease-cine)}
+.vid-btn svg{width:34%;height:34%;margin-left:7%}
+.vid-meta{position:absolute;left:clamp(16px,2vw,26px);right:clamp(16px,2vw,26px);top:clamp(14px,1.8vw,22px);text-shadow:0 1px 10px rgba(4,11,24,.6);display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff;text-align:left}
+.vid-meta span:last-child{color:rgba(255,255,255,.7);font-variant-numeric:tabular-nums}
+@media (hover:hover){.vid-play:hover .vid-btn{transform:scale(1.07);box-shadow:0 26px 56px -16px rgba(255,106,0,.8),0 0 0 14px rgba(255,255,255,.16)}.vid-play:hover img{transform:scale(1.025)}}
+.vid.on .vid-play{opacity:0;pointer-events:none}
+.vid-play:focus-visible{outline:2px solid var(--accent);outline-offset:-6px}
+
+/* homepage: the film sits inside the "who you're working with" band, under the stats */
+.wb-film{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut) clamp(44px,5vw,80px)}
+.wb-film-in{display:grid;grid-template-columns:minmax(0,330px) minmax(0,1fr);gap:clamp(28px,4vw,72px);align-items:center;padding-top:clamp(34px,3.6vw,52px);border-top:1px solid rgba(255,255,255,.1)}
+.wb-film h2{font-family:var(--fd);font-size:clamp(26px,2.5vw,36px);line-height:1.06;letter-spacing:-.02em;color:#fff;font-weight:700}
+.wb-film h2 .it{display:block;font-style:italic;font-weight:600;color:var(--accent)}
+.wb-film p:not(.wb-k){margin-top:16px;font-size:15px;line-height:1.6;color:rgba(255,255,255,.66);max-width:34ch}
+.wb-film .mat{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14);box-shadow:0 50px 100px -50px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.05)}
+
+/* how it works page: the film fills the right side of the head */
+.ph-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:clamp(32px,4.4vw,80px);align-items:center}
+.ph-film{margin:0}
+@media (max-width:900px){
+  .wb-film-in,.ph-grid{grid-template-columns:minmax(0,1fr)}
+  .wb-film p:not(.wb-k){max-width:52ch}
+}
+@media (prefers-reduced-motion:reduce){.vid-play,.vid-btn,.vid-play img{transition:none}}
+
+/* phone forms: keep the padding minimal so fields use the screen (2026-11-09) */
+@media (max-width:600px){
+  .rq .rform,.rform{margin-inline:-8px;padding-inline:12px}
+  .cal{margin-inline:-8px}
+  .cal-body{padding:2px}
+}
