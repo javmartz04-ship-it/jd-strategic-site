@@ -1812,3 +1812,6 @@ both forms: capture, send JD responses, Welcome Series, follow-up call task for 
 - Homepage: film sits inside the navy "Who you're working with" band, under the stats (copy left, video right). Process page: video fills the right side of the dark "Five steps. Zero guesswork." head.
 - Poster + orange play button; native controls only after click. Label/duration sit at the TOP of the frame — the video has a baked-in lower third bottom-left that a bottom label collides with.
 - Javier: "you did amazing", asked for the video in exactly these two spots. Live on Vercel via CLI deploy.
+
+## 2026-11-18 — How It Works video moved to About
+- Javier: the How It Works video belongs in the About Josh section, right-hand side. Moved it from the How It Works (process) page head to the About page head (`.ph-grid` + `.ph-film`, copy left, video right). Process head is text-only again. Homepage "Who you're working with" band keeps its copy of the video.
