@@ -198,6 +198,11 @@
         var b=box.querySelector('[data-act="submit"]'); if(b){ b.disabled=true; b.style.opacity='.6'; }
         var W={}; Object.keys(A).forEach(function(k){ if(k.indexOf('__')===0) return; var v=A[k]; W[k]=Array.isArray(v)?v.join(', '):v; });
         W.first_name=A.first||''; W.last_name=A.last||''; W.full_name=((A.first||'')+' '+(A.last||'')).trim();
+        var LBL={describe:'Where are you starting from',describe_other:'Starting point, in their words',categories:'Industries drawn to',timeline:'Investment timeline',capital:'Liquid capital',reason:'Biggest reason for ownership',role:'Role they picture',growth:'Growth plans',setting:'Setting they picture',matters:'What matters most',background:'Current or recent role and skills',notes:'Anything else',markets:'Target markets',networth:'Net worth'};
+        var SL=['FIND MY FRANCHISE FIT'];
+        Object.keys(LBL).forEach(function(k){ if(W[k]) SL.push(LBL[k]+': '+String(W[k]).replace(/\s*\n\s*/g,' ')); });
+        SL.push('CONTACT','Name: '+W.full_name,'Email: '+(A.email||''),'Phone: '+(A.phone||''),'Submitted: '+A.submitted_at);
+        W.summary=SL.join('\n'); W.tag='questionnaire submitted'; W.form_name='Find My Franchise Fit';
         fetch(FIT_ENDPOINT,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify(W)}).then(function(){ done(); }).catch(function(){ done(); });
       } else { done(); }
     }
@@ -278,10 +283,27 @@
   document.addEventListener('click',function(e){ var b=e.target.closest('[data-play]'); if(b){ e.preventDefault(); play(b); } });
 })();
 
+
+/* shared: turn a .rf-f form into the GHL webhook payload (same webhook as the fit finder) */
+function jdsWebhook(form,data,title,tag){
+  var SL=[title.toUpperCase()];
+  [].slice.call(form.querySelectorAll('input,select,textarea')).forEach(function(el){
+    if(!el.name||el.type==='checkbox'||el.type==='hidden'||['first','last','email','phone'].indexOf(el.name)>-1) return;
+    var v=data[el.name]; if(!v) return;
+    var w=el.closest('.rf-f'), l=w&&w.querySelector('.fl'); var lab=l?l.textContent.replace(/\*/g,'').replace(/[:?]+\s*$/,'').trim():el.name;
+    SL.push(lab.replace(/: /g,' ')+': '+String(v).replace(/\s*\n\s*/g,' '));
+  });
+  if(data.listing) SL.push('Listing: '+data.listing);
+  var full=((data.first||'')+' '+(data.last||'')).trim();
+  SL.push('CONTACT','Name: '+full,'Email: '+(data.email||''),'Phone: '+(data.phone||''),'Submitted: '+data.submitted_at);
+  var W={}; Object.keys(data).forEach(function(k){ W[k]=data[k]; });
+  W.first_name=data.first||''; W.last_name=data.last||''; W.full_name=full; W.summary=SL.join('\n'); W.tag=tag; W.form_name=title;
+  return JSON.stringify(W);
+}
 /* ================= request an introduction: validates, stores locally until RFI_ENDPOINT is set ================= */
 (function(){
   'use strict';
-  var RFI_ENDPOINT='';
+  var RFI_ENDPOINT='https://services.leadconnectorhq.com/hooks/kv44OG3YsodryGm2KCvt/webhook-trigger/718602c1-3831-4680-aeee-d9693325bda4';
   var form=document.getElementById('rform'); if(!form) return;
   var RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var done=document.getElementById('rfDone');
@@ -311,7 +333,7 @@
       var h=document.getElementById('rfDoneH'); if(h && data.first) h.textContent='Thanks, '+data.first+'. Your request is in.';
       done.scrollIntoView({block:'start',behavior:RM?'auto':'smooth'});
     }
-    if(RFI_ENDPOINT){ var b=form.querySelector('[type="submit"]'); if(b){ b.disabled=true; b.style.opacity='.6'; } fetch(RFI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:payload}).then(finish).catch(finish); }
+    if(RFI_ENDPOINT){ var b=form.querySelector('[type="submit"]'); if(b){ b.disabled=true; b.style.opacity='.6'; } fetch(RFI_ENDPOINT,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:jdsWebhook(form,data,'Request an Introduction','direct-intro-request')}).then(finish).catch(finish); }
     else finish();
   });
 })();
@@ -350,7 +372,7 @@
   'use strict';
   var grid=document.getElementById('rsGrid'); if(!grid) return;
   var RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var RESALE_ENDPOINT='';
+  var RESALE_ENDPOINT='https://services.leadconnectorhq.com/hooks/kv44OG3YsodryGm2KCvt/webhook-trigger/718602c1-3831-4680-aeee-d9693325bda4';
   var empty=document.getElementById('rsEmpty'), meta=document.getElementById('rsMeta'), form=document.getElementById('rsForm'), done=document.getElementById('rsDone');
   var picked=document.getElementById('rsPicked'), pickedT=document.getElementById('rsPickedT'), hid=document.getElementById('rsListing');
   var ARROW='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
@@ -396,7 +418,7 @@
     data.submitted_at=new Date().toISOString(); data.source='jdfranchising.com/resales'; data.tag='resale-info-request';
     var payload=JSON.stringify(data); try{ localStorage.setItem('jds_resale_last',payload); }catch(err){}
     function finish(){ form.hidden=true; done.hidden=false; var h=document.getElementById('rsDoneH'); if(h&&data.first) h.textContent='Thanks, '+data.first+'. Your request is in.'; done.scrollIntoView({block:'start',behavior:RM?'auto':'smooth'}); }
-    if(RESALE_ENDPOINT){ var b=form.querySelector('[type="submit"]'); if(b){ b.disabled=true; b.style.opacity='.6'; } fetch(RESALE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:payload}).then(finish).catch(finish); } else finish();
+    if(RESALE_ENDPOINT){ var b=form.querySelector('[type="submit"]'); if(b){ b.disabled=true; b.style.opacity='.6'; } fetch(RESALE_ENDPOINT,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:jdsWebhook(form,data,'Resale Info Request','resale-info-request')}).then(finish).catch(finish); } else finish();
   });
 })();
 

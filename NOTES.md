@@ -1806,3 +1806,9 @@ both forms: capture, send JD responses, Welcome Series, follow-up call task for 
   live calendar prefilled from `jds_fit_last`. Submit now redirects there; the inline thank-you is gone.
 - Survey thank-you: Book Your Review Call is now the primary button (needs re-pasting into the GHL survey page).
 - GHL side (webhook for FIT_ENDPOINT, Welcome Series, JD task, notification) blocked: GHL not signed in in the browser pane.
+
+## 2026-11-05 — How It Works video added
+- Javier supplied `JD How it Works.mp4` (4K, 1.7 GB, 4:01). Encoded to 1080p H.264 CRF 25 faststart → `assets/video/how-it-works.mp4` (22 MB) + poster from 0:05 (Josh at the Lapels store).
+- Homepage: film sits inside the navy "Who you're working with" band, under the stats (copy left, video right). Process page: video fills the right side of the dark "Five steps. Zero guesswork." head.
+- Poster + orange play button; native controls only after click. Label/duration sit at the TOP of the frame — the video has a baked-in lower third bottom-left that a bottom label collides with.
+- Javier: "you did amazing", asked for the video in exactly these two spots. Live on Vercel via CLI deploy.
